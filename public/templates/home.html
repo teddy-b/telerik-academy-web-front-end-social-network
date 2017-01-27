@@ -1,0 +1,22 @@
+<ul class="list list-cookies">
+  {{#each result}}
+  <li data-id="{{id}}">
+    <div class="row">
+      <div class="col s12 offset-m3 m6">
+        <div class="card">
+          <div class="card-image">
+            <img src="{{img}}">
+          </div>
+          <div class="card-content">
+            <p>{{text}}</p>
+            <span>Likes: <strong>{{likes}}</strong></span>
+          </div>
+          <div class="card-action">
+            <button data-type="like" class="btn btn-like-dislike hidden-when-not-logged-in">Like</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  {{/each}}
+</ul>

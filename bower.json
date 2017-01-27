@@ -1,0 +1,20 @@
+{
+  "name": "Social network",
+  "version": "",
+  "authors": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "navigo": "^3.0.0",
+    "handlebars": "^4.0.5",
+    "materialize": "^0.97.8"
+  }
+}
