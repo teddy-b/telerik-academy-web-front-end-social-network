@@ -1,1 +1,1 @@
-"# telerik-academy-web-front-end-social-network" 
+# Telerik Academy - Web Front-end - Social Network
