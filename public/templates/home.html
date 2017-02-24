@@ -1,22 +1,40 @@
-<ul class="list list-cookies">
-  {{#each result}}
-  <li data-id="{{id}}">
-    <div class="row">
-      <div class="col s12 offset-m3 m6">
-        <div class="card">
-          <div class="card-image">
-            <img src="{{img}}">
-          </div>
-          <div class="card-content">
-            <p>{{text}}</p>
-            <span>Likes: <strong>{{likes}}</strong></span>
-          </div>
-          <div class="card-action">
-            <button data-type="like" class="btn btn-like-dislike hidden-when-not-logged-in">Like</button>
+<div class="home">
+  <div class="wall">
+    <ul class="list-posts">
+      {{#each posts.result}}
+      <li data-id="{{id}}">
+        <div class="row">
+          <div class="col s12 offset-m3 m6">
+            <div class="card">
+              <div class="card-image">
+                <img src="{{img}}" class="responsive-img">
+              </div>
+              <div class="card-content">
+                <p>{{text}}</p>
+                <span>Likes: <strong>{{likes}}</strong></span>
+              </div>
+              <div class="card-action">
+                <button data-type="like" class="btn btn-like-dislike hidden-when-not-logged-in">Like</button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+  <div class="chat">
+    <div class="chat-header">
+      <span>Online</span>
+      <span>{{users.result.length}} friends</span>
     </div>
-  </li>
-  {{/each}}
-</ul>
+    <ul class="collection list-users">
+      {{#each users.result}}
+        <li class="collection-item avatar">
+          <img src="../assets/images/{{picture}}" alt="" class="circle">
+          <p>{{username}}</p>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+</div>

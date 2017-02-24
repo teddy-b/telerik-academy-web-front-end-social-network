@@ -41,4 +41,13 @@ $(function () {
   $currentPageNavButton.addClass("active");
 });
 
-$(".button-collapse").sideNav();
+$(".button-collapse").sideNav({
+  draggable: true
+});
+
+$(".dropdown-button").dropdown({ hover: false });
+
+$(".side-nav.fixed").on("click", "li", function (ev) {
+  $(".side-nav.fixed .active").removeClass("active");
+  $(this).addClass("active");
+});

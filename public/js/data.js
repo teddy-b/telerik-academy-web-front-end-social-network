@@ -8,6 +8,12 @@ let dataService = {
   posts() {
     return requester.getJSON("/api/posts");
   },
+  users() {
+    return requester.getJSON("/api/users");
+  },
+  user(user) {
+    return requester.getJSON("/api/users", user);
+  },
   addPost(post) {
     let options = {
       headers: {

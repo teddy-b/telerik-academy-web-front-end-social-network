@@ -5,56 +5,72 @@
       "passHash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
       "usernameToLower": "minkov",
       "id": "16655985-e510-43d4-ad1c-2388c76d1ef6",
-      "authKey": "16655985-e510-43d4-ad1c-2388c76d1ef6FwHCPd*bP:.;Fu&:evl)RPGg"
+      "authKey": "16655985-e510-43d4-ad1c-2388c76d1ef6FwHCPd*bP:.;Fu&:evl)RPGg",
+      "picture": "1.jpg"
     },
     {
       "username": "Minkov3",
       "passHash": "1234567890123456789012345678901234567890",
       "usernameToLower": "minkov3",
       "id": "bd04b3b8-5586-47ad-bf8f-db6c531dbb73",
-      "authKey": "bd04b3b8-5586-47ad-bf8f-db6c531dbb73erxSIAJyVOzIEIrpMFbanscO"
+      "authKey": "bd04b3b8-5586-47ad-bf8f-db6c531dbb73erxSIAJyVOzIEIrpMFbanscO",
+      "picture": "2.png"
     },
     {
       "username": "John",
       "passHash": "123456q",
       "usernameToLower": "john",
       "id": "14f0886a-26b3-45a1-98de-bce9fde7688c",
-      "authKey": "14f0886a-26b3-45a1-98de-bce9fde7688cSnNBFpiKDqKddNolABLHzyCM"
+      "authKey": "14f0886a-26b3-45a1-98de-bce9fde7688cSnNBFpiKDqKddNolABLHzyCM",
+      "picture": "3.jpg"
     },
     {
       "username": "John3",
       "passHash": "123456q",
       "usernameToLower": "john3",
       "id": "c1876703-49e3-41b3-b293-e9dfb9261245",
-      "authKey": "c1876703-49e3-41b3-b293-e9dfb9261245yPCfAWdNirnqNoFbJXHniKfN"
+      "authKey": "c1876703-49e3-41b3-b293-e9dfb9261245yPCfAWdNirnqNoFbJXHniKfN",
+      "picture": "4.jpg"
     },
     {
       "username": "John4",
       "passHash": "123456q",
       "usernameToLower": "john4",
       "id": "1b76df3f-590f-410e-8ece-e7489886ffff",
-      "authKey": "1b76df3f-590f-410e-8ece-e7489886ffffMPAxGUCzfsKglRxakDkmgAzc"
+      "authKey": "1b76df3f-590f-410e-8ece-e7489886ffffMPAxGUCzfsKglRxakDkmgAzc",
+      "picture": "1.jpg"
     },
     {
       "username": "John5",
       "passHash": "123",
       "usernameToLower": "john5",
       "id": "16bd96f5-562a-4fc5-8fb9-f97f97faec6a",
-      "authKey": "16bd96f5-562a-4fc5-8fb9-f97f97faec6arlDZYbzUYvvqBEmDlPeBdMpH"
+      "authKey": "16bd96f5-562a-4fc5-8fb9-f97f97faec6arlDZYbzUYvvqBEmDlPeBdMpH",
+      "picture": "2.png"
     },
     {
       "username": "John7",
       "passHash": "123",
       "usernameToLower": "john7",
       "id": "6f2569ff-3f4b-43d8-b5e6-83b0b607e5f1",
-      "authKey": "6f2569ff-3f4b-43d8-b5e6-83b0b607e5f1PhFMLXTeuRACLPZMgJURTahS"
+      "authKey": "6f2569ff-3f4b-43d8-b5e6-83b0b607e5f1PhFMLXTeuRACLPZMgJURTahS",
+      "picture": "3.jpg"
     },
     {
       "username": "tt",
       "passHash": "tt",
       "usernameToLower": "tt",
       "id": "fcc5218f-e3d4-4cd6-827a-3300fc01496f",
-      "authKey": "fcc5218f-e3d4-4cd6-827a-3300fc01496fCawpEjvlmoUKDtTRIwqEJCUi"
+      "authKey": "fcc5218f-e3d4-4cd6-827a-3300fc01496fCawpEjvlmoUKDtTRIwqEJCUi",
+      "picture": "4.jpg"
+    },
+    {
+      "username": "user",
+      "passHash": "user",
+      "picture": "1.jpg",
+      "usernameToLower": "user",
+      "id": "d7e01d50-169e-4db2-90fd-9b60a82c7249",
+      "authKey": "d7e01d50-169e-4db2-90fd-9b60a82c7249qVILqloLVOmAwNswWUOmDPsB"
     }
   ],
   "posts": [

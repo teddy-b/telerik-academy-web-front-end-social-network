@@ -10,7 +10,7 @@ module.exports = db => {
     let posts = _.chain(db("posts"))
       .sortBy(post => -post.likes || (post.postDate - 0));
 
-    console.log(posts);
+    // console.log(posts);
 
     res.send({
       result: posts

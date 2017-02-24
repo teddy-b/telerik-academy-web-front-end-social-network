@@ -1,38 +1,130 @@
+// install Ruby
+// install SASS
+// type in the command line:
+// sass --watch styles/main.scss:styles/main.css
+
+$pageWidth: 100vw;
+$sideNavWidth: 20vw;
+$chatWidth: 20vw;
+$containerWidth: $pageWidth - $sideNavWidth;
+$wallWidth: $containerWidth - $chatWidth;
+$profilePicHeight: 64px;
+$topNavHeight: $profilePicHeight;
+
+$lightBlue: #4D76A3;
+$darkBlue: #375E88;
+$lightText: #fff;
+$darkText: #C3D6ED;
+$background: #F7F7F7;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
 #page {
-  text-align: center
-}
-
-#main-nav {
   text-align: center;
-  display: inline-block;
-  margin: 0 auto;
-}
 
-.list-cookies {
-  list-style-type: none;
-}
+  & .hidden-when-not-logged-in,
+  &.logged-in .visible-when-not-logged-in {
+    display: none;
+  }
 
-.list-cookies li {
-  margin-top: 50px;
-}
+  &.logged-in .hidden-when-not-logged-in {
+    display: initial;
+  }
 
-.list-cookies li img {
-  height: 350px
-}
+  .top-nav {
+    position: fixed;
+    z-index: 9999;
 
-#page .hidden-when-not-logged-in {
-  display: none;
-}
+    .nav-wrapper {
+      background-color: $lightBlue;
 
-#page.logged-in .hidden-when-not-logged-in {
-  display: initial;
-}
+      .brand-logo {
+        margin: 0 0 0 1em;
+      }
 
-#page.logged-in .visible-when-not-logged-in {
-  display: none;
-}
+      .profile-picture, .logo-picture {
+        max-height: 40px;
+        vertical-align: middle;
+      }
+    }
+  }
 
-.login {
-  width: 50%;
-  margin: 5% auto;
+  .side-nav.fixed {
+    width: $sideNavWidth;
+    padding-top: $topNavHeight;
+    background-color: $darkBlue;
+
+    li a, li a i{
+      font-weight: bold;
+      color: $darkText;
+    }
+
+    li.active a, li.active a i{
+      color: $lightText;
+    }
+  }
+
+  #container {
+    margin-left: $sideNavWidth;
+    width: $containerWidth;
+    padding-top: $topNavHeight;
+
+    .login {
+      width: 50%;
+      margin: 5% auto;
+    }
+
+    .home {
+      display: flex;
+
+      .wall {
+        width: $wallWidth;
+        background-color: $background;
+
+        .list-posts {
+          list-style-type: none;
+
+          & li {
+            margin-bottom: 50px;
+          }
+        }
+      }
+
+      .chat {
+        position: fixed;
+        right: 0;
+        width: $chatWidth;
+        font-weight: bold;
+        color: $lightBlue;
+
+        .chat-header {
+          display: flex;
+          justify-content: space-between;
+          padding: 10px;
+          color: grey;
+
+          & span:first-child {
+            text-transform: uppercase;
+          }
+
+          & span:last-child {
+            font-style: italic;
+          }
+        }
+
+        .list-users {
+          border: none;
+
+          .collection-item {
+            border: none;
+            min-height: $profilePicHeight;
+            text-align: left;
+          }
+        }
+      }
+    }
+  }
 }

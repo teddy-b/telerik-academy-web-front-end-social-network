@@ -4,17 +4,23 @@ let controllers = {
   get(dataService, templates) {
     return {
       home() {
-        let posts;
+        let data = {
+          posts: {},
+          users: {}
+        };
         dataService.posts()
           .then(postsResponse => {
-            posts = postsResponse;
-            console.log(posts);
+            data.posts = postsResponse;
+          })
+          .then(() => dataService.users())
+          .then(usersResponse => {
+            data.users = usersResponse;
 
             return templates.get("home");
           })
           .then(templateHtml => {
             let templateFunc = Handlebars.compile(templateHtml);
-            let html = templateFunc(posts);
+            let html = templateFunc(data);
             $("#container").html(html);
 
             $(".btn-like-dislike").on("click", () => {
@@ -79,6 +85,14 @@ let controllers = {
                     .then(() => {
                       $(document.body).addClass("logged-in");
                       document.location = "#/home";
+                    })
+                    .then(() => dataService.users())
+                    .then(usersResponse => {
+                      let loggedUser = usersResponse.result.filter(u => u.username === user.username)[0];
+                      $('.profile-picture')[0].src = './assets/images/' + loggedUser.picture;
+                      $('.username')[0].innerHTML = loggedUser.username;
+
+                      return templates.get("home");
                     });
 
                   ev.preventDefault();
@@ -104,7 +118,8 @@ let controllers = {
             $("#btn-register").on("click", ev => {
               let user = {
                 username: $("#register-username").val(),
-                passHash: $("#register-password").val()
+                passHash: $("#register-password").val(),
+                picture: '1.jpg'
               };
 
               dataService.register(user)

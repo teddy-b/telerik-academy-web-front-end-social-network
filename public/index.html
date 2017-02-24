@@ -11,31 +11,60 @@
 </head>
 <body id="page">
 <header id="header">
-  <nav>
+  <!-- Dropdown Structure -->
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a href="#!">My profile</a></li>
+    <li class="divider"></li>
+    <li><a href="#!">Settings</a></li>
+  </ul>
+  <nav class="top-nav">
     <div class="nav-wrapper">
-      <a href="#/home" class="brand-logo"><i class="material-icons">home</i>Logo</a>
-      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul class="left">
+        <li>
+          <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+          <a href="#/home" class="brand-logo">
+            <img src="./assets/images/vk-logo.png" alt="" class="logo-picture">
+          </a>
+        </li>
+      </ul>
       <ul class="right hide-on-med-and-down">
         <li><a href=""><i class="material-icons">search</i></a></li>
         <li><a href="#/login"><i class="material-icons">input</i></a></li>
-        <!--<li class="hidden-when-not-logged-in"><a href=""><i class="material-icons">power_settings_new</i></a></li>-->
-        <li><a onclick="dataService.logout()"><i class="material-icons">power_settings_new</i></a></li>
-        <!--<li class="hidden-when-not-logged-in"><a href=""><i class="material-icons">perm_identity</i></a></li>-->
-        <li><a href=""><i class="material-icons">perm_identity</i></a></li>
-        <!--<li><a href=""><i class="material-icons">more_vert</i></a></li>-->
-      </ul>
-      <ul class="side-nav" id="mobile-demo">
-        <li><a href=""><i class="material-icons">search</i>Search</a></li>
-        <li><a href="#/login"><i class="material-icons">input</i>Login</a></li>
-        <!--<li class="hidden-when-not-logged-in"><a href=""><i class="material-icons">power_settings_new</i>Logout</a></li>-->
-        <li><a onclick="dataService.logout()"><i class="material-icons">power_settings_new</i>Logout</a></li>
-        <!--<li class="hidden-when-not-logged-in"><a href=""><i class="material-icons">perm_identity</i>My profile</a></li>-->
-        <li><a href=""><i class="material-icons">perm_identity</i>My profile</a></li>
-        <!--<li><a href=""><i class="material-icons">more_vert</i></a></li>-->
+        <li class="hidden-when-not-logged-in">
+          <a onclick="dataService.logout()"><i class="material-icons">power_settings_new</i></a>
+        </li>
+        <!-- Dropdown Trigger -->
+        <!--<li class="hidden-when-not-logged-in">-->
+        <li>
+          <a class="dropdown-button" href="" data-activates="dropdown1">
+            <img src="assets/images/default.png" alt="Profile picture" class="circle responsive-img profile-picture">
+            <span class="username"></span>
+            <i class="material-icons right">arrow_drop_down</i>
+          </a>
+        </li>
       </ul>
     </div>
   </nav>
 </header>
+<ul id="slide-out" class="side-nav fixed">
+  <li><a href="#/home">Friends</a></li>
+  <li><a href="#/home">Photos</a></li>
+  <li><a href="#/home">Videos</a></li>
+  <li><a href="#/home">Music</a></li>
+  <li><a href="#/home">Messages</a></li>
+  <li><a href="#/home">Groups</a></li>
+  <li class="active"><a href="#/home">News</a></li>
+  <li><a href="#/home">Feedback</a></li>
+  <li><a href="#/home">Bookmarks</a></li>
+  <li><a href="#/home">Settings</a></li>
+  <li><a href="#/home">Games</a></li>
+  <li><a href="#/home">Documents</a></li>
+  <li><a href="#/home">Cloud</a></li>
+  <li><a href=""><i class="material-icons">search</i>Search</a></li>
+  <li><a href="#/login"><i class="material-icons">input</i>Login</a></li>
+  <li class="hidden-when-not-logged-in"><a onclick="dataService.logout()"><i class="material-icons">power_settings_new</i>Logout</a></li>
+  <li class="hidden-when-not-logged-in"><a href=""><i class="material-icons">perm_identity</i>My profile</a></li>
+</ul>
 <div id="container"></div>
 <script src="bower_components/handlebars/handlebars.js"></script>
 <script src="bower_components/navigo/lib/navigo.min.js"></script>

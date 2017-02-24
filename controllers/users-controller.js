@@ -17,17 +17,20 @@ module.exports = function (db) {
   }
 
   function get(req, res) {
-    let user = req.user;
-    if (!user) {
-      return res.status(401)
-        .send("Unauthorized user!");
-    }
+    // let user = req.user;
+    // if (!user) {
+    //   return res.status(401)
+    //     .send("Unauthorized user!");
+    // }
 
     let users = db("users")
       .map(u => ({
-          username: u.username,
-          id: u.id
+        username: u.username,
+        id: u.id,
+        picture: u.picture
       }));
+
+    console.log(users);
 
     return res.send({
       result: users
