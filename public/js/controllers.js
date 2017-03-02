@@ -4,17 +4,11 @@ let controllers = {
   get(dataService, templates) {
     return {
       home() {
-        let data = {
-          posts: {},
-          users: {}
-        };
+        let data = {};
+
         dataService.posts()
           .then(postsResponse => {
-            data.posts = postsResponse;
-          })
-          .then(() => dataService.users())
-          .then(usersResponse => {
-            data.users = usersResponse;
+            data = postsResponse;
 
             return templates.get("home");
           })
@@ -119,7 +113,7 @@ let controllers = {
               let user = {
                 username: $("#register-username").val(),
                 passHash: $("#register-password").val(),
-                picture: '1.jpg'
+                picture: 'default.jpg'
               };
 
               dataService.register(user)
@@ -133,7 +127,22 @@ let controllers = {
             });
           });
         // });
-      }
+      },
+      messages() {
+        let data = {};
+
+        dataService.users()
+        .then(usersResponse => {
+          data = usersResponse;
+
+          return templates.get("messages");
+        })
+        .then(templateHtml => {
+          let templateFunc = Handlebars.compile(templateHtml);
+          let html = templateFunc(data);
+          $("#container").html(html);
+        });
+      },
     };
   }
 };

@@ -10,44 +10,34 @@ router
   .on("home", controllersInstance.home)
   .on("my-profile", controllersInstance.myProfile)
   .on("my-pictures", controllersInstance.myPictures)
-  .on(() => {
-    $("#main-nav .home a").addClass("active");
-    router.navigate("/home");
-  })
+  .on("messages", controllersInstance.messages)
+  .on(() => dataService.isLoggedIn()
+  .then(isLoggedIn => isLoggedIn ? router.navigate("/home") : router.navigate("/login")))
   .resolve();
 
 dataService.isLoggedIn()
-  .then(isLoggedIn => {
-    if (isLoggedIn) {
-      $(document.body).addClass("logged-in");
-    }
-  });
+  .then(isLoggedIn => isLoggedIn && $(document.body).addClass("logged-in"));
 
 $(".btn-nav-logout").on("click", () => {
   dataService.logout()
-    .then(() => {
-      $(document.body).removeClass("logged-in");
-    });
+    .then(() => $(document.body).removeClass("logged-in"));
 });
 
-$("#main-nav").on("click", "li", function (ev) {
-  $("#main-nav .active").removeClass("active");
-  $(this).addClass("active");
-});
-
-$(function () {
-  $("#main-nav .active").removeClass("active");
-  let $currentPageNavButton = $(`#main-nav a[href="${window.location.hash}"]`).parents("li");
-  $currentPageNavButton.addClass("active");
-});
-
-$(".button-collapse").sideNav({
-  draggable: true
-});
+$(".button-collapse").sideNav({ draggable: true });
 
 $(".dropdown-button").dropdown({ hover: false });
 
-$(".side-nav.fixed").on("click", "li", function (ev) {
+$(".side-nav.fixed").on("click", "li", () => {
   $(".side-nav.fixed .active").removeClass("active");
   $(this).addClass("active");
+});
+
+$(document).ready(() => {
+  let username = localStorage.getItem('username');
+  username && dataService.users()
+  .then(usersResponse => {
+    let loggedUser = usersResponse.result.filter(u => u.username === username)[0];
+    $('.profile-picture')[0].src = './assets/images/' + loggedUser.picture;
+    $('.username')[0].innerHTML = loggedUser.username;
+  });
 });

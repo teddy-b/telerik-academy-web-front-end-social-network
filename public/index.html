@@ -12,10 +12,27 @@
 <body id="page">
 <header id="header">
   <!-- Dropdown Structure -->
-  <ul id="dropdown1" class="dropdown-content">
-    <li><a href="#!">My profile</a></li>
+  <ul id="profile-dropdown" class="dropdown-content">
+    <li>
+      <a href="">
+        <i class="material-icons left">perm_identity</i>
+        <span>Profile</span>
+      </a>
+    </li>
     <li class="divider"></li>
-    <li><a href="#!">Settings</a></li>
+    <li>
+      <a href="">
+        <i class="material-icons left">settings</i>
+        <span>Settings</span>
+      </a>
+    </li>
+    <li class="divider"></li>
+    <li class="">
+      <a class="btn-nav-logout" onclick="dataService.logout()">
+        <i class="material-icons left">power_settings_new</i>
+        <span>Logout</span>
+      </a>
+    </li>
   </ul>
   <nav class="top-nav">
     <div class="nav-wrapper">
@@ -28,18 +45,19 @@
         </li>
       </ul>
       <ul class="right hide-on-med-and-down">
-        <li><a href=""><i class="material-icons">search</i></a></li>
-        <li><a href="#/login"><i class="material-icons">input</i></a></li>
-        <li class="hidden-when-not-logged-in">
-          <a onclick="dataService.logout()"><i class="material-icons">power_settings_new</i></a>
-        </li>
         <!-- Dropdown Trigger -->
-        <!--<li class="hidden-when-not-logged-in">-->
-        <li>
-          <a class="dropdown-button" href="" data-activates="dropdown1">
+        <li class="hidden-when-not-logged-in">
+          <a class="dropdown-button" href="" data-activates="profile-dropdown">
             <img src="assets/images/default.png" alt="Profile picture" class="circle responsive-img profile-picture">
             <span class="username"></span>
             <i class="material-icons right">arrow_drop_down</i>
+          </a>
+        </li>
+      </ul>
+      <ul class="right">
+        <li>
+          <a href="">
+            <i class="material-icons">search</i>
           </a>
         </li>
       </ul>
@@ -47,23 +65,79 @@
   </nav>
 </header>
 <ul id="slide-out" class="side-nav fixed">
-  <li><a href="#/home">Friends</a></li>
-  <li><a href="#/home">Photos</a></li>
-  <li><a href="#/home">Videos</a></li>
-  <li><a href="#/home">Music</a></li>
-  <li><a href="#/home">Messages</a></li>
-  <li><a href="#/home">Groups</a></li>
-  <li class="active"><a href="#/home">News</a></li>
-  <li><a href="#/home">Feedback</a></li>
-  <li><a href="#/home">Bookmarks</a></li>
-  <li><a href="#/home">Settings</a></li>
-  <li><a href="#/home">Games</a></li>
-  <li><a href="#/home">Documents</a></li>
-  <li><a href="#/home">Cloud</a></li>
-  <li><a href=""><i class="material-icons">search</i>Search</a></li>
-  <li><a href="#/login"><i class="material-icons">input</i>Login</a></li>
-  <li class="hidden-when-not-logged-in"><a onclick="dataService.logout()"><i class="material-icons">power_settings_new</i>Logout</a></li>
-  <li class="hidden-when-not-logged-in"><a href=""><i class="material-icons">perm_identity</i>My profile</a></li>
+  <li class="active">
+    <a href="#/home">
+      <i class="material-icons">chat_bubble_outline</i>
+      <span>News</span>
+    </a>
+  </li>
+  <li>
+    <a href="#/home">
+      <i class="material-icons">question_answer</i>
+      <span>Feedback</span>
+    </a>
+  </li>
+  <li>
+    <a href="#/messages">
+      <i class="material-icons">message</i>
+      <span>Messages</span>
+    </a>
+  </li>
+  <li>
+    <a href="#/home">
+      <i class="material-icons">contacts</i>
+      <span>Friends</span>
+    </a>
+  </li>
+  <li>
+    <a href="#/home">
+      <i class="material-icons">supervisor_account</i>
+      <span>Communities</span>
+    </a>
+  </li>
+  <li>
+    <a href="#/home">
+      <i class="material-icons">perm_media</i>
+      <span>Photos</span>
+    </a>
+  </li>
+  <li>
+    <a href="#/home">
+      <i class="material-icons">theaters</i>
+      <span>Videos</span>
+    </a>
+  </li>
+  <li>
+    <a href="#/home">
+      <i class="material-icons">queue_music</i>
+      <span>Music</span>
+    </a>
+  </li>
+  <li>
+    <a href="#/home">
+      <i class="material-icons">star</i>
+      <span>Bookmarks</span>
+    </a>
+  </li>
+
+  <li class="hidden-when-not-logged-in">
+    <a href="">
+      <i class="material-icons">perm_identity</i>
+      <span>My profile</span>
+    </a>
+  </li>
+  <li class="hidden-when-not-logged-in">
+    <a href="">
+      <i class="material-icons">settings</i>
+      <span>Settings</span>
+    </a>
+  </li>
+  <li class="hidden-when-not-logged-in">
+    <a onclick="dataService.logout()">
+      <i class="material-icons">power_settings_new</i>
+      <span>Logout</span>
+    </a>
+  </li>
 </ul>
 <div id="container"></div>
 <script src="bower_components/handlebars/handlebars.js"></script>

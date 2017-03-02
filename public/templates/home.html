@@ -1,39 +1,54 @@
 <div class="home">
   <div class="wall">
+    <div class="row">
+      <div class="col s12 offset-m2 m8">
+        <div class="input-field wall-post z-depth-1">
+          <i class="material-icons prefix">mode_edit</i>
+          <input placeholder="Type your message" id="input-post" type="text">
+        </div>
+      </div>
+    </div>
     <ul class="list-posts">
-      {{#each posts.result}}
+      {{#each result}}
       <li data-id="{{id}}">
         <div class="row">
-          <div class="col s12 offset-m3 m6">
+          <div class="col s12 offset-m2 m8">
             <div class="card">
+              <div class="card-content">
+                <div class="header">
+                  <img src="../assets/images/{{picture}}" alt="" class="responsive-img profile-picture">
+                  <div>
+                    <span class="title username">{{username}}</span>
+                    <p class="time">{{time}}</p>
+                  </div>
+                </div>
+                <div class="text">
+                  <p>{{text}}</p>
+                </div>
+              </div>
               <div class="card-image">
                 <img src="{{img}}" class="responsive-img">
               </div>
-              <div class="card-content">
-                <p>{{text}}</p>
-                <span>Likes: <strong>{{likes}}</strong></span>
-              </div>
               <div class="card-action">
-                <button data-type="like" class="btn btn-like-dislike hidden-when-not-logged-in">Like</button>
+                <div class="comments">
+                  <a href="">
+                    <span>Comment</span>
+                    <i class="material-icons">comment</i>
+                  </a>
+                  <span>0</span>
+                </div>
+                <div class="likes">
+                  <a href="">
+                    <span>Like</span>
+                    <i class="material-icons">thumb_up</i>
+                  </a>
+                  <span>{{likes}}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </li>
-      {{/each}}
-    </ul>
-  </div>
-  <div class="chat">
-    <div class="chat-header">
-      <span>Online</span>
-      <span>{{users.result.length}} friends</span>
-    </div>
-    <ul class="collection list-users">
-      {{#each users.result}}
-        <li class="collection-item avatar">
-          <img src="../assets/images/{{picture}}" alt="" class="circle">
-          <p>{{username}}</p>
-        </li>
       {{/each}}
     </ul>
   </div>

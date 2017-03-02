@@ -7,15 +7,16 @@ $pageWidth: 100vw;
 $sideNavWidth: 20vw;
 $chatWidth: 20vw;
 $containerWidth: $pageWidth - $sideNavWidth;
-$wallWidth: $containerWidth - $chatWidth;
+$wallWidth: $containerWidth;
 $profilePicHeight: 64px;
 $topNavHeight: $profilePicHeight;
 
-$lightBlue: #4D76A3;
-$darkBlue: #375E88;
-$lightText: #fff;
-$darkText: #C3D6ED;
-$background: #F7F7F7;
+$lightBlue: #53759B;
+$darkBlue: #527399;
+$lightText: #9DAFC4;
+$darkText: #3D638D;
+$background: #F5F7FA;
+$white: #fff;
 
 * {
   margin: 0;
@@ -55,15 +56,15 @@ $background: #F7F7F7;
   .side-nav.fixed {
     width: $sideNavWidth;
     padding-top: $topNavHeight;
-    background-color: $darkBlue;
+    background-color: $background;
+    text-align: left;
 
     li a, li a i{
-      font-weight: bold;
       color: $darkText;
     }
 
     li.active a, li.active a i{
-      color: $lightText;
+      font-weight: bold;
     }
   }
 
@@ -84,44 +85,121 @@ $background: #F7F7F7;
         width: $wallWidth;
         background-color: $background;
 
+        .wall-post {
+          margin-top: 20px;
+          padding: 3%;
+          background-color: $white;
+
+          .active input {
+            //box-shadow: 0 1px 0 0 $lightBlue;
+          }
+
+          .material-icons {
+            top: 22px;
+            color: $lightText;
+          }
+
+          input {
+            margin: 0;
+            padding-left: 40px;
+            border: 1px solid lightgray;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+          }
+        }
+
         .list-posts {
           list-style-type: none;
 
           & li {
             margin-bottom: 50px;
           }
+
+          .card-content {
+            text-align: left;
+
+            .header {
+              display: flex;
+
+              .profile-picture {
+                max-height: 40px;
+              }
+
+              .username {
+                padding: 0 10px;
+                color: $darkText;
+                font-weight: bold;
+              }
+
+              .time {
+                padding: 0 10px;
+                color: $lightText;
+              }
+            }
+
+            .text {
+              padding: 20px 0 0 0;
+            }
+          }
+
+          .card-action {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 5px;
+            color: $lightText;
+
+            i, span {
+              vertical-align: middle;
+              padding: 2px;
+            }
+
+            a {
+              margin: 0;
+              text-transform: none;
+              color: inherit;
+
+              &:hover {
+                color: $darkText;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .messages {
+      position: fixed;
+      right: 0;
+      width: $chatWidth;
+      font-weight: bold;
+      color: $lightBlue;
+
+      .chat-header {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        color: grey;
+
+        & span:first-child {
+          text-transform: uppercase;
+        }
+
+        & span:last-child {
+          font-style: italic;
         }
       }
 
-      .chat {
-        position: fixed;
-        right: 0;
-        width: $chatWidth;
-        font-weight: bold;
-        color: $lightBlue;
+      .list-users {
+        border: none;
 
-        .chat-header {
-          display: flex;
-          justify-content: space-between;
-          padding: 10px;
-          color: grey;
-
-          & span:first-child {
-            text-transform: uppercase;
-          }
-
-          & span:last-child {
-            font-style: italic;
-          }
-        }
-
-        .list-users {
+        .collection-item {
           border: none;
+          min-height: $profilePicHeight;
+          text-align: left;
 
-          .collection-item {
-            border: none;
-            min-height: $profilePicHeight;
-            text-align: left;
+          .username {
+            padding: 10px 0 0 10px;
           }
         }
       }

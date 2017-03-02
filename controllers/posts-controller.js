@@ -2,15 +2,27 @@
 "use strict";
 
 const _ = require("lodash");
+const users = require("./users-controller");
 
 const DEFAULT_COOKIE_IMAGE = "https://dayinthelifeofapurpleminion.files.wordpress.com/2014/12/batman-exam.jpg";
 
 module.exports = db => {
   const get = (req, res) => {
-    let posts = _.chain(db("posts"))
-      .sortBy(post => -post.likes || (post.postDate - 0));
+    let users = db("users")
+    .map(u => ({
+      username: u.username,
+      id: u.id,
+      picture: u.picture
+    }));
 
-    // console.log(posts);
+    let posts = _.chain(db("posts"))
+      .sortBy(post => post.postDate)
+      .forEach(p => {
+        let user = users.filter(u => u.id === p.userId)[0];
+        p.picture = user.picture;
+        p.username = user.username;
+        p.time = new Date(p.shareDate).toLocaleString();
+      });
 
     res.send({
       result: posts
@@ -29,7 +41,6 @@ module.exports = db => {
 
     post.userId = user.id;
     post.likes = 0;
-    post.dislikes = 0;
     post.img = post.img || DEFAULT_COOKIE_IMAGE;
     post.shareDate = new Date();
 

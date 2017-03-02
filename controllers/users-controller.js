@@ -1,6 +1,6 @@
 /* globals module */
 
-module.exports = function (db) {
+module.exports = db => {
   const AUTH_KEY_LENGTH = 60,
     AUTH_KEY_CHARS = "qwertyuiopasdfghjklzxcvbnmWERTYUIOPASDFGHJKLZXCVBNM";
 
@@ -29,8 +29,6 @@ module.exports = function (db) {
         id: u.id,
         picture: u.picture
       }));
-
-    console.log(users);
 
     return res.send({
       result: users
