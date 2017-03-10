@@ -2,10 +2,18 @@
   <div class="wall">
     <div class="row">
       <div class="col s12 offset-m2 m8">
-        <div class="input-field wall-post z-depth-1">
-          <i class="material-icons prefix">mode_edit</i>
-          <input placeholder="Type your message" id="input-post" type="text">
-        </div>
+          <div class="input-field wall-post z-depth-1 right-align">
+            <i class="material-icons prefix">mode_edit</i>
+            <input placeholder="Type your message" id="input-post" class="input-post" type="text">
+            <img id="imgPreview" src="#" alt="your image" class="hide" />
+            <div class="file-field input-field">
+              <div class="btn btn-flat">
+                <i class="material-icons left">perm_media</i>Add picture
+                <input type="file" id="imgInput">
+              </div>
+            </div>
+            <a id="btn-post" class="waves-effect waves-light btn">Post</a>
+          </div>
       </div>
     </div>
     <ul class="list-posts">
@@ -26,9 +34,11 @@
                   <p>{{text}}</p>
                 </div>
               </div>
-              <div class="card-image">
-                <img src="{{img}}" class="responsive-img">
-              </div>
+              {{#if img}}
+                <div class="card-image">
+                  <img src="{{img}}" class="responsive-img">
+                </div>
+              {{/if}}
               <div class="card-action">
                 <div class="comments">
                   <a href="">
@@ -38,7 +48,7 @@
                   <span>0</span>
                 </div>
                 <div class="likes">
-                  <a href="">
+                  <a href="" class="btn-like">
                     <span>Like</span>
                     <i class="material-icons">thumb_up</i>
                   </a>

@@ -1,57 +1,35 @@
-/* globals $ Promise */
-
 let requester = {
   get(url) {
-    return new Promise((resolve, reject) => {
-      $.ajax({
-        url,
-        method: "GET",
-        success(response) {
-          resolve(response);
-        }
-      });
+    return $.ajax({
+      url,
+      method: "GET"
     });
   },
   putJSON(url, body, options = {}) {
-    return new Promise((resolve, reject) => {
-      let headers = options.headers || {};
-      $.ajax({
-        url,
-        headers,
-        method: "PUT",
-        contentType: "application/json",
-        data: JSON.stringify(body),
-        success(response) {
-          resolve(response);
-        }
-      });
+    let headers = options.headers || {};
+    return $.ajax({
+      url,
+      headers,
+      method: "PUT",
+      contentType: "application/json",
+      data: JSON.stringify(body)
     });
   },
   postJSON(url, body, options = {}) {
-    return new Promise((resolve, reject) => {
-      let headers = options.headers || {};
-      $.ajax({
-        url,
-        headers,
-        method: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(body),
-        success(response) {
-          resolve(response);
-        }
-      });
+    let headers = options.headers || {};
+    return $.ajax({
+      url,
+      headers,
+      method: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(body)
     });
   },
   getJSON(url) {
-    return new Promise((resolve, reject) => {
-      $.ajax({
-        url,
-        method: "GET",
-        contentType: "application/json",
-        success(response) {
-          resolve(response);
-        }
-      });
+    return $.ajax({
+      url,
+      method: "GET",
+      contentType: "application/json"
     });
   }
 };

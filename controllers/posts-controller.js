@@ -1,10 +1,7 @@
 /* globals require module */
 "use strict";
 
-const _ = require("lodash");
 const users = require("./users-controller");
-
-const DEFAULT_COOKIE_IMAGE = "https://dayinthelifeofapurpleminion.files.wordpress.com/2014/12/batman-exam.jpg";
 
 module.exports = db => {
   const get = (req, res) => {
@@ -15,13 +12,12 @@ module.exports = db => {
       picture: u.picture
     }));
 
-    let posts = _.chain(db("posts"))
-      .sortBy(post => post.postDate)
+    let posts = db("posts")
       .forEach(p => {
         let user = users.filter(u => u.id === p.userId)[0];
         p.picture = user.picture;
         p.username = user.username;
-        p.time = new Date(p.shareDate).toLocaleString();
+        p.time = new Date(p.postDate).toLocaleString();
       });
 
     res.send({
@@ -41,8 +37,8 @@ module.exports = db => {
 
     post.userId = user.id;
     post.likes = 0;
-    post.img = post.img || DEFAULT_COOKIE_IMAGE;
-    post.shareDate = new Date();
+    post.img = post.img || '';
+    post.postDate = new Date();
 
     db("posts").insert(post);
 
@@ -78,8 +74,6 @@ module.exports = db => {
 
     if (req.body.type === "like") {
       post.likes += 1;
-    } else {
-      post.dislikes += 1;
     }
 
     db.save();
