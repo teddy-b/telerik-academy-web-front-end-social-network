@@ -1,0 +1,40 @@
+#page {
+  .top-nav {
+    position: fixed;
+    z-index: 9999;
+
+    .nav-wrapper {
+      background-color: $lightBlue;
+
+      .brand-logo {
+        margin: 0 0 0 1em;
+      }
+
+      .profile-picture, .logo-picture {
+        max-height: 40px;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .side-nav.fixed {
+    width: $sideNavWidth;
+    padding-top: $topNavHeight;
+    background-color: $background;
+    text-align: left;
+
+    li a, li a i {
+      color: $darkText;
+    }
+
+    li.active a, li.active a i {
+      font-weight: bold;
+    }
+  }
+}
+
+@media only screen and (max-width: $medium-screen) {
+  #page .side-nav.fixed {
+    width: $sideNavWidthMobile;
+  }
+}

@@ -23,7 +23,10 @@ $(".btn-nav-logout").on("click", () => {
     .then(() => $(document.body).removeClass("logged-in"));
 });
 
-$(".button-collapse").sideNav({ draggable: true });
+$(".button-collapse").sideNav({
+  closeOnClick: true,
+  draggable: true
+});
 
 $(".dropdown-button").dropdown({ hover: false });
 

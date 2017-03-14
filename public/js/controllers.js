@@ -24,14 +24,19 @@ let controllers = {
 
             $("#container").html(html);
 
-            $("#imgInput").change(input => {
+            $("#input-post").on("click", () => {
+              $("#btn-preview").removeClass('hide');
+              $("#btn-post").removeClass('hide');
+            });
+
+            $("#img-input").change(input => {
               let files = input.target.files;
 
               if (files && files[0]) {
                 let reader = new FileReader();
 
                 reader.onload = (ev) => {
-                  $('#imgPreview').attr('src', ev.target.result)
+                  $('#img-preview').attr('src', ev.target.result)
                     .removeClass('hide');
 
                   post.img = event.target.result;
@@ -44,12 +49,16 @@ let controllers = {
             $("#btn-post").on("click", () => {
               post.text = $("#input-post").val();
 
-              dataService.addPost(post)
-              .then(() => {
-                document.location = "#/";
-              }).catch(err => {
-                Materialize.toast(err.statusText, 3000, 'grey darken-1');
-              });
+              if (post.text || post.img) {
+                dataService.addPost(post)
+                .then(() => {
+                  document.location = "#/";
+                }).catch(err => {
+                  Materialize.toast(err.statusText, 3000, 'grey darken-1');
+                });
+              } else {
+                Materialize.toast('Nothing to post. Write something or attach picture!', 3000, 'grey darken-1');
+              }
             });
 
             $(".btn-like").on("click", function() {

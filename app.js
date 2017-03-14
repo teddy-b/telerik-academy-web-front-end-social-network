@@ -11,7 +11,8 @@ db._.mixin(require("underscore-db"));
 
 let app = express();
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '1mb'}));
+app.use(bodyParser.urlencoded({limit: '1mb', extended: true}));
 
 app.use(express.static("public"));
 

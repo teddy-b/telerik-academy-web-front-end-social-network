@@ -1,0 +1,94 @@
+#page #container .home {
+  display: flex;
+
+  .wall {
+    width: $wallWidth;
+    background-color: $background;
+
+    .input-field.wall-post {
+      margin-top: 20px;
+      padding: 3%;
+      background-color: $white;
+
+      .input-post {
+        margin: 0;
+        border: 1px solid lightgray;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+
+        &:focus {
+          border: 1px solid $lightText;
+          box-shadow: 0 1px 0 0 $lightText;
+        }
+      }
+
+      #btn-post {
+        background-color: $lightBlue;
+      }
+    }
+
+    .list-posts {
+      list-style-type: none;
+
+      & li {
+        margin-bottom: 50px;
+      }
+
+      .card-content {
+        text-align: left;
+
+        .header {
+          display: flex;
+
+          .profile-picture {
+            max-height: 40px;
+          }
+
+          .username {
+            padding: 0 10px;
+            color: $darkText;
+            font-weight: bold;
+          }
+
+          .time {
+            padding: 0 10px;
+            color: $lightText;
+          }
+        }
+
+        .text {
+          padding: 20px 0 0 0;
+        }
+      }
+
+      .card-action {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 5px;
+        color: $lightText;
+
+        i, span {
+          vertical-align: middle;
+          padding: 2px;
+        }
+
+        a {
+          margin: 0;
+          text-transform: none;
+          color: inherit;
+
+          &:hover {
+            color: $darkText;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: $medium-screen) {
+  #page #container .home .wall {
+    width: $pageWidthMobile;
+  }
+}

@@ -1,0 +1,18 @@
+$pageWidth: 100vw;
+$sideNavWidth: 20vw;
+$chatWidth: 20vw;
+$containerWidth: $pageWidth - $sideNavWidth;
+$wallWidth: $containerWidth;
+
+$pageWidthMobile: 100%;
+$sideNavWidthMobile: 60%;
+
+$profilePicHeight: 64px;
+$topNavHeight: $profilePicHeight;
+
+$lightBlue: #53759B;
+$darkBlue: #527399;
+$lightText: #9DAFC4;
+$darkText: #3D638D;
+$background: #F5F7FA;
+$white: #fff;
