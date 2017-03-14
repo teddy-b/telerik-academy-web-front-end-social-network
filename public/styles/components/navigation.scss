@@ -33,7 +33,7 @@
   }
 }
 
-@media only screen and (max-width: $medium-screen) {
+@media only screen and (max-width: $resolutionBreakMobile) {
   #page .side-nav.fixed {
     width: $sideNavWidthMobile;
   }
