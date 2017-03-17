@@ -1,3 +1,6 @@
+/* globals $ */
+
+/* eslint-disable no-unused-vars */
 let requester = {
   get(url) {
     return $.ajax({

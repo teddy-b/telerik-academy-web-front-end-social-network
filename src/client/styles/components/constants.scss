@@ -1,0 +1,21 @@
+$page-width: 100vw;
+$side-nav-width: 20vw;
+$chat-width: 20vw;
+$container-width: $page-width - $side-nav-width;
+$wall-width: $container-width;
+
+$resolution-break-mobile: 992px;
+$page-width-mobile: 100%;
+$side-nav-width-mobile: 60%;
+
+$profile-pic-height: 64px;
+$top-nav-height: $profile-pic-height;
+
+$light-blue: #53759b;
+//$dark-blue: #527399;
+$light-text: #9dafc4;
+$dark-text: #3d638d;
+$background: #f5f7fa;
+$white: #fff;
+$light-gray: #d3d3d3;
+$gray: #808080;

@@ -1,0 +1,9 @@
+/node_modules
+**/bower_components/
+/build
+/.idea
+/.vscode
+/.sass-cache
+*.css
+*.css.map
+*.log*

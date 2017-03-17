@@ -1,8 +1,6 @@
 /* globals require module */
 "use strict";
 
-const users = require("./users-controller");
-
 module.exports = db => {
   const get = (req, res) => {
     let users = db("users")
@@ -33,18 +31,18 @@ module.exports = db => {
         .send("User not authorized");
     }
 
-    let post = req.body;
+    let posting = req.body;
 
-    post.userId = user.id;
-    post.likes = 0;
-    post.img = post.img || '';
-    post.postDate = new Date();
+    posting.userId = user.id;
+    posting.likes = 0;
+    posting.img = post.img || "";
+    posting.postDate = new Date();
 
-    db("posts").insert(post);
+    db("posts").insert(posting);
 
     return res.status(201)
       .send({
-        result: post
+        result: posting
       });
   };
 
@@ -57,11 +55,11 @@ module.exports = db => {
     }
 
     let postId = req.params.id;
-    let post = db("posts").find({
+    let posting = db("posts").find({
       id: postId
     });
 
-    if (!post) {
+    if (!posting) {
       return res.status(404)
         .send("Invalid post ID");
     }
@@ -79,7 +77,7 @@ module.exports = db => {
     db.save();
 
     return res.send({
-      result: post
+      result: posting
     });
   };
 

@@ -1,0 +1,38 @@
+.messages {
+  color: $light-blue;
+  font-weight: bold;
+  position: fixed;
+  right: 0;
+  width: $chat-width;
+
+  .chat-header {
+    color: $gray;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+
+    span {
+      &:first-child {
+        text-transform: uppercase;
+      }
+
+      &:last-child {
+        font-style: italic;
+      }
+    }
+  }
+
+  .list-users {
+    border: 0;
+
+    .collection-item {
+      border: 0;
+      min-height: $profile-pic-height;
+      text-align: left;
+
+      .username {
+        padding: 10px 0 0 10px;
+      }
+    }
+  }
+}

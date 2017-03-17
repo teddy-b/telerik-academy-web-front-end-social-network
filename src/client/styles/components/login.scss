@@ -1,0 +1,15 @@
+.login {
+  margin: 5% auto;
+  width: 50%;
+
+  .btn-login {
+    background-color: $light-blue;
+  }
+}
+
+@media only screen and (max-width: $resolution-break-mobile) {
+  .login {
+    margin: 1%;
+    width: 98%;
+  }
+}

@@ -1,37 +1,35 @@
-#page #container .home {
+.home {
   display: flex;
 
   .wall {
-    width: $wallWidth;
     background-color: $background;
+    width: $wall-width;
 
-    .input-field.wall-post {
+    .wall-post {
+      background-color: $white;
       margin-top: 20px;
       padding: 3%;
-      background-color: $white;
 
       .input-post {
-        margin: 0;
-        border: 1px solid lightgray;
-        -webkit-border-radius: 2px;
-        -moz-border-radius: 2px;
+        border: 1px solid $light-gray;
         border-radius: 2px;
+        margin: 0;
 
         &:focus {
-          border: 1px solid $lightText;
-          box-shadow: 0 1px 0 0 $lightText;
+          border: 1px solid $light-text;
+          box-shadow: 0 1px 0 0 $light-text;
         }
       }
 
-      #btn-post {
-        background-color: $lightBlue;
+      .btn-post {
+        background-color: $light-blue;
       }
     }
 
     .list-posts {
       list-style-type: none;
 
-      & li {
+      li {
         margin-bottom: 50px;
       }
 
@@ -46,49 +44,52 @@
           }
 
           .username {
-            padding: 0 10px;
-            color: $darkText;
+            color: $dark-text;
             font-weight: bold;
+            padding: 0 10px;
           }
 
           .time {
+            color: $light-text;
             padding: 0 10px;
-            color: $lightText;
           }
         }
 
         .text {
-          padding: 20px 0 0 0;
+          padding: 20px 0 0;
         }
       }
 
       .card-action {
+        color: $light-text;
         display: flex;
         justify-content: space-between;
         padding: 10px 5px;
-        color: $lightText;
 
-        i, span {
-          vertical-align: middle;
-          padding: 2px;
-        }
-
-        a {
-          margin: 0;
+        .btn-like,
+        .btn-comment {
+          color: $gray;
+          padding: 0;
           text-transform: none;
-          color: inherit;
+
+          .comments-label,
+          .likes-label,
+          .material-icons {
+            margin: 0 3px;
+          }
 
           &:hover {
-            color: $darkText;
+            background-color: $white;
+            color: $dark-text;
           }
         }
       }
     }
   }
-}
 
-@media only screen and (max-width: $resolutionBreakMobile) {
-  #page #container .home .wall {
-    width: $pageWidthMobile;
+  @media only screen and (max-width: $resolution-break-mobile) {
+    .wall {
+      width: $page-width-mobile;
+    }
   }
 }

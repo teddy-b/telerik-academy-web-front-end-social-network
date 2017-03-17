@@ -3,15 +3,15 @@
     <div class="row">
       <div class="col s12 offset-m2 m8">
           <div class="input-field wall-post z-depth-1 right-align">
-            <input placeholder="&#9998; Type your message" id="input-post" class="input-post" type="text">
+            <input placeholder="&#9998; Type your message" id="input-post" class="input-post" type="text" />
             <img id="img-preview" src="#" alt="your image" class="responsive-img hide" />
             <div class="file-field input-field">
               <div class="btn btn-flat btn hide" id="btn-preview">
                 <i class="material-icons left">perm_media</i>Add picture
-                <input type="file" id="img-input">
+                <input type="file" id="img-input" />
               </div>
             </div>
-            <a id="btn-post" class="waves-effect waves-light btn hide">Post</a>
+            <a id="btn-post" class="waves-effect waves-light btn hide btn-post">Post</a>
           </div>
       </div>
     </div>
@@ -40,18 +40,18 @@
               {{/if}}
               <div class="card-action">
                 <div class="comments">
-                  <a href="">
-                    <span>Comment</span>
-                    <i class="material-icons">comment</i>
+                  <a href="" class="btn btn-flat btn-comment">
+                    <span class="comments-label">Comment</span>
+                    <i class="material-icons right">comment</i>
                   </a>
-                  <span>0</span>
+                  <span class="comments-count">0</span>
                 </div>
                 <div class="likes">
-                  <a href="" class="btn-like">
-                    <span>Like</span>
-                    <i class="material-icons">thumb_up</i>
+                  <a href="" class="btn btn-flat btn-like">
+                    <span class="likes-label">Like</span>
+                    <i class="material-icons right">thumb_up</i>
                   </a>
-                  <span>{{likes}}</span>
+                  <span class="likes-count">{{likes}}</span>
                 </div>
               </div>
             </div>

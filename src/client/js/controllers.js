@@ -1,5 +1,6 @@
-/* globals dataService templates $ Handlebars console */
+/* globals $ console Handlebars Materialize */
 
+/* eslint-disable no-unused-vars */
 let controllers = {
   get(dataService, templates) {
     return {
@@ -25,8 +26,8 @@ let controllers = {
             $("#container").html(html);
 
             $("#input-post").on("click", () => {
-              $("#btn-preview").removeClass('hide');
-              $("#btn-post").removeClass('hide');
+              $("#btn-preview").removeClass("hide");
+              $("#btn-post").removeClass("hide");
             });
 
             $("#img-input").change(input => {
@@ -36,8 +37,8 @@ let controllers = {
                 let reader = new FileReader();
 
                 reader.onload = (ev) => {
-                  $('#img-preview').attr('src', ev.target.result)
-                    .removeClass('hide');
+                  $("#img-preview").attr("src", ev.target.result)
+                    .removeClass("hide");
 
                   post.img = event.target.result;
                 };
@@ -54,10 +55,10 @@ let controllers = {
                 .then(() => {
                   document.location = "#/";
                 }).catch(err => {
-                  Materialize.toast(err.statusText, 3000, 'grey darken-1');
+                  Materialize.toast(err.statusText, 3000, "grey darken-1");
                 });
               } else {
-                Materialize.toast('Nothing to post. Write something or attach picture!', 3000, 'grey darken-1');
+                Materialize.toast("Nothing to post. Write something or attach picture!", 3000, "grey darken-1");
               }
             });
 
@@ -103,7 +104,7 @@ let controllers = {
 
                   dataService.login(user)
                     .then(() => {
-                      Materialize.toast('Successfully logged in!', 3000, 'grey darken-1');
+                      Materialize.toast("Successfully logged in!", 3000, "grey darken-1");
                     })
                     .then(() => {
                       $(document.body).addClass("logged-in");
@@ -112,8 +113,8 @@ let controllers = {
                     .then(() => dataService.users())
                     .then(usersResponse => {
                       let loggedUser = usersResponse.result.filter(u => u.username === user.username)[0];
-                      $('.profile-picture')[0].src = './assets/images/' + loggedUser.picture;
-                      $('.username')[0].innerHTML = loggedUser.username;
+                      $(".profile-picture")[0].src = "./assets/images/" + loggedUser.picture;
+                      $(".username")[0].innerHTML = loggedUser.username;
 
                       return templates.get("home");
                     });
@@ -128,7 +129,7 @@ let controllers = {
         dataService.isLoggedIn()
             .then(isLoggedIn => {
                 if (isLoggedIn) {
-                  Materialize.toast('You are already logged in!', 3000, 'grey darken-1');
+                  Materialize.toast("You are already logged in!", 3000, "grey darken-1");
                     window.location = "#/home";
                     return;
                 }
@@ -143,14 +144,16 @@ let controllers = {
               let user = {
                 username: $("#register-username").val(),
                 passHash: $("#register-password").val(),
-                picture: 'default.jpg'
+                picture: "default.jpg"
               };
 
               dataService.register(user)
                 .then(() => {
-                  Materialize.toast('Successfully registered! Please log in!', 3000, 'grey darken-1')
+                  Materialize.toast("Successfully registered! Please log in!", 3000, "grey darken-1");
                 })
-                .then(() => document.location = "#/login");
+                .then(() => {
+                  document.location = "#/login";
+                });
 
               ev.preventDefault();
               return false;
@@ -172,7 +175,7 @@ let controllers = {
           let html = templateFunc(data);
           $("#container").html(html);
         });
-      },
+      }
     };
   }
 };

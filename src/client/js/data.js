@@ -4,6 +4,7 @@ const HTTP_HEADER_KEY = "x-auth-key",
   KEY_STORAGE_USERNAME = "username",
   KEY_STORAGE_AUTH_KEY = "authKey";
 
+/* eslint-disable no-unused-vars */
 let dataService = {
   posts() {
     return requester.getJSON("/api/posts");
@@ -36,8 +37,8 @@ let dataService = {
   login(user) {
     return requester.putJSON("/api/auth", user)
       .then(respUser => {
-        localStorage.setItem("username", respUser.result.username);
-        localStorage.setItem("authKey", respUser.result.authKey);
+        localStorage.setItem(KEY_STORAGE_USERNAME, respUser.result.username);
+        localStorage.setItem(KEY_STORAGE_AUTH_KEY, respUser.result.authKey);
       });
   },
   register(user) {
@@ -46,14 +47,14 @@ let dataService = {
   logout() {
     return Promise.resolve()
       .then(() => {
-        localStorage.removeItem("username");
-        localStorage.removeItem("authKey");
+        localStorage.removeItem(KEY_STORAGE_USERNAME);
+        localStorage.removeItem(KEY_STORAGE_AUTH_KEY);
       });
   },
   isLoggedIn() {
     return Promise.resolve()
       .then(() => {
-        return !!localStorage.getItem("username");
+        return !!localStorage.getItem(KEY_STORAGE_USERNAME);
       });
   }
 };

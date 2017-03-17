@@ -1,4 +1,4 @@
-/* globals Navigo controllers $ dataService document */
+/* globals $ document Navigo controllers dataService templates */
 
 let router = new Navigo(null, true);
 
@@ -24,7 +24,7 @@ $(".btn-nav-logout").on("click", () => {
 });
 
 $(".button-collapse").sideNav({
-  closeOnClick: true,
+  // closeOnClick: true,
   draggable: true
 });
 
@@ -36,11 +36,13 @@ $(".side-nav.fixed").on("click", "li", () => {
 });
 
 $(document).ready(() => {
-  let username = localStorage.getItem('username');
-  username && dataService.users()
-  .then(usersResponse => {
-    let loggedUser = usersResponse.result.filter(u => u.username === username)[0];
-    $('.profile-picture')[0].src = './assets/images/' + loggedUser.picture;
-    $('.username')[0].innerHTML = loggedUser.username;
-  });
+  let username = localStorage.getItem("username");
+  if (username) {
+    dataService.users()
+    .then(usersResponse => {
+      let loggedUser = usersResponse.result.filter(u => u.username === username)[0];
+      $(".profile-picture")[0].src = "./assets/images/" + loggedUser.picture;
+      $(".username")[0].innerHTML = loggedUser.username;
+    });
+  }
 });
