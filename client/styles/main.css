@@ -1,0 +1,156 @@
+@import 'http://fonts.googleapis.com/icon?family=Material+Icons';
+.page {
+  text-align: center; }
+  .page .hidden-when-not-logged-in {
+    display: none; }
+  .page.logged-in .visible-when-not-logged-in {
+    display: none; }
+  .page.logged-in .hidden-when-not-logged-in {
+    display: initial; }
+  .page .container {
+    margin-left: 20vw;
+    padding-top: 64px;
+    width: 80vw; }
+
+@media only screen and (max-width: 992px) {
+  .page .container {
+    margin-left: 0;
+    width: 100%; } }
+
+.home {
+  display: flex; }
+  .home .wall {
+    background-color: #f5f7fa;
+    width: 80vw; }
+    .home .wall .wall-post {
+      background-color: #fff;
+      margin-top: 20px;
+      padding: 3%; }
+      .home .wall .wall-post .input-post {
+        border: 1px solid #d3d3d3;
+        border-radius: 2px;
+        margin: 0; }
+        .home .wall .wall-post .input-post:focus {
+          border: 1px solid #9dafc4;
+          box-shadow: 0 1px 0 0 #9dafc4; }
+      .home .wall .wall-post .btn-post {
+        background-color: #53759b; }
+    .home .wall .list-posts {
+      list-style-type: none; }
+      .home .wall .list-posts li {
+        margin-bottom: 50px; }
+      .home .wall .list-posts .card-content {
+        text-align: left; }
+        .home .wall .list-posts .card-content .header {
+          display: flex; }
+          .home .wall .list-posts .card-content .header .profile-picture {
+            max-height: 40px; }
+          .home .wall .list-posts .card-content .header .username {
+            color: #3d638d;
+            font-weight: bold;
+            padding: 0 10px; }
+          .home .wall .list-posts .card-content .header .time {
+            color: #9dafc4;
+            padding: 0 10px; }
+        .home .wall .list-posts .card-content .text {
+          padding: 20px 0 0; }
+      .home .wall .list-posts .card-action {
+        color: #9dafc4;
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 5px; }
+        .home .wall .list-posts .card-action .btn-like,
+        .home .wall .list-posts .card-action .btn-comment {
+          color: #808080;
+          padding: 0;
+          text-transform: none; }
+          .home .wall .list-posts .card-action .btn-like .comments-label,
+          .home .wall .list-posts .card-action .btn-like .likes-label,
+          .home .wall .list-posts .card-action .btn-like .material-icons,
+          .home .wall .list-posts .card-action .btn-comment .comments-label,
+          .home .wall .list-posts .card-action .btn-comment .likes-label,
+          .home .wall .list-posts .card-action .btn-comment .material-icons {
+            margin: 0 3px; }
+          .home .wall .list-posts .card-action .btn-like:hover,
+          .home .wall .list-posts .card-action .btn-comment:hover {
+            background-color: #fff;
+            color: #3d638d; }
+  @media only screen and (max-width: 992px) {
+    .home .wall {
+      width: 100%; } }
+
+.login {
+  margin: 5% auto;
+  width: 50%; }
+  .login .btn-login {
+    background-color: #53759b; }
+
+@media only screen and (max-width: 992px) {
+  .login {
+    margin: 1%;
+    width: 98%; } }
+
+.messages {
+  color: #53759b;
+  font-weight: bold;
+  position: fixed;
+  right: 0;
+  width: 20vw; }
+  .messages .chat-header {
+    color: #808080;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px; }
+    .messages .chat-header span:first-child {
+      text-transform: uppercase; }
+    .messages .chat-header span:last-child {
+      font-style: italic; }
+  .messages .list-users {
+    border: 0; }
+    .messages .list-users .collection-item {
+      border: 0;
+      min-height: 64px;
+      text-align: left; }
+      .messages .list-users .collection-item .username {
+        padding: 10px 0 0 10px; }
+
+.top-nav {
+  position: fixed;
+  z-index: 9999; }
+  .top-nav .nav-wrapper {
+    background-color: #53759b; }
+    .top-nav .nav-wrapper .brand-logo {
+      margin: 0 0 0 1em; }
+    .top-nav .nav-wrapper .profile-picture,
+    .top-nav .nav-wrapper .logo-picture {
+      max-height: 40px;
+      vertical-align: middle; }
+
+.side-nav {
+  background-color: #f5f7fa;
+  padding-top: 64px;
+  text-align: left;
+  width: 20vw; }
+  .side-nav li a {
+    color: #3d638d; }
+    .side-nav li a i {
+      color: #3d638d; }
+  .side-nav li.active a {
+    font-weight: bold; }
+    .side-nav li.active a i {
+      font-weight: bold; }
+
+@media only screen and (max-width: 992px) {
+  .side-nav {
+    width: 60%; } }
+
+.register {
+  margin: 5% auto;
+  width: 50%; }
+  .register .btn-register {
+    background-color: #53759b; }
+
+@media only screen and (max-width: 992px) {
+  .register {
+    margin: 1% auto;
+    width: 90%; } }
