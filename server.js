@@ -16,11 +16,11 @@ app.use(cors());
 app.use(bodyParser.json({ limit: "1mb" }));
 app.use(bodyParser.urlencoded({ limit: "1mb", extended: true }));
 
-app.use(express.static("src/client"));
-app.use("/libs", express.static(path.join(__dirname, "./../node_modules")));
+app.use(express.static("./src"));
+// app.use("/libs", express.static(path.join(__dirname, "./../node_modules")));
 
 app.get("/", function (req, res) {
-  return res.sendFile(path.join(__dirname, "./client/index.html"));
+  return res.sendFile(path.join(__dirname, "./index.html"));
 });
 
 require("./server/utils/authorize-user")(app, db);

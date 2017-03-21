@@ -116,7 +116,7 @@ var controllers = {
               dataService.login(user).then(function () {
                 dataService.user(user.username).then(function (userResponse) {
                   var loggedUser = userResponse.result;
-                  $(".profile-picture")[0].src = "./assets/images/" + loggedUser.picture;
+                  $(".profile-picture")[0].src = loggedUser.picture;
                   $(".username")[0].innerHTML = loggedUser.username;
                 }).then(function () {
                   $(document.body).addClass("logged-in");
