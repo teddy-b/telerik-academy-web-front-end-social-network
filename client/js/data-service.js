@@ -36,7 +36,7 @@ var dataService = {
     return requester.putJSON(base + "/api/posts/" + postId, { type: type }, options);
   },
   login: function login(user) {
-    return requester.putJSON("/api/auth", user).then(function (respUser) {
+    return requester.putJSON(base + "/api/auth", user).then(function (respUser) {
       localStorage.setItem(KEY_STORAGE_USERNAME, respUser.result.username);
       localStorage.setItem(KEY_STORAGE_AUTH_KEY, respUser.result.authKey);
     });
