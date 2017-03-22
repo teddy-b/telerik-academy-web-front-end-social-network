@@ -8,30 +8,32 @@ var HTTP_HEADER_KEY = "x-auth-key",
     KEY_STORAGE_USERNAME = "username",
     KEY_STORAGE_AUTH_KEY = "authKey";
 
+var base = "/telerik-academy-web-front-end-social-network";
+
 /* eslint-disable no-unused-vars */
 var dataService = {
   posts: function posts() {
-    return requester.getJSON("/api/posts");
+    return requester.getJSON(base + "/api/posts");
   },
   users: function users() {
-    return requester.getJSON("/api/users");
+    return requester.getJSON(base + "/api/users");
   },
   user: function user(username) {
-    return requester.getJSON("/api/users/" + username);
+    return requester.getJSON(base + "/api/users/" + username);
   },
   addPost: function addPost(post) {
     var options = {
       headers: _defineProperty({}, HTTP_HEADER_KEY, localStorage.getItem(KEY_STORAGE_AUTH_KEY))
     };
 
-    return requester.postJSON("/api/posts", post, options);
+    return requester.postJSON(base + "/api/posts", post, options);
   },
   like: function like(postId, type) {
     var options = {
       headers: _defineProperty({}, HTTP_HEADER_KEY, localStorage.getItem(KEY_STORAGE_AUTH_KEY))
     };
 
-    return requester.putJSON("/api/posts/" + postId, { type: type }, options);
+    return requester.putJSON(base + "/api/posts/" + postId, { type: type }, options);
   },
   login: function login(user) {
     return requester.putJSON("/api/auth", user).then(function (respUser) {
@@ -40,7 +42,7 @@ var dataService = {
     });
   },
   register: function register(user) {
-    return requester.postJSON("/api/users", user);
+    return requester.postJSON(base + "/api/users", user);
   },
   logout: function logout() {
     return Promise.resolve().then(function () {
