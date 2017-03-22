@@ -1,29 +1,26 @@
+define( function() {
+
 "use strict";
 
-define(function () {
+// A method for quickly swapping in/out CSS properties to get correct calculations.
+return function( elem, options, callback, args ) {
+	var ret, name,
+		old = {};
 
-	"use strict";
+	// Remember the old values, and insert the new ones
+	for ( name in options ) {
+		old[ name ] = elem.style[ name ];
+		elem.style[ name ] = options[ name ];
+	}
 
-	// A method for quickly swapping in/out CSS properties to get correct calculations.
+	ret = callback.apply( elem, args || [] );
 
-	return function (elem, options, callback, args) {
-		var ret,
-		    name,
-		    old = {};
+	// Revert the old values
+	for ( name in options ) {
+		elem.style[ name ] = old[ name ];
+	}
 
-		// Remember the old values, and insert the new ones
-		for (name in options) {
-			old[name] = elem.style[name];
-			elem.style[name] = options[name];
-		}
+	return ret;
+};
 
-		ret = callback.apply(elem, args || []);
-
-		// Revert the old values
-		for (name in options) {
-			elem.style[name] = old[name];
-		}
-
-		return ret;
-	};
-});
+} );

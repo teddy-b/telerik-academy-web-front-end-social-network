@@ -1,27 +1,30 @@
+define( [
+	"./core"
+], function( jQuery ) {
+
 "use strict";
 
-define(["./core"], function (jQuery) {
+jQuery.fn.extend( {
 
-	"use strict";
+	bind: function( types, data, fn ) {
+		return this.on( types, null, data, fn );
+	},
+	unbind: function( types, fn ) {
+		return this.off( types, null, fn );
+	},
 
-	jQuery.fn.extend({
+	delegate: function( selector, types, data, fn ) {
+		return this.on( types, selector, data, fn );
+	},
+	undelegate: function( selector, types, fn ) {
 
-		bind: function bind(types, data, fn) {
-			return this.on(types, null, data, fn);
-		},
-		unbind: function unbind(types, fn) {
-			return this.off(types, null, fn);
-		},
+		// ( namespace ) or ( selector, types [, fn] )
+		return arguments.length === 1 ?
+			this.off( selector, "**" ) :
+			this.off( types, selector || "**", fn );
+	}
+} );
 
-		delegate: function delegate(selector, types, data, fn) {
-			return this.on(types, selector, data, fn);
-		},
-		undelegate: function undelegate(selector, types, fn) {
+jQuery.parseJSON = JSON.parse;
 
-			// ( namespace ) or ( selector, types [, fn] )
-			return arguments.length === 1 ? this.off(selector, "**") : this.off(types, selector || "**", fn);
-		}
-	});
-
-	jQuery.parseJSON = JSON.parse;
-});
+} );

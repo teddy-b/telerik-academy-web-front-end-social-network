@@ -1,5 +1,3 @@
-'use strict';
-
 var webpack = require('webpack');
 var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var env = process.env.WEBPACK_ENV;
@@ -7,8 +5,7 @@ var path = require('path');
 
 var appName = 'navigo';
 
-var plugins = [],
-    outputFile;
+var plugins = [], outputFile;
 
 if (env === 'build') {
   plugins.push(new UglifyJsPlugin({ minimize: true }));
@@ -28,15 +25,18 @@ var config = {
     umdNamedDefine: true
   },
   module: {
-    loaders: [{
-      test: /(\.jsx|\.js)$/,
-      loader: 'babel',
-      exclude: /(node_modules|bower_components)/
-    }, {
-      test: /(\.jsx|\.js)$/,
-      loader: "eslint-loader",
-      exclude: /node_modules/
-    }]
+    loaders: [
+      {
+        test: /(\.jsx|\.js)$/,
+        loader: 'babel',
+        exclude: /(node_modules|bower_components)/
+      },
+      {
+        test: /(\.jsx|\.js)$/,
+        loader: "eslint-loader",
+        exclude: /node_modules/
+      }
+    ]
   },
   resolve: {
     root: path.resolve('./src'),

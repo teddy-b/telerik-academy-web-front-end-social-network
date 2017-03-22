@@ -1,20 +1,8 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); }
-
-var PARAMETER_REGEXP = /([:*])(\w+)/g;
-var WILDCARD_REGEXP = /\*/g;
-var REPLACE_VARIABLE_REGEXP = '([^\/]+)';
-var REPLACE_WILDCARD = '(?:.*)';
-var FOLLOWED_BY_SLASH_REGEXP = '(?:\/$|$)';
+const PARAMETER_REGEXP = /([:*])(\w+)/g;
+const WILDCARD_REGEXP = /\*/g;
+const REPLACE_VARIABLE_REGEXP = '([^\/]+)';
+const REPLACE_WILDCARD = '(?:.*)';
+const FOLLOWED_BY_SLASH_REGEXP = '(?:\/$|$)';
 
 function clean(s) {
   if (s instanceof RegExp) return s;
@@ -24,26 +12,31 @@ function clean(s) {
 function regExpResultToParams(match, names) {
   if (names.length === 0) return null;
   if (!match) return null;
-  return match.slice(1, match.length).reduce(function (params, value, index) {
-    if (params === null) params = {};
-    params[names[index]] = value;
-    return params;
-  }, null);
+  return match
+    .slice(1, match.length)
+    .reduce((params, value, index) => {
+      if (params === null) params = {};
+      params[names[index]] = value;
+      return params;
+    }, null);
 }
 
 function replaceDynamicURLParts(route) {
-  var paramNames = [],
-      regexp;
+  var paramNames = [], regexp;
 
   if (route instanceof RegExp) {
     regexp = route;
   } else {
-    regexp = new RegExp(clean(route).replace(PARAMETER_REGEXP, function (full, dots, name) {
-      paramNames.push(name);
-      return REPLACE_VARIABLE_REGEXP;
-    }).replace(WILDCARD_REGEXP, REPLACE_WILDCARD) + FOLLOWED_BY_SLASH_REGEXP);
+    regexp = new RegExp(
+      clean(route)
+      .replace(PARAMETER_REGEXP, function (full, dots, name) {
+        paramNames.push(name);
+        return REPLACE_VARIABLE_REGEXP;
+      })
+      .replace(WILDCARD_REGEXP, REPLACE_WILDCARD) + FOLLOWED_BY_SLASH_REGEXP
+    );
   }
-  return { regexp: regexp, paramNames: paramNames };
+  return { regexp, paramNames };
 }
 
 function getUrlDepth(url) {
@@ -54,21 +47,16 @@ function compareUrlDepth(urlA, urlB) {
   return getUrlDepth(urlA) < getUrlDepth(urlB);
 }
 
-function findMatchedRoutes(url) {
-  var routes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+function findMatchedRoutes(url, routes = []) {
+  return routes
+    .map(route => {
+      var { regexp, paramNames } = replaceDynamicURLParts(route.route);
+      var match = url.match(regexp);
+      var params = regExpResultToParams(match, paramNames);
 
-  return routes.map(function (route) {
-    var _replaceDynamicURLPar = replaceDynamicURLParts(route.route),
-        regexp = _replaceDynamicURLPar.regexp,
-        paramNames = _replaceDynamicURLPar.paramNames;
-
-    var match = url.match(regexp);
-    var params = regExpResultToParams(match, paramNames);
-
-    return match ? { match: match, route: route, params: params } : false;
-  }).filter(function (m) {
-    return m;
-  });
+      return match ? { match, route, params } : false;
+    })
+    .filter(m => m);
 }
 
 function match(url, routes) {
@@ -76,49 +64,54 @@ function match(url, routes) {
 }
 
 function root(url, routes) {
-  var matched = findMatchedRoutes(url, routes.filter(function (route) {
-    var u = clean(route.route);
+  var matched = findMatchedRoutes(
+    url,
+    routes.filter(route => {
+      let u = clean(route.route);
 
-    return u !== '' && u !== '*';
-  }));
+      return u !== '' && u !== '*';
+    })
+  );
   var fallbackURL = clean(url);
 
   if (matched.length > 0) {
-    return matched.map(function (m) {
-      return clean(url.substr(0, m.match.index));
-    }).reduce(function (root, current) {
-      return current.length < root.length ? current : root;
-    }, fallbackURL);
+    return matched
+      .map(m => clean(url.substr(0, m.match.index)))
+      .reduce((root, current) => {
+        return current.length < root.length ? current : root;
+      }, fallbackURL);
   }
   return fallbackURL;
 }
 
 function isPushStateAvailable() {
-  return !!(typeof window !== 'undefined' && window.history && window.history.pushState);
+  return !!(
+    typeof window !== 'undefined' &&
+    window.history &&
+    window.history.pushState
+  );
 }
 
 function isHashChangeAPIAvailable() {
-  return !!(typeof window !== 'undefined' && 'onhashchange' in window);
+  return !!(
+    typeof window !== 'undefined' &&
+    'onhashchange' in window
+  );
 }
 
 function extractGETParameters(url, useHash) {
-  var _url$split = url.split(/\?(.*)?$/),
-      _url$split2 = _toArray(_url$split),
-      onlyURL = _url$split2[0],
-      query = _url$split2.slice(1);
+  var [ onlyURL, ...query ] = url.split(/\?(.*)?$/);
 
   if (!useHash) {
     onlyURL = onlyURL.split('#')[0];
   }
-  return { onlyURL: onlyURL, GETParameters: query.join('') };
+  return { onlyURL, GETParameters: query.join('') };
 }
 
 function manageHooks(handler, route) {
-  if (route && route.hooks && _typeof(route.hooks) === 'object') {
+  if (route && route.hooks && typeof route.hooks === 'object') {
     if (route.hooks.before) {
-      route.hooks.before(function () {
-        var shouldRoute = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-
+      route.hooks.before((shouldRoute = true) => {
         if (!shouldRoute) return;
         handler();
         route.hooks.after && route.hooks.after();
@@ -155,11 +148,11 @@ function Navigo(r, useHash) {
 
 Navigo.prototype = {
   helpers: {
-    match: match,
-    root: root,
-    clean: clean
+    match,
+    root,
+    clean
   },
-  navigate: function navigate(path, absolute) {
+  navigate: function (path, absolute) {
     var to;
 
     path = path || '';
@@ -173,13 +166,7 @@ Navigo.prototype = {
     }
     return this;
   },
-  on: function on() {
-    var _this = this;
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
+  on: function (...args) {
     if (typeof args[0] === 'function') {
       this._defaultHandler = { handler: args[0], hooks: args[1] };
     } else if (args.length >= 2) {
@@ -188,22 +175,20 @@ Navigo.prototype = {
       } else {
         this._add(args[0], args[1], args[2]);
       }
-    } else if (_typeof(args[0]) === 'object') {
-      var orderedRoutes = Object.keys(args[0]).sort(compareUrlDepth);
+    } else if (typeof args[0] === 'object') {
+      let orderedRoutes = Object.keys(args[0]).sort(compareUrlDepth);
 
-      orderedRoutes.forEach(function (route) {
-        _this._add(route, args[0][route]);
+      orderedRoutes.forEach(route => {
+        this._add(route, args[0][route]);
       });
     }
     return this;
   },
-  notFound: function notFound(handler, hooks) {
-    this._notFoundHandler = { handler: handler, hooks: hooks };
+  notFound: function (handler, hooks) {
+    this._notFoundHandler = { handler, hooks: hooks };
     return this;
   },
-  resolve: function resolve(current) {
-    var _this2 = this;
-
+  resolve: function (current) {
     var handler, m;
     var url = (current || this._cLoc()).replace(this._getRoot(), '');
 
@@ -211,49 +196,54 @@ Navigo.prototype = {
       url = url.replace(/^\/#/, '/');
     }
 
-    var _extractGETParameters = extractGETParameters(url, this._useHash),
-        onlyURL = _extractGETParameters.onlyURL,
-        GETParameters = _extractGETParameters.GETParameters;
+    let { onlyURL, GETParameters } = extractGETParameters(url, this._useHash);
 
-    if (this._paused || this._lastRouteResolved && onlyURL === this._lastRouteResolved.url && GETParameters === this._lastRouteResolved.query) {
-      return false;
-    }
+    if (
+      this._paused ||
+      (
+        this._lastRouteResolved &&
+        onlyURL === this._lastRouteResolved.url &&
+        GETParameters === this._lastRouteResolved.query
+      )
+    ) { return false; }
 
     m = match(onlyURL, this._routes);
 
     if (m) {
       this._lastRouteResolved = { url: onlyURL, query: GETParameters };
       handler = m.route.handler;
-      manageHooks(function () {
-        m.route.route instanceof RegExp ? handler.apply(undefined, _toConsumableArray(m.match.slice(1, m.match.length))) : handler(m.params, GETParameters);
+      manageHooks(() => {
+        m.route.route instanceof RegExp ?
+          handler(...(m.match.slice(1, m.match.length))) :
+          handler(m.params, GETParameters);
       }, m.route);
       return m;
     } else if (this._defaultHandler && (onlyURL === '' || onlyURL === '/' || onlyURL === '#')) {
-      manageHooks(function () {
-        _this2._lastRouteResolved = { url: onlyURL, query: GETParameters };
-        _this2._defaultHandler.handler(GETParameters);
+      manageHooks(() => {
+        this._lastRouteResolved = { url: onlyURL, query: GETParameters };
+        this._defaultHandler.handler(GETParameters);
       }, this._defaultHandler);
       return true;
     } else if (this._notFoundHandler) {
-      manageHooks(function () {
-        _this2._lastRouteResolved = { url: onlyURL, query: GETParameters };
-        _this2._notFoundHandler.handler(GETParameters);
+      manageHooks(() => {
+        this._lastRouteResolved = { url: onlyURL, query: GETParameters };
+        this._notFoundHandler.handler(GETParameters);
       }, this._notFoundHandler);
     }
     return false;
   },
-  destroy: function destroy() {
+  destroy: function () {
     this._routes = [];
     this._destroyed = true;
     clearTimeout(this._listenningInterval);
     typeof window !== 'undefined' ? window.onpopstate = null : null;
   },
-  updatePageLinks: function updatePageLinks() {
+  updatePageLinks: function () {
     var self = this;
 
     if (typeof document === 'undefined') return;
 
-    this._findLinks().forEach(function (link) {
+    this._findLinks().forEach(link => {
       if (!link.hasListenerAttached) {
         link.addEventListener('click', function (e) {
           var location = link.getAttribute('href');
@@ -267,10 +257,8 @@ Navigo.prototype = {
       }
     });
   },
-  generate: function generate(name) {
-    var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-    return this._routes.reduce(function (result, route) {
+  generate: function (name, data = {}) {
+    return this._routes.reduce((result, route) => {
       var key;
 
       if (route.name === name) {
@@ -282,79 +270,70 @@ Navigo.prototype = {
       return result;
     }, '');
   },
-  link: function link(path) {
+  link: function (path) {
     return this._getRoot() + path;
   },
-  pause: function pause() {
-    var status = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-
+  pause: function (status = true) {
     this._paused = status;
   },
-  resume: function resume() {
+  resume: function () {
     this.pause(false);
   },
-  disableIfAPINotAvailable: function disableIfAPINotAvailable() {
+  disableIfAPINotAvailable: function () {
     if (!isPushStateAvailable()) {
       this.destroy();
     }
   },
-  _add: function _add(route) {
-    var handler = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-    var hooks = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-
-    if ((typeof handler === 'undefined' ? 'undefined' : _typeof(handler)) === 'object') {
+  _add: function (route, handler = null, hooks = null) {
+    if (typeof handler === 'object') {
       this._routes.push({
-        route: route,
+        route,
         handler: handler.uses,
         name: handler.as,
         hooks: hooks || handler.hooks
       });
     } else {
-      this._routes.push({ route: route, handler: handler, hooks: hooks });
+      this._routes.push({ route, handler, hooks: hooks });
     }
     return this._add;
   },
-  _getRoot: function _getRoot() {
+  _getRoot: function () {
     if (this.root !== null) return this.root;
     this.root = root(this._cLoc(), this._routes);
     return this.root;
   },
-  _listen: function _listen() {
-    var _this3 = this;
-
+  _listen: function () {
     if (this._usePushState) {
-      window.onpopstate = function () {
-        _this3.resolve();
+      window.onpopstate = () => {
+        this.resolve();
       };
     } else if (isHashChangeAPIAvailable()) {
-      window.onhashchange = function () {
-        _this3.resolve();
+      window.onhashchange = () => {
+        this.resolve();
       };
     } else {
-      var cached = this._cLoc(),
-          current = void 0,
-          _check = void 0;
+      let cached = this._cLoc(), current, check;
 
-      _check = function check() {
-        current = _this3._cLoc();
+      check = () => {
+        current = this._cLoc();
         if (cached !== current) {
           cached = current;
-          _this3.resolve();
+          this.resolve();
         }
-        _this3._listenningInterval = setTimeout(_check, 200);
+        this._listenningInterval = setTimeout(check, 200);
       };
-      _check();
+      check();
     }
   },
-  _cLoc: function _cLoc() {
+  _cLoc: function () {
     if (typeof window !== 'undefined') {
       return clean(window.location.href);
     }
     return '';
   },
-  _findLinks: function _findLinks() {
+  _findLinks: function () {
     return [].slice.call(document.querySelectorAll('[data-navigo]'));
   }
 };
 
-exports.default = Navigo;
+export default Navigo;

@@ -1,17 +1,13 @@
-'use strict';
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-(function ($) {
+(function($) {
   var _stack = 0,
-      _lastID = 0,
-      _generateID = function _generateID() {
+  _lastID = 0,
+  _generateID = function() {
     _lastID++;
     return 'materialize-modal-overlay-' + _lastID;
   };
 
   var methods = {
-    init: function init(options) {
+    init : function(options) {
       var defaults = {
         opacity: 0.5,
         in_duration: 350,
@@ -26,11 +22,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       // Override defaults
       options = $.extend(defaults, options);
 
-      return this.each(function () {
+      return this.each(function() {
         var $modal = $(this);
         var modal_id = $(this).attr("id") || '#' + $(this).data('target');
 
-        var closeModal = function closeModal() {
+        var closeModal = function() {
           var overlayID = $modal.data('overlay-id');
           var $overlay = $('#' + overlayID);
           $modal.removeClass('open');
@@ -44,7 +40,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           $modal.find('.modal-close').off('click.close');
           $(document).off('keyup.modal' + overlayID);
 
-          $overlay.velocity({ opacity: 0 }, { duration: options.out_duration, queue: false, ease: "easeOutQuart" });
+          $overlay.velocity( { opacity: 0}, {duration: options.out_duration, queue: false, ease: "easeOutQuart"});
+
 
           // Define Bottom Sheet animation
           var exitVelocityOptions = {
@@ -52,11 +49,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             queue: false,
             ease: "easeOutCubic",
             // Handle modal ready callback
-            complete: function complete() {
-              $(this).css({ display: "none" });
+            complete: function() {
+              $(this).css({display:"none"});
 
               // Call complete callback
-              if (typeof options.complete === "function") {
+              if (typeof(options.complete) === "function") {
                 options.complete.call(this, $modal);
               }
               $overlay.remove();
@@ -64,13 +61,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             }
           };
           if ($modal.hasClass('bottom-sheet')) {
-            $modal.velocity({ bottom: "-100%", opacity: 0 }, exitVelocityOptions);
-          } else {
-            $modal.velocity({ top: options.starting_top, opacity: 0, scaleX: 0.7 }, exitVelocityOptions);
+            $modal.velocity({bottom: "-100%", opacity: 0}, exitVelocityOptions);
+          }
+          else {
+            $modal.velocity(
+              { top: options.starting_top, opacity: 0, scaleX: 0.7},
+              exitVelocityOptions
+            );
           }
         };
 
-        var openModal = function openModal($trigger) {
+        var openModal = function($trigger) {
           var $body = $('body');
           var oldWidth = $body.innerWidth();
           $body.css('overflow', 'hidden');
@@ -82,7 +83,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
           var overlayID = _generateID();
           var $overlay = $('<div class="modal-overlay"></div>');
-          lStack = ++_stack;
+          lStack = (++_stack);
 
           // Store a reference of the overlay
           $overlay.attr('id', overlayID).css('z-index', 1000 + lStack * 2);
@@ -92,30 +93,29 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           $("body").append($overlay);
 
           if (options.dismissible) {
-            $overlay.click(function () {
+            $overlay.click(function() {
               closeModal();
             });
             // Return on ESC
-            $(document).on('keyup.modal' + overlayID, function (e) {
-              if (e.keyCode === 27) {
-                // ESC key
+            $(document).on('keyup.modal' + overlayID, function(e) {
+              if (e.keyCode === 27) {   // ESC key
                 closeModal();
               }
             });
           }
 
-          $modal.find(".modal-close").on('click.close', function (e) {
+          $modal.find(".modal-close").on('click.close', function(e) {
             closeModal();
           });
 
-          $overlay.css({ display: "block", opacity: 0 });
+          $overlay.css({ display : "block", opacity : 0 });
 
           $modal.css({
-            display: "block",
+            display : "block",
             opacity: 0
           });
 
-          $overlay.velocity({ opacity: options.opacity }, { duration: options.in_duration, queue: false, ease: "easeOutCubic" });
+          $overlay.velocity({opacity: options.opacity}, {duration: options.in_duration, queue: false, ease: "easeOutCubic"});
           $modal.data('associated-overlay', $overlay[0]);
 
           // Define Bottom Sheet animation
@@ -124,19 +124,21 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             queue: false,
             ease: "easeOutCubic",
             // Handle modal ready callback
-            complete: function complete() {
-              if (typeof options.ready === "function") {
+            complete: function() {
+              if (typeof(options.ready) === "function") {
                 options.ready.call(this, $modal, $trigger);
               }
             }
           };
           if ($modal.hasClass('bottom-sheet')) {
-            $modal.velocity({ bottom: "0", opacity: 1 }, enterVelocityOptions);
-          } else {
+            $modal.velocity({bottom: "0", opacity: 1}, enterVelocityOptions);
+          }
+          else {
             $.Velocity.hook($modal, "scaleX", 0.7);
             $modal.css({ top: options.starting_top });
-            $modal.velocity({ top: options.ending_top, opacity: 1, scaleX: '1' }, enterVelocityOptions);
+            $modal.velocity({top: options.ending_top, opacity: 1, scaleX: '1'}, enterVelocityOptions);
           }
+
         };
 
         // Reset handlers
@@ -145,38 +147,38 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         $(this).off('closeModal');
 
         // Close Handlers
-        $(document).on('click.modalTrigger', 'a[href="#' + modal_id + '"], [data-target="' + modal_id + '"]', function (e) {
-          options.starting_top = ($(this).offset().top - $(window).scrollTop()) / 1.15;
+        $(document).on('click.modalTrigger', 'a[href="#' + modal_id + '"], [data-target="' + modal_id + '"]', function(e) {
+          options.starting_top = ($(this).offset().top - $(window).scrollTop()) /1.15;
           openModal($(this));
           e.preventDefault();
         }); // done set on click
 
-        $(this).on('openModal', function () {
+        $(this).on('openModal', function() {
           var modal_id = $(this).attr("href") || '#' + $(this).data('target');
           openModal();
         });
 
-        $(this).on('closeModal', function () {
+        $(this).on('closeModal', function() {
           closeModal();
         });
       }); // done return
     },
-    open: function open() {
+    open : function() {
       $(this).trigger('openModal');
     },
-    close: function close() {
+    close : function() {
       $(this).trigger('closeModal');
     }
   };
 
-  $.fn.modal = function (methodOrOptions) {
-    if (methods[methodOrOptions]) {
-      return methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
-    } else if ((typeof methodOrOptions === 'undefined' ? 'undefined' : _typeof(methodOrOptions)) === 'object' || !methodOrOptions) {
+  $.fn.modal = function(methodOrOptions) {
+    if ( methods[methodOrOptions] ) {
+      return methods[ methodOrOptions ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+    } else if ( typeof methodOrOptions === 'object' || ! methodOrOptions ) {
       // Default to "init"
-      return methods.init.apply(this, arguments);
+      return methods.init.apply( this, arguments );
     } else {
-      $.error('Method ' + methodOrOptions + ' does not exist on jQuery.modal');
+      $.error( 'Method ' +  methodOrOptions + ' does not exist on jQuery.modal' );
     }
   };
 })(jQuery);

@@ -1,15 +1,14 @@
-'use strict';
-
 (function ($) {
-  $(document).ready(function () {
+  $(document).ready(function() {
 
     // Function to update labels of text fields
-    Materialize.updateTextFields = function () {
+    Materialize.updateTextFields = function() {
       var input_selector = 'input[type=text], input[type=password], input[type=email], input[type=url], input[type=tel], input[type=number], input[type=search], textarea';
-      $(input_selector).each(function (index, element) {
-        if ($(element).val().length > 0 || element.autofocus || $(this).attr('placeholder') !== undefined || $(element)[0].validity.badInput === true) {
+      $(input_selector).each(function(index, element) {
+        if ($(element).val().length > 0 || element.autofocus ||$(this).attr('placeholder') !== undefined || $(element)[0].validity.badInput === true) {
           $(this).siblings('label').addClass('active');
-        } else {
+        }
+        else {
           $(this).siblings('label').removeClass('active');
         }
       });
@@ -20,19 +19,19 @@
 
     // Add active if form auto complete
     $(document).on('change', input_selector, function () {
-      if ($(this).val().length !== 0 || $(this).attr('placeholder') !== undefined) {
+      if($(this).val().length !== 0 || $(this).attr('placeholder') !== undefined) {
         $(this).siblings('label').addClass('active');
       }
       validate_field($(this));
     });
 
     // Add active if input element has been pre-populated on document ready
-    $(document).ready(function () {
+    $(document).ready(function() {
       Materialize.updateTextFields();
     });
 
     // HTML DOM FORM RESET handling
-    $(document).on('reset', function (e) {
+    $(document).on('reset', function(e) {
       var formReset = $(e.target);
       if (formReset.is('form')) {
         formReset.find(input_selector).removeClass('valid').removeClass('invalid');
@@ -68,7 +67,7 @@
       validate_field($inputElement);
     });
 
-    window.validate_field = function (object) {
+    window.validate_field = function(object) {
       var hasLength = object.attr('length') !== undefined;
       var lenAttr = parseInt(object.attr('length'));
       var len = object.val().length;
@@ -78,13 +77,15 @@
           object.removeClass('valid');
           object.removeClass('invalid');
         }
-      } else {
+      }
+      else {
         if (object.hasClass('validate')) {
           // Check for character counter attributes
-          if (object.is(':valid') && hasLength && len <= lenAttr || object.is(':valid') && !hasLength) {
+          if ((object.is(':valid') && hasLength && (len <= lenAttr)) || (object.is(':valid') && !hasLength)) {
             object.removeClass('invalid');
             object.addClass('valid');
-          } else {
+          }
+          else {
             object.removeClass('valid');
             object.addClass('invalid');
           }
@@ -94,12 +95,12 @@
 
     // Radio and Checkbox focus class
     var radio_checkbox = 'input[type=radio], input[type=checkbox]';
-    $(document).on('keyup.radio', radio_checkbox, function (e) {
+    $(document).on('keyup.radio', radio_checkbox, function(e) {
       // TAB, check if tabbing to radio or checkbox.
       if (e.which === 9) {
         $(this).addClass('tabbed');
         var $this = $(this);
-        $this.one('blur', function (e) {
+        $this.one('blur', function(e) {
 
           $(this).removeClass('tabbed');
         });
@@ -122,31 +123,28 @@
       var fontSize = $textarea.css('font-size');
       var lineHeight = $textarea.css('line-height');
 
-      if (fontSize) {
-        hiddenDiv.css('font-size', fontSize);
-      }
-      if (fontFamily) {
-        hiddenDiv.css('font-family', fontFamily);
-      }
-      if (lineHeight) {
-        hiddenDiv.css('line-height', lineHeight);
-      }
+      if (fontSize) { hiddenDiv.css('font-size', fontSize); }
+      if (fontFamily) { hiddenDiv.css('font-family', fontFamily); }
+      if (lineHeight) { hiddenDiv.css('line-height', lineHeight); }
 
       if ($textarea.attr('wrap') === "off") {
-        hiddenDiv.css('overflow-wrap', "normal").css('white-space', "pre");
+        hiddenDiv.css('overflow-wrap', "normal")
+                 .css('white-space', "pre");
       }
 
       hiddenDiv.text($textarea.val() + '\n');
       var content = hiddenDiv.html().replace(/\n/g, '<br>');
       hiddenDiv.html(content);
 
+
       // When textarea is hidden, width goes crazy.
       // Approximate with half of window size
 
       if ($textarea.is(':visible')) {
         hiddenDiv.css('width', $textarea.width());
-      } else {
-        hiddenDiv.css('width', $(window).width() / 2);
+      }
+      else {
+        hiddenDiv.css('width', $(window).width()/2);
       }
 
       $textarea.css('height', hiddenDiv.height());
@@ -167,7 +165,7 @@
     $(document).on('change', '.file-field input[type="file"]', function () {
       var file_field = $(this).closest('.file-field');
       var path_input = file_field.find('input.file-path');
-      var files = $(this)[0].files;
+      var files      = $(this)[0].files;
       var file_names = [];
       for (var i = 0; i < files.length; i++) {
         file_names.push(files[i].name);
@@ -190,12 +188,12 @@
     });
 
     var range_wrapper = '.range-field';
-    $(document).on('change', range_type, function (e) {
+    $(document).on('change', range_type, function(e) {
       var thumb = $(this).siblings('.thumb');
       thumb.find('.value').html($(this).val());
     });
 
-    $(document).on('input mousedown touchstart', range_type, function (e) {
+    $(document).on('input mousedown touchstart', range_type, function(e) {
       var thumb = $(this).siblings('.thumb');
       var width = $(this).outerWidth();
 
@@ -212,20 +210,20 @@
       $(this).addClass('active');
 
       if (!thumb.hasClass('active')) {
-        thumb.velocity({ height: "30px", width: "30px", top: "-20px", marginLeft: "-15px" }, { duration: 300, easing: 'easeOutExpo' });
+        thumb.velocity({ height: "30px", width: "30px", top: "-20px", marginLeft: "-15px"}, { duration: 300, easing: 'easeOutExpo' });
       }
 
       if (e.type !== 'input') {
-        if (e.pageX === undefined || e.pageX === null) {
-          //mobile
-          left = e.originalEvent.touches[0].pageX - $(this).offset().left;
-        } else {
-          // desktop
-          left = e.pageX - $(this).offset().left;
+        if(e.pageX === undefined || e.pageX === null){//mobile
+           left = e.originalEvent.touches[0].pageX - $(this).offset().left;
+        }
+        else{ // desktop
+           left = e.pageX - $(this).offset().left;
         }
         if (left < 0) {
           left = 0;
-        } else if (left > width) {
+        }
+        else if (left > width) {
           left = width;
         }
         thumb.addClass('active').css('left', left);
@@ -234,30 +232,30 @@
       thumb.find('.value').html($(this).val());
     });
 
-    $(document).on('mouseup touchend', range_wrapper, function () {
+    $(document).on('mouseup touchend', range_wrapper, function() {
       range_mousedown = false;
       $(this).removeClass('active');
     });
 
-    $(document).on('mousemove touchmove', range_wrapper, function (e) {
+    $(document).on('mousemove touchmove', range_wrapper, function(e) {
       var thumb = $(this).children('.thumb');
       var left;
       if (range_mousedown) {
         if (!thumb.hasClass('active')) {
-          thumb.velocity({ height: '30px', width: '30px', top: '-20px', marginLeft: '-15px' }, { duration: 300, easing: 'easeOutExpo' });
+          thumb.velocity({ height: '30px', width: '30px', top: '-20px', marginLeft: '-15px'}, { duration: 300, easing: 'easeOutExpo' });
         }
-        if (e.pageX === undefined || e.pageX === null) {
-          //mobile
+        if (e.pageX === undefined || e.pageX === null) { //mobile
           left = e.originalEvent.touches[0].pageX - $(this).offset().left;
-        } else {
-          // desktop
+        }
+        else{ // desktop
           left = e.pageX - $(this).offset().left;
         }
         var width = $(this).outerWidth();
 
         if (left < 0) {
           left = 0;
-        } else if (left > width) {
+        }
+        else if (left > width) {
           left = width;
         }
         thumb.addClass('active').css('left', left);
@@ -265,13 +263,13 @@
       }
     });
 
-    $(document).on('mouseout touchleave', range_wrapper, function () {
+    $(document).on('mouseout touchleave', range_wrapper, function() {
       if (!range_mousedown) {
 
         var thumb = $(this).children('.thumb');
 
         if (thumb.hasClass('active')) {
-          thumb.velocity({ height: '0', width: '0', top: '10px', marginLeft: '-6px' }, { duration: 100 });
+          thumb.velocity({ height: '0', width: '0', top: '10px', marginLeft: '-6px'}, { duration: 100 });
         }
         thumb.removeClass('active');
       }
@@ -288,7 +286,7 @@
 
       options = $.extend(defaults, options);
 
-      return this.each(function () {
+      return this.each(function() {
         var $input = $(this);
         var data = options.data,
             $inputDiv = $input.closest('.input-field'); // Div to append on
@@ -305,7 +303,7 @@
             $input.after($autocomplete);
           }
 
-          var highlight = function highlight(string, $el) {
+          var highlight = function(string, $el) {
             var img = $el.find('img');
             var matchStart = $el.text().toLowerCase().indexOf("" + string.toLowerCase() + ""),
                 matchEnd = matchStart + string.length - 1,
@@ -331,13 +329,15 @@
 
             // Check if the input isn't empty
             if (val !== '') {
-              for (var key in data) {
-                if (data.hasOwnProperty(key) && key.toLowerCase().indexOf(val) !== -1 && key.toLowerCase() !== val) {
+              for(var key in data) {
+                if (data.hasOwnProperty(key) &&
+                    key.toLowerCase().indexOf(val) !== -1 &&
+                    key.toLowerCase() !== val) {
                   var autocompleteOption = $('<li></li>');
-                  if (!!data[key]) {
-                    autocompleteOption.append('<img src="' + data[key] + '" class="right circle"><span>' + key + '</span>');
+                  if(!!data[key]) {
+                    autocompleteOption.append('<img src="'+ data[key] +'" class="right circle"><span>'+ key +'</span>');
                   } else {
-                    autocompleteOption.append('<span>' + key + '</span>');
+                    autocompleteOption.append('<span>'+ key +'</span>');
                   }
                   $autocomplete.append(autocompleteOption);
 
@@ -356,13 +356,14 @@
         }
       });
     };
+
   }); // End of $(document).ready
 
   /*******************
    *  Select Plugin  *
    ******************/
   $.fn.material_select = function (callback) {
-    $(this).each(function () {
+    $(this).each(function(){
       var $select = $(this);
 
       if ($select.hasClass('browser-default')) {
@@ -377,11 +378,11 @@
         $select.parent().find('input').remove();
 
         $select.unwrap();
-        $('ul#select-options-' + lastID).remove();
+        $('ul#select-options-'+lastID).remove();
       }
 
       // If destroying the select, remove the selelct-id and reset it to it's uninitialized state.
-      if (callback === 'destroy') {
+      if(callback === 'destroy') {
         $select.data('select-id', null).removeClass('initialized');
         return;
       }
@@ -390,7 +391,7 @@
       $select.data('select-id', uniqueID);
       var wrapper = $('<div class="select-wrapper"></div>');
       wrapper.addClass($select.attr('class'));
-      var options = $('<ul id="select-options-' + uniqueID + '" class="dropdown-content select-dropdown ' + (multiple ? 'multiple-select-dropdown' : '') + '"></ul>'),
+      var options = $('<ul id="select-options-' + uniqueID +'" class="dropdown-content select-dropdown ' + (multiple ? 'multiple-select-dropdown' : '') + '"></ul>'),
           selectChildren = $select.children('option, optgroup'),
           valuesSelected = [],
           optionsHover = false;
@@ -399,10 +400,10 @@
 
       // Function that renders and appends the option taking into
       // account type and possible image icon.
-      var appendOptionWithIcon = function appendOptionWithIcon(select, option, type) {
+      var appendOptionWithIcon = function(select, option, type) {
         // Add disabled attr if disabled
-        var disabledClass = option.is(':disabled') ? 'disabled ' : '';
-        var optgroupClass = type === 'optgroup-option' ? 'optgroup-option ' : '';
+        var disabledClass = (option.is(':disabled')) ? 'disabled ' : '';
+        var optgroupClass = (type === 'optgroup-option') ? 'optgroup-option ' : '';
 
         // add icons
         var icon_url = option.data('icon');
@@ -430,11 +431,12 @@
 
       /* Create dropdown structure. */
       if (selectChildren.length) {
-        selectChildren.each(function () {
+        selectChildren.each(function() {
           if ($(this).is('option')) {
             // Direct descendant option.
             if (multiple) {
               appendOptionWithIcon($select, $(this), 'multiple');
+
             } else {
               appendOptionWithIcon($select, $(this));
             }
@@ -443,7 +445,7 @@
             var selectOptions = $(this).children('option');
             options.append($('<li class="optgroup"><span>' + $(this).attr('label') + '</span></li>'));
 
-            selectOptions.each(function () {
+            selectOptions.each(function() {
               appendOptionWithIcon($select, $(this), 'optgroup-option');
             });
           }
@@ -457,9 +459,7 @@
             var selected = true;
 
             if (multiple) {
-              $('input[type="checkbox"]', this).prop('checked', function (i, v) {
-                return !v;
-              });
+              $('input[type="checkbox"]', this).prop('checked', function(i, v) { return !v; });
               selected = toggleEntryFromArray(valuesSelected, $(this).index(), $select);
               $newSelect.trigger('focus');
             } else {
@@ -483,19 +483,20 @@
       $select.wrap(wrapper);
       // Add Select Display Element
       var dropdownIcon = $('<span class="caret">&#9660;</span>');
-      if ($select.is(':disabled')) dropdownIcon.addClass('disabled');
+      if ($select.is(':disabled'))
+        dropdownIcon.addClass('disabled');
 
       // escape double quotes
       var sanitizedLabelHtml = label.replace(/"/g, '&quot;');
 
-      var $newSelect = $('<input type="text" class="select-dropdown" readonly="true" ' + ($select.is(':disabled') ? 'disabled' : '') + ' data-activates="select-options-' + uniqueID + '" value="' + sanitizedLabelHtml + '"/>');
+      var $newSelect = $('<input type="text" class="select-dropdown" readonly="true" ' + (($select.is(':disabled')) ? 'disabled' : '') + ' data-activates="select-options-' + uniqueID +'" value="'+ sanitizedLabelHtml +'"/>');
       $select.before($newSelect);
       $newSelect.before(dropdownIcon);
 
       $newSelect.after(options);
       // Check if section element is disabled
       if (!$select.is(':disabled')) {
-        $newSelect.dropdown({ 'hover': false, 'closeOnClick': false });
+        $newSelect.dropdown({'hover': false, 'closeOnClick': false});
       }
 
       // Copy tabindex
@@ -506,39 +507,39 @@
       $select.addClass('initialized');
 
       $newSelect.on({
-        'focus': function focus() {
+        'focus': function (){
           if ($('ul.select-dropdown').not(options[0]).is(':visible')) {
             $('input.select-dropdown').trigger('close');
           }
           if (!options.is(':visible')) {
             $(this).trigger('open', ['focus']);
             var label = $(this).val();
-            var selectedOption = options.find('li').filter(function () {
+            var selectedOption = options.find('li').filter(function() {
               return $(this).text().toLowerCase() === label.toLowerCase();
             })[0];
             activateOption(options, selectedOption);
           }
         },
-        'click': function click(e) {
+        'click': function (e){
           e.stopPropagation();
         }
       });
 
-      $newSelect.on('blur', function () {
+      $newSelect.on('blur', function() {
         if (!multiple) {
           $(this).trigger('close');
         }
         options.find('li.selected').removeClass('selected');
       });
 
-      options.hover(function () {
+      options.hover(function() {
         optionsHover = true;
       }, function () {
         optionsHover = false;
       });
 
       $(window).on({
-        'click': function click() {
+        'click': function () {
           multiple && (optionsHover || $newSelect.trigger('close'));
         }
       });
@@ -554,7 +555,7 @@
       }
 
       // Make option as selected and scroll to selected position
-      var activateOption = function activateOption(collection, newOption) {
+      var activateOption = function(collection, newOption) {
         if (newOption) {
           collection.find('li.selected').removeClass('selected');
           var option = $(newOption);
@@ -566,79 +567,78 @@
       // Allow user to search by typing
       // this array is cleared after 1 second
       var filterQuery = [],
-          onKeyDown = function onKeyDown(e) {
-        // TAB - switch to another input
-        if (e.which == 9) {
-          $newSelect.trigger('close');
-          return;
-        }
+          onKeyDown = function(e){
+            // TAB - switch to another input
+            if(e.which == 9){
+              $newSelect.trigger('close');
+              return;
+            }
 
-        // ARROW DOWN WHEN SELECT IS CLOSED - open select options
-        if (e.which == 40 && !options.is(':visible')) {
-          $newSelect.trigger('open');
-          return;
-        }
+            // ARROW DOWN WHEN SELECT IS CLOSED - open select options
+            if(e.which == 40 && !options.is(':visible')){
+              $newSelect.trigger('open');
+              return;
+            }
 
-        // ENTER WHEN SELECT IS CLOSED - submit form
-        if (e.which == 13 && !options.is(':visible')) {
-          return;
-        }
+            // ENTER WHEN SELECT IS CLOSED - submit form
+            if(e.which == 13 && !options.is(':visible')){
+              return;
+            }
 
-        e.preventDefault();
+            e.preventDefault();
 
-        // CASE WHEN USER TYPE LETTERS
-        var letter = String.fromCharCode(e.which).toLowerCase(),
-            nonLetters = [9, 13, 27, 38, 40];
-        if (letter && nonLetters.indexOf(e.which) === -1) {
-          filterQuery.push(letter);
+            // CASE WHEN USER TYPE LETTERS
+            var letter = String.fromCharCode(e.which).toLowerCase(),
+                nonLetters = [9,13,27,38,40];
+            if (letter && (nonLetters.indexOf(e.which) === -1)) {
+              filterQuery.push(letter);
 
-          var string = filterQuery.join(''),
-              newOption = options.find('li').filter(function () {
-            return $(this).text().toLowerCase().indexOf(string) === 0;
-          })[0];
+              var string = filterQuery.join(''),
+                  newOption = options.find('li').filter(function() {
+                    return $(this).text().toLowerCase().indexOf(string) === 0;
+                  })[0];
 
-          if (newOption) {
-            activateOption(options, newOption);
-          }
-        }
+              if (newOption) {
+                activateOption(options, newOption);
+              }
+            }
 
-        // ENTER - select option and close when select options are opened
-        if (e.which == 13) {
-          var activeOption = options.find('li.selected:not(.disabled)')[0];
-          if (activeOption) {
-            $(activeOption).trigger('click');
-            if (!multiple) {
+            // ENTER - select option and close when select options are opened
+            if (e.which == 13) {
+              var activeOption = options.find('li.selected:not(.disabled)')[0];
+              if(activeOption){
+                $(activeOption).trigger('click');
+                if (!multiple) {
+                  $newSelect.trigger('close');
+                }
+              }
+            }
+
+            // ARROW DOWN - move to next not disabled option
+            if (e.which == 40) {
+              if (options.find('li.selected').length) {
+                newOption = options.find('li.selected').next('li:not(.disabled)')[0];
+              } else {
+                newOption = options.find('li:not(.disabled)')[0];
+              }
+              activateOption(options, newOption);
+            }
+
+            // ESC - close options
+            if (e.which == 27) {
               $newSelect.trigger('close');
             }
-          }
-        }
 
-        // ARROW DOWN - move to next not disabled option
-        if (e.which == 40) {
-          if (options.find('li.selected').length) {
-            newOption = options.find('li.selected').next('li:not(.disabled)')[0];
-          } else {
-            newOption = options.find('li:not(.disabled)')[0];
-          }
-          activateOption(options, newOption);
-        }
+            // ARROW UP - move to previous not disabled option
+            if (e.which == 38) {
+              newOption = options.find('li.selected').prev('li:not(.disabled)')[0];
+              if(newOption)
+                activateOption(options, newOption);
+            }
 
-        // ESC - close options
-        if (e.which == 27) {
-          $newSelect.trigger('close');
-        }
-
-        // ARROW UP - move to previous not disabled option
-        if (e.which == 38) {
-          newOption = options.find('li.selected').prev('li:not(.disabled)')[0];
-          if (newOption) activateOption(options, newOption);
-        }
-
-        // Automaticaly clean filter query so user can search again by starting letters
-        setTimeout(function () {
-          filterQuery = [];
-        }, 1000);
-      };
+            // Automaticaly clean filter query so user can search again by starting letters
+            setTimeout(function(){ filterQuery = []; }, 1000);
+          };
 
       $newSelect.on('keydown', onKeyDown);
     });
@@ -678,4 +678,5 @@
       select.siblings('input.select-dropdown').val(value);
     }
   };
-})(jQuery);
+
+}( jQuery ));

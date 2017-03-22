@@ -1,6 +1,4 @@
-'use strict';
-
-var getBrowser = function getBrowser() {
+var getBrowser = function () {
   if (process.argv[2]) {
     return process.argv[2].replace('--browser=', '');
   }
@@ -11,11 +9,14 @@ module.exports = function (config) {
   config.set({
     basePath: '.',
     frameworks: ['browserify', 'source-map-support', 'mocha'],
-    files: ['./test/setup.js', './test/spec/**/*.spec.*'],
+    files: [
+      './test/setup.js',
+      './test/spec/**/*.spec.*'
+    ],
     exclude: [],
     preprocessors: {
-      'src/**/*.js': ['browserify'],
-      'test/**/*.js': ['browserify']
+      'src/**/*.js': [ 'browserify' ],
+      'test/**/*.js': [ 'browserify' ]
     },
     reporters: ['mocha'],
     // web server port
@@ -23,7 +24,7 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_ERROR,
     autoWatch: true,
-    browsers: [getBrowser()], // Chrome, PhantomJS, Firefox
+    browsers: [ getBrowser() ], // Chrome, PhantomJS, Firefox
     singleRun: false,
     client: {
       captureConsole: true
@@ -33,9 +34,19 @@ module.exports = function (config) {
       insertGlobals: false,
       detectGlobals: true,
       noBuiltins: true,
-      transform: [['babelify', { sourceMaps: true }]],
-      extensions: ['.js']
+      transform: [
+        [ 'babelify', { sourceMaps: true }]
+      ],
+      extensions: [ '.js' ]
     },
-    plugins: [require('karma-chrome-launcher'), require('karma-firefox-launcher'), require('karma-phantomjs-launcher'), require('karma-mocha'), require('karma-mocha-reporter'), require('karma-browserify'), require('karma-source-map-support')]
+    plugins: [
+      require('karma-chrome-launcher'),
+      require('karma-firefox-launcher'),
+      require('karma-phantomjs-launcher'),
+      require('karma-mocha'),
+      require('karma-mocha-reporter'),
+      require('karma-browserify'),
+      require('karma-source-map-support')
+    ]
   });
 };

@@ -1,7 +1,3 @@
-'use strict';
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 /*!
  * Waves v0.6.4
  * http://fian.my.id/Waves
@@ -11,7 +7,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
  * https://github.com/fians/Waves/blob/master/LICENSE
  */
 
-;(function (window) {
+;(function(window) {
     'use strict';
 
     var Waves = Waves || {};
@@ -27,14 +23,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }
 
     function offset(elem) {
-        var docElem,
-            win,
-            box = { top: 0, left: 0 },
+        var docElem, win,
+            box = {top: 0, left: 0},
             doc = elem && elem.ownerDocument;
 
         docElem = doc.documentElement;
 
-        if (_typeof(elem.getBoundingClientRect) !== (typeof undefined === 'undefined' ? 'undefined' : _typeof(undefined))) {
+        if (typeof elem.getBoundingClientRect !== typeof undefined) {
             box = elem.getBoundingClientRect();
         }
         win = getWindow(doc);
@@ -49,7 +44,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         for (var a in obj) {
             if (obj.hasOwnProperty(a)) {
-                style += a + ':' + obj[a] + ';';
+                style += (a + ':' + obj[a] + ';');
             }
         }
 
@@ -61,7 +56,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         // Effect delay
         duration: 750,
 
-        show: function show(e, element) {
+        show: function(e, element) {
 
             // Disable right click
             if (e.button === 2) {
@@ -76,15 +71,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             el.appendChild(ripple);
 
             // Get click coordinate and element witdh
-            var pos = offset(el);
-            var relativeY = e.pageY - pos.top;
-            var relativeX = e.pageX - pos.left;
-            var scale = 'scale(' + el.clientWidth / 100 * 10 + ')';
+            var pos         = offset(el);
+            var relativeY   = (e.pageY - pos.top);
+            var relativeX   = (e.pageX - pos.left);
+            var scale       = 'scale('+((el.clientWidth / 100) * 10)+')';
 
             // Support for touch devices
             if ('touches' in e) {
-                relativeY = e.touches[0].pageY - pos.top;
-                relativeX = e.touches[0].pageX - pos.left;
+              relativeY   = (e.touches[0].pageY - pos.top);
+              relativeX   = (e.touches[0].pageX - pos.left);
             }
 
             // Attach data to element
@@ -95,8 +90,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
             // Set ripple position
             var rippleStyle = {
-                'top': relativeY + 'px',
-                'left': relativeX + 'px'
+                'top': relativeY+'px',
+                'left': relativeX+'px'
             };
 
             ripple.className = ripple.className + ' waves-notransition';
@@ -109,22 +104,22 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             rippleStyle['-ms-transform'] = scale;
             rippleStyle['-o-transform'] = scale;
             rippleStyle.transform = scale;
-            rippleStyle.opacity = '1';
+            rippleStyle.opacity   = '1';
 
             rippleStyle['-webkit-transition-duration'] = Effect.duration + 'ms';
-            rippleStyle['-moz-transition-duration'] = Effect.duration + 'ms';
-            rippleStyle['-o-transition-duration'] = Effect.duration + 'ms';
-            rippleStyle['transition-duration'] = Effect.duration + 'ms';
+            rippleStyle['-moz-transition-duration']    = Effect.duration + 'ms';
+            rippleStyle['-o-transition-duration']      = Effect.duration + 'ms';
+            rippleStyle['transition-duration']         = Effect.duration + 'ms';
 
             rippleStyle['-webkit-transition-timing-function'] = 'cubic-bezier(0.250, 0.460, 0.450, 0.940)';
-            rippleStyle['-moz-transition-timing-function'] = 'cubic-bezier(0.250, 0.460, 0.450, 0.940)';
-            rippleStyle['-o-transition-timing-function'] = 'cubic-bezier(0.250, 0.460, 0.450, 0.940)';
-            rippleStyle['transition-timing-function'] = 'cubic-bezier(0.250, 0.460, 0.450, 0.940)';
+            rippleStyle['-moz-transition-timing-function']    = 'cubic-bezier(0.250, 0.460, 0.450, 0.940)';
+            rippleStyle['-o-transition-timing-function']      = 'cubic-bezier(0.250, 0.460, 0.450, 0.940)';
+            rippleStyle['transition-timing-function']         = 'cubic-bezier(0.250, 0.460, 0.450, 0.940)';
 
             ripple.setAttribute('style', convertStyle(rippleStyle));
         },
 
-        hide: function hide(e) {
+        hide: function(e) {
             TouchHandler.touchup(e);
 
             var el = this;
@@ -139,9 +134,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 return false;
             }
 
-            var relativeX = ripple.getAttribute('data-x');
-            var relativeY = ripple.getAttribute('data-y');
-            var scale = ripple.getAttribute('data-scale');
+            var relativeX   = ripple.getAttribute('data-x');
+            var relativeY   = ripple.getAttribute('data-y');
+            var scale       = ripple.getAttribute('data-scale');
 
             // Get delay beetween mousedown and mouse leave
             var diff = Date.now() - Number(ripple.getAttribute('data-hold'));
@@ -152,10 +147,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             }
 
             // Fade out ripple after delay
-            setTimeout(function () {
+            setTimeout(function() {
                 var style = {
-                    'top': relativeY + 'px',
-                    'left': relativeX + 'px',
+                    'top': relativeY+'px',
+                    'left': relativeX+'px',
                     'opacity': '0',
 
                     // Duration
@@ -167,15 +162,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     '-moz-transform': scale,
                     '-ms-transform': scale,
                     '-o-transform': scale,
-                    'transform': scale
+                    'transform': scale,
                 };
 
                 ripple.setAttribute('style', convertStyle(style));
 
-                setTimeout(function () {
+                setTimeout(function() {
                     try {
                         el.removeChild(ripple);
-                    } catch (e) {
+                    } catch(e) {
                         return false;
                     }
                 }, Effect.duration);
@@ -183,7 +178,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         },
 
         // Little hack to make <input> can perform waves effect
-        wrapInput: function wrapInput(elements) {
+        wrapInput: function(elements) {
             for (var a = 0; a < elements.length; a++) {
                 var el = elements[a];
 
@@ -218,6 +213,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }
     };
 
+
     /**
      * Disable mousedown event for 500ms during and after touch
      */
@@ -227,13 +223,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
          * within the 500ms. Cannot mouseup between touchstart and
          * touchend, nor in the 500ms after touchend. */
         touches: 0,
-        allowEvent: function allowEvent(e) {
+        allowEvent: function(e) {
             var allow = true;
 
             if (e.type === 'touchstart') {
                 TouchHandler.touches += 1; //push
             } else if (e.type === 'touchend' || e.type === 'touchcancel') {
-                setTimeout(function () {
+                setTimeout(function() {
                     if (TouchHandler.touches > 0) {
                         TouchHandler.touches -= 1; //pop after 500ms
                     }
@@ -244,10 +240,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
             return allow;
         },
-        touchup: function touchup(e) {
+        touchup: function(e) {
             TouchHandler.allowEvent(e);
         }
     };
+
 
     /**
      * Delegated click handler for .waves-effect element.
@@ -294,7 +291,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }
     }
 
-    Waves.displayEffect = function (options) {
+    Waves.displayEffect = function(options) {
         options = options || {};
 
         if ('duration' in options) {
@@ -317,7 +314,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
      *   Intended to be used with dynamically loaded forms/inputs, or
      * where the user doesn't want a delegated click handler.
      */
-    Waves.attach = function (element) {
+    Waves.attach = function(element) {
         //FUTURE: automatically add waves classes and allow users
         // to specify them with an options param? Eg. light/classic/button
         if (element.tagName.toLowerCase() === 'input') {
@@ -334,7 +331,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     window.Waves = Waves;
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         Waves.displayEffect();
     }, false);
+
 })(window);

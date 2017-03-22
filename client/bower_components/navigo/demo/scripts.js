@@ -1,25 +1,23 @@
-'use strict';
-
 var router;
-var el = function el(sel) {
+var el = function (sel) {
   return document.querySelector(sel);
 };
-var setContent = function setContent(id, content) {
+var setContent = function (id, content) {
   el('.js-content').innerHTML = content || el('#content-' + id).innerHTML;
 };
-var routing = function routing(mode) {
+var routing = function (mode) {
   router = new Navigo(null, mode === 'hash');
   router.on({
-    'usage': function usage() {
+    'usage': function () {
       setContent('usage');
     },
-    'download': function download() {
+    'download': function () {
       setContent('download');
     },
-    'about': function about() {
+    'about': function () {
       setContent('about');
     },
-    'this/*/:language/:what': function thisLanguageWhat(params) {
+    'this/*/:language/:what': function (params) {
       var id = 'parameterized';
       var content = el('#content-' + id).innerHTML;
 
@@ -35,11 +33,11 @@ var routing = function routing(mode) {
   router.resolve();
 };
 
-var switchModes = function switchModes() {
+var switchModes = function () {
   var trigger = el('.js-mode-trigger');
   var mode = 'history-api';
   var isLocalStorageSupported = !!window.localStorage;
-  var rerenderTrigger = function rerenderTrigger(mode) {
+  var rerenderTrigger = function (mode) {
     trigger.querySelector('input').checked = mode === 'hash';
   };
 
@@ -60,7 +58,7 @@ var switchModes = function switchModes() {
   return mode;
 };
 
-var init = function init() {
+var init = function () {
   routing(switchModes());
 
   document.querySelector('#toDownload').addEventListener('click', function (e) {

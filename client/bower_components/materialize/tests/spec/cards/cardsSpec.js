@@ -1,16 +1,14 @@
-"use strict";
-
-describe("Cards", function () {
+describe( "Cards", function () {
   var reveal;
 
-  beforeEach(function () {
+  beforeEach(function() {
     loadFixtures('cards/cardsFixture.html');
   });
 
   describe("reveal cards", function () {
     var revealCard;
 
-    beforeEach(function () {
+    beforeEach(function() {
       revealCard = $('.card.reveal');
     });
 
@@ -22,7 +20,7 @@ describe("Cards", function () {
 
       activator.click();
 
-      setTimeout(function () {
+      setTimeout(function() {
         expect(revealDiv).toBeVisible('reveal did not appear after activator was clicked.');
 
         // Check revealDiv covers reveal card.
@@ -33,13 +31,14 @@ describe("Cards", function () {
 
         done();
       }, 400);
+
     });
   });
 
   describe("image cards", function () {
     var imageCard;
 
-    beforeEach(function () {
+    beforeEach(function() {
       imageCard = $('.card.image');
     });
 
@@ -51,10 +50,11 @@ describe("Cards", function () {
     });
   });
 
+
   describe("sized cards", function () {
     var small, medium, large;
 
-    beforeEach(function () {
+    beforeEach(function() {
       small = $('.card.small');
       medium = $('.card.medium');
       large = $('.card.large');
@@ -68,7 +68,8 @@ describe("Cards", function () {
       expect(small.outerHeight()).toEqual(300, 'small card should be 300px high');
       expect(cardImage.outerHeight()).toBeLessThan(181, 'small image should be <= 180px or 60% high');
       expect(cardContent.outerHeight()).toBeLessThan(121, 'small content should be <= 120px or 40% high');
-      expect(cardAction.offset().top + cardAction.outerHeight()).toEqual(small.offset().top + small.outerHeight(), 'small action should be at bottom of card');
+      expect(cardAction.offset().top + cardAction.outerHeight())
+        .toEqual(small.offset().top + small.outerHeight(), 'small action should be at bottom of card');
     });
 
     it("should have medium card dimensions", function () {
@@ -79,7 +80,8 @@ describe("Cards", function () {
       expect(medium.outerHeight()).toEqual(400, 'medium card should be 400px high');
       expect(cardImage.outerHeight()).toBeLessThan(241, 'medium image should be <= 240 or 60% high');
       expect(cardContent.outerHeight()).toBeLessThan(161, 'medium content should be <= 160px or 40% high');
-      expect(cardAction.offset().top + cardAction.outerHeight()).toEqual(medium.offset().top + medium.outerHeight(), 'medium action should be at bottom of card');
+      expect(cardAction.offset().top + cardAction.outerHeight())
+        .toEqual(medium.offset().top + medium.outerHeight(), 'medium action should be at bottom of card');
     });
 
     it("should have large card dimensions", function () {
@@ -90,7 +92,9 @@ describe("Cards", function () {
       expect(large.outerHeight()).toEqual(500, 'large card should be 500px high');
       expect(cardImage.outerHeight()).toBeLessThan(301, 'large image should be <= 300 or 60% high');
       expect(cardContent.outerHeight()).toBeLessThan(201, 'large content should be <= 200 or 40% high');
-      expect(cardAction.offset().top + cardAction.outerHeight()).toEqual(large.offset().top + large.outerHeight(), 'large action should be at bottom of card');
+      expect(cardAction.offset().top + cardAction.outerHeight())
+        .toEqual(large.offset().top + large.outerHeight(), 'large action should be at bottom of card');
     });
   });
+
 });

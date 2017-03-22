@@ -1,7 +1,5 @@
-'use strict';
-
 describe("Tabs Plugin", function () {
-  beforeEach(function () {
+  beforeEach(function() {
     loadFixtures('tabs/tabsFixture.html');
     $('ul.tabs').tabs();
   });
@@ -9,14 +7,14 @@ describe("Tabs Plugin", function () {
   describe("Tabs", function () {
     var normalTabs;
 
-    beforeEach(function () {
+    beforeEach(function() {
       normalTabs = $('.tabs.normal');
     });
 
     it("should open to active tab", function () {
       var activeTab = normalTabs.find('.active');
       var activeTabHash = activeTab.attr('href');
-      normalTabs.find('.tab a').each(function () {
+      normalTabs.find('.tab a').each(function() {
         var tabHash = $(this).attr('href');
         if (tabHash === activeTabHash) {
           expect($(tabHash)).toBeVisible('active tab content should be visible by default');
@@ -44,29 +42,31 @@ describe("Tabs Plugin", function () {
 
       disabledTab.click();
 
-      setTimeout(function () {
+      setTimeout(function() {
         expect($(activeTabHash)).toBeVisible('Clicking disabled should not change tabs.');
         expect($(disabledTabHash)).toBeHidden('Clicking disabled should not change tabs.');
 
         firstTab.click();
 
-        setTimeout(function () {
+        setTimeout(function() {
           expect($(activeTabHash)).toBeHidden('Clicking tab should switch to that tab.');
           expect($(firstTabHash)).toBeVisible('Clicking tab should switch to that tab.');
           expect(indicator.offset().left).toEqual(firstTab.offset().left, 'Indicator should move to clicked tab.');
           done();
         }, 400);
       }, 400);
+
     });
 
     it("should horizontally scroll when too many tabs", function () {
       var tabsScrollWidth = 0;
       normalTabs.parent().css('width', '400px');
-      normalTabs.find('.tab').each(function () {
+      normalTabs.find('.tab').each(function() {
         tabsScrollWidth += $(this).width();
       });
 
       expect(tabsScrollWidth).toBeGreaterThan(normalTabs.width(), 'Scroll width should exceed tabs width');
     });
+
   });
 });

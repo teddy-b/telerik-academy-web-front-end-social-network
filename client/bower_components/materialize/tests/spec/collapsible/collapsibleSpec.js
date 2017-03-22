@@ -1,9 +1,7 @@
-'use strict';
-
-describe("Collapsible Plugin", function () {
+describe( "Collapsible Plugin", function () {
   var collapsible, accordion;
 
-  beforeEach(function () {
+  beforeEach(function() {
     loadFixtures('collapsible/collapsible.html');
     collapsible = $('.collapsible');
     accordion = $('.accordion');
@@ -11,28 +9,28 @@ describe("Collapsible Plugin", function () {
     collapsible.collapsible();
   });
 
-  describe("collapsible", function () {
+  describe( "collapsible", function () {
 
     it("should open all items, keeping all open", function () {
       // Collapsible body height should be 0 on start when hidden.
       var headers = collapsible.find('.collapsible-header');
       var bodies = collapsible.find('.collapsible-body');
 
-      bodies.each(function () {
+      bodies.each(function() {
         expect($(this)).toBeHidden('because collapsible bodies should be hidden initially.');
       });
 
       // Collapsible body height should be > 0 after being opened.
-      headers.each(function () {
+      headers.each(function() {
         $(this).click();
       });
-      bodies.each(function () {
+      bodies.each(function() {
         expect($(this)).toBeVisible('because collapsible bodies not visible after being opened.');
       });
     });
   });
 
-  describe("accordion", function () {
+  describe( "accordion", function () {
 
     it("should open first and second items, keeping only second open", function (done) {
       // Collapsible body height should be 0 on start when hidden.
@@ -46,20 +44,21 @@ describe("Collapsible Plugin", function () {
       // Collapsible body height should be > 0 after being opened.
       firstHeader.click();
 
-      setTimeout(function () {
+      setTimeout(function() {
         expect(firstBody).toBeVisible('because accordion bodies not visible after being opened.');
         secondHeader.click();
 
-        setTimeout(function () {
+        setTimeout(function() {
           expect(firstBody).toBeHidden('because accordion bodies should be hidden when another item is opened.');
           expect(secondBody).toBeVisible('because accordion bodies not visible after being opened.');
           done();
         }, 400);
       }, 200);
+
     });
   });
 
-  describe("popout", function () {
+  describe( "popout", function () {
 
     it("should open first and popout", function (done) {
       // Collapsible body height should be 0 on start when hidden.
@@ -78,7 +77,7 @@ describe("Collapsible Plugin", function () {
 
       // expect margin to be 0 because popped out.
       firstHeader.click();
-      setTimeout(function () {
+      setTimeout(function() {
         var firstMarginLeft = parseInt(firstLi.css('margin-left'));
         var firstMarginRight = parseInt(firstLi.css('margin-right'));
         expect(firstMarginLeft).toEqual(0, 'because opened popout items should have no horizontal margins.');
@@ -87,6 +86,7 @@ describe("Collapsible Plugin", function () {
 
         done();
       }, 400);
+
     });
   });
 });

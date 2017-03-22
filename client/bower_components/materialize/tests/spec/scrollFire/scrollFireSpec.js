@@ -1,15 +1,13 @@
-'use strict';
-
-describe('ScrollFire Plugin', function () {
+describe('ScrollFire Plugin', function() {
   var options, testElement;
 
-  beforeEach(function () {
+  beforeEach(function() {
     options = [{
       selector: '#test',
       offset: 50,
       callback: 'Materialize.callbackFunc()'
     }];
-    Materialize.callbackFunc = function () {
+    Materialize.callbackFunc = function() {
       return 'I have been called';
     };
 
@@ -19,12 +17,12 @@ describe('ScrollFire Plugin', function () {
     Materialize.scrollFire(options);
   });
 
-  describe('ScrollFire', function () {
-    it('should fire the callback function', function (done) {
+  describe('ScrollFire', function() {
+    it('should fire the callback function', function(done) {
       // Scroll to the test component
       window.scrollTo(0, testElement.offset().top);
       // The callback function should be fired after scrolling
-      setTimeout(function () {
+      setTimeout(function() {
         expect(Materialize.callbackFunc).toHaveBeenCalled();
         done();
       }, 400);

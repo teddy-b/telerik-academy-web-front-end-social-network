@@ -1,16 +1,14 @@
-'use strict';
-
 (function ($) {
   var chipsHandleEvents = false;
   var materialChipsDefaults = {
     data: [],
     placeholder: '',
-    secondaryPlaceholder: ''
+    secondaryPlaceholder: '',
   };
 
-  $(document).ready(function () {
+  $(document).ready(function() {
     // Handle removal of static chips.
-    $(document).on('click', '.chip .close', function (e) {
+    $(document).on('click', '.chip .close', function(e){
       var $chips = $(this).closest('.chips');
       if ($chips.attr('data-initialized')) {
         return;
@@ -28,7 +26,7 @@
       CHIP: '.chip',
       INPUT: 'input',
       DELETE: '.material-icons',
-      SELECTED_CHIP: '.selected'
+      SELECTED_CHIP: '.selected',
     };
 
     if ('data' === options) {
@@ -37,11 +35,12 @@
 
     var curr_options = $.extend({}, materialChipsDefaults, options);
 
+
     // Initialize
-    this.init = function () {
+    this.init = function() {
       var i = 0;
       var chips;
-      self.$el.each(function () {
+      self.$el.each(function(){
         var $chips = $(this);
         var chipId = Materialize.guid();
 
@@ -61,19 +60,19 @@
       });
     };
 
-    this.handleEvents = function () {
+    this.handleEvents = function(){
       var SELS = self.SELS;
 
-      self.$document.off('click.chips-focus', SELS.CHIPS).on('click.chips-focus', SELS.CHIPS, function (e) {
+      self.$document.off('click.chips-focus', SELS.CHIPS).on('click.chips-focus', SELS.CHIPS, function(e){
         $(e.target).find(SELS.INPUT).focus();
       });
 
-      self.$document.off('click.chips-select', SELS.CHIP).on('click.chips-select', SELS.CHIP, function (e) {
+      self.$document.off('click.chips-select', SELS.CHIP).on('click.chips-select', SELS.CHIP, function(e){
         $(SELS.CHIP).removeClass('selected');
         $(this).toggleClass('selected');
       });
 
-      self.$document.off('keydown.chips').on('keydown.chips', function (e) {
+      self.$document.off('keydown.chips').on('keydown.chips', function(e){
         if ($(e.target).is('input, textarea')) {
           return;
         }
@@ -95,9 +94,9 @@
           self.deleteChip(index, $chips);
 
           var selectIndex = null;
-          if (index + 1 < length) {
+          if ((index + 1) < length) {
             selectIndex = index;
-          } else if (index === length || index + 1 === length) {
+          } else if (index === length || (index + 1) === length) {
             selectIndex = length - 1;
           }
 
@@ -108,7 +107,7 @@
           }
           if (!length) $chips.find('input').focus();
 
-          // left
+        // left
         } else if (e.which === 37) {
           index = $chip.index() - 1;
           if (index < 0) {
@@ -117,7 +116,7 @@
           $(SELS.CHIP).removeClass('selected');
           self.selectChip(index, $chips);
 
-          // right
+        // right
         } else if (e.which === 39) {
           index = $chip.index() + 1;
           $(SELS.CHIP).removeClass('selected');
@@ -129,14 +128,14 @@
         }
       });
 
-      self.$document.off('focusin.chips', SELS.CHIPS + ' ' + SELS.INPUT).on('focusin.chips', SELS.CHIPS + ' ' + SELS.INPUT, function (e) {
+      self.$document.off('focusin.chips', SELS.CHIPS + ' ' + SELS.INPUT).on('focusin.chips', SELS.CHIPS + ' ' + SELS.INPUT, function(e){
         var $currChips = $(e.target).closest(SELS.CHIPS);
         $currChips.addClass('focus');
         $currChips.siblings('label, .prefix').addClass('active');
         $(SELS.CHIP).removeClass('selected');
       });
 
-      self.$document.off('focusout.chips', SELS.CHIPS + ' ' + SELS.INPUT).on('focusout.chips', SELS.CHIPS + ' ' + SELS.INPUT, function (e) {
+      self.$document.off('focusout.chips', SELS.CHIPS + ' ' + SELS.INPUT).on('focusout.chips', SELS.CHIPS + ' ' + SELS.INPUT, function(e){
         var $currChips = $(e.target).closest(SELS.CHIPS);
         $currChips.removeClass('focus');
 
@@ -147,7 +146,7 @@
         $currChips.siblings('.prefix').removeClass('active');
       });
 
-      self.$document.off('keydown.chips-add', SELS.CHIPS + ' ' + SELS.INPUT).on('keydown.chips-add', SELS.CHIPS + ' ' + SELS.INPUT, function (e) {
+      self.$document.off('keydown.chips-add', SELS.CHIPS + ' ' + SELS.INPUT).on('keydown.chips-add', SELS.CHIPS + ' ' + SELS.INPUT, function(e){
         var $target = $(e.target);
         var $chips = $target.closest(SELS.CHIPS);
         var chipsLength = $chips.children(SELS.CHIP).length;
@@ -155,13 +154,13 @@
         // enter
         if (13 === e.which) {
           e.preventDefault();
-          self.addChip({ tag: $target.val() }, $chips);
+          self.addChip({tag: $target.val()}, $chips);
           $target.val('');
           return;
         }
 
         // delete or left
-        if ((8 === e.keyCode || 37 === e.keyCode) && '' === $target.val() && chipsLength) {
+         if ((8 === e.keyCode || 37 === e.keyCode) && '' === $target.val() && chipsLength) {
           self.selectChip(chipsLength - 1, $chips);
           $target.blur();
           return;
@@ -169,7 +168,7 @@
       });
 
       // Click on delete icon in chip.
-      self.$document.off('click.chips-delete', SELS.CHIPS + ' ' + SELS.DELETE).on('click.chips-delete', SELS.CHIPS + ' ' + SELS.DELETE, function (e) {
+      self.$document.off('click.chips-delete', SELS.CHIPS + ' ' + SELS.DELETE).on('click.chips-delete', SELS.CHIPS + ' ' + SELS.DELETE, function(e) {
         var $target = $(e.target);
         var $chips = $target.closest(SELS.CHIPS);
         var $chip = $target.closest(SELS.CHIP);
@@ -179,12 +178,12 @@
       });
     };
 
-    this.chips = function ($chips, chipId) {
+    this.chips = function($chips, chipId) {
       var html = '';
-      $chips.data('chips').forEach(function (elem) {
+      $chips.data('chips').forEach(function(elem){
         html += self.renderChip(elem);
       });
-      html += '<input id="' + chipId + '" class="input" placeholder="">';
+      html += '<input id="' + chipId +'" class="input" placeholder="">';
       $chips.html(html);
       self.setPlaceholder($chips);
 
@@ -199,7 +198,7 @@
       }
     };
 
-    this.renderChip = function (elem) {
+    this.renderChip = function(elem) {
       if (!elem.tag) return;
 
       var html = '<div class="chip">' + elem.tag;
@@ -211,27 +210,28 @@
       return html;
     };
 
-    this.setPlaceholder = function ($chips) {
+    this.setPlaceholder = function($chips) {
       if ($chips.data('chips').length && curr_options.placeholder) {
         $chips.find('input').prop('placeholder', curr_options.placeholder);
+
       } else if (!$chips.data('chips').length && curr_options.secondaryPlaceholder) {
         $chips.find('input').prop('placeholder', curr_options.secondaryPlaceholder);
       }
     };
 
-    this.isValid = function ($chips, elem) {
+    this.isValid = function($chips, elem) {
       var chips = $chips.data('chips');
       var exists = false;
-      for (var i = 0; i < chips.length; i++) {
+      for (var i=0; i < chips.length; i++) {
         if (chips[i].tag === elem.tag) {
-          exists = true;
-          return;
+            exists = true;
+            return;
         }
       }
       return '' !== elem.tag && !exists;
     };
 
-    this.addChip = function (elem, $chips) {
+    this.addChip = function(elem, $chips) {
       if (!self.isValid($chips, elem)) {
         return;
       }
@@ -249,7 +249,7 @@
       self.setPlaceholder($chips);
     };
 
-    this.deleteChip = function (chipIndex, $chips) {
+    this.deleteChip = function(chipIndex, $chips) {
       var chip = $chips.data('chips')[chipIndex];
       $chips.find('.chip').eq(chipIndex).remove();
 
@@ -266,7 +266,7 @@
       self.setPlaceholder($chips);
     };
 
-    this.selectChip = function (chipIndex, $chips) {
+    this.selectChip = function(chipIndex, $chips) {
       var $chip = $chips.find('.chip').eq(chipIndex);
       if ($chip && false === $chip.hasClass('selected')) {
         $chip.addClass('selected');
@@ -274,7 +274,7 @@
       }
     };
 
-    this.getChipsElement = function (index, $chips) {
+    this.getChipsElement = function(index, $chips) {
       return $chips.eq(index);
     };
 
@@ -286,4 +286,4 @@
       chipsHandleEvents = true;
     }
   };
-})(jQuery);
+}( jQuery ));

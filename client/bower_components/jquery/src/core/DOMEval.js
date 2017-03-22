@@ -1,16 +1,16 @@
-"use strict";
-
-define(["../var/document"], function (document) {
+define( [
+	"../var/document"
+], function( document ) {
 	"use strict";
 
-	function DOMEval(code, doc) {
+	function DOMEval( code, doc ) {
 		doc = doc || document;
 
-		var script = doc.createElement("script");
+		var script = doc.createElement( "script" );
 
 		script.text = code;
-		doc.head.appendChild(script).parentNode.removeChild(script);
+		doc.head.appendChild( script ).parentNode.removeChild( script );
 	}
 
 	return DOMEval;
-});
+} );

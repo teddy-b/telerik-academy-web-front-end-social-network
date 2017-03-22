@@ -1,29 +1,31 @@
+define( [
+	"../core"
+], function( jQuery ) {
+
 "use strict";
 
-define(["../core"], function (jQuery) {
+function getAll( context, tag ) {
 
-	"use strict";
+	// Support: IE <=9 - 11 only
+	// Use typeof to avoid zero-argument method invocation on host objects (#15151)
+	var ret;
 
-	function getAll(context, tag) {
+	if ( typeof context.getElementsByTagName !== "undefined" ) {
+		ret = context.getElementsByTagName( tag || "*" );
 
-		// Support: IE <=9 - 11 only
-		// Use typeof to avoid zero-argument method invocation on host objects (#15151)
-		var ret;
+	} else if ( typeof context.querySelectorAll !== "undefined" ) {
+		ret = context.querySelectorAll( tag || "*" );
 
-		if (typeof context.getElementsByTagName !== "undefined") {
-			ret = context.getElementsByTagName(tag || "*");
-		} else if (typeof context.querySelectorAll !== "undefined") {
-			ret = context.querySelectorAll(tag || "*");
-		} else {
-			ret = [];
-		}
-
-		if (tag === undefined || tag && jQuery.nodeName(context, tag)) {
-			return jQuery.merge([context], ret);
-		}
-
-		return ret;
+	} else {
+		ret = [];
 	}
 
-	return getAll;
-});
+	if ( tag === undefined || tag && jQuery.nodeName( context, tag ) ) {
+		return jQuery.merge( [ context ], ret );
+	}
+
+	return ret;
+}
+
+return getAll;
+} );

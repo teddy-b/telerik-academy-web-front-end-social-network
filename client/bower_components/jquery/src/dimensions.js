@@ -1,48 +1,56 @@
+define( [
+	"./core",
+	"./core/access",
+	"./css"
+], function( jQuery, access ) {
+
 "use strict";
 
-define(["./core", "./core/access", "./css"], function (jQuery, access) {
+// Create innerHeight, innerWidth, height, width, outerHeight and outerWidth methods
+jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
+	jQuery.each( { padding: "inner" + name, content: type, "": "outer" + name },
+		function( defaultExtra, funcName ) {
 
-	"use strict";
+		// Margin is only for outerHeight, outerWidth
+		jQuery.fn[ funcName ] = function( margin, value ) {
+			var chainable = arguments.length && ( defaultExtra || typeof margin !== "boolean" ),
+				extra = defaultExtra || ( margin === true || value === true ? "margin" : "border" );
 
-	// Create innerHeight, innerWidth, height, width, outerHeight and outerWidth methods
+			return access( this, function( elem, type, value ) {
+				var doc;
 
-	jQuery.each({ Height: "height", Width: "width" }, function (name, type) {
-		jQuery.each({ padding: "inner" + name, content: type, "": "outer" + name }, function (defaultExtra, funcName) {
+				if ( jQuery.isWindow( elem ) ) {
 
-			// Margin is only for outerHeight, outerWidth
-			jQuery.fn[funcName] = function (margin, value) {
-				var chainable = arguments.length && (defaultExtra || typeof margin !== "boolean"),
-				    extra = defaultExtra || (margin === true || value === true ? "margin" : "border");
+					// $( window ).outerWidth/Height return w/h including scrollbars (gh-1729)
+					return funcName.indexOf( "outer" ) === 0 ?
+						elem[ "inner" + name ] :
+						elem.document.documentElement[ "client" + name ];
+				}
 
-				return access(this, function (elem, type, value) {
-					var doc;
+				// Get document width or height
+				if ( elem.nodeType === 9 ) {
+					doc = elem.documentElement;
 
-					if (jQuery.isWindow(elem)) {
+					// Either scroll[Width/Height] or offset[Width/Height] or client[Width/Height],
+					// whichever is greatest
+					return Math.max(
+						elem.body[ "scroll" + name ], doc[ "scroll" + name ],
+						elem.body[ "offset" + name ], doc[ "offset" + name ],
+						doc[ "client" + name ]
+					);
+				}
 
-						// $( window ).outerWidth/Height return w/h including scrollbars (gh-1729)
-						return funcName.indexOf("outer") === 0 ? elem["inner" + name] : elem.document.documentElement["client" + name];
-					}
-
-					// Get document width or height
-					if (elem.nodeType === 9) {
-						doc = elem.documentElement;
-
-						// Either scroll[Width/Height] or offset[Width/Height] or client[Width/Height],
-						// whichever is greatest
-						return Math.max(elem.body["scroll" + name], doc["scroll" + name], elem.body["offset" + name], doc["offset" + name], doc["client" + name]);
-					}
-
-					return value === undefined ?
+				return value === undefined ?
 
 					// Get width or height on the element, requesting but not forcing parseFloat
-					jQuery.css(elem, type, extra) :
+					jQuery.css( elem, type, extra ) :
 
 					// Set width or height on the element
-					jQuery.style(elem, type, value, extra);
-				}, type, chainable ? margin : undefined, chainable);
-			};
-		});
-	});
+					jQuery.style( elem, type, value, extra );
+			}, type, chainable ? margin : undefined, chainable );
+		};
+	} );
+} );
 
-	return jQuery;
-});
+return jQuery;
+} );

@@ -1,12 +1,8 @@
-'use strict';
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 (function ($) {
 
   var methods = {
 
-    init: function init(options) {
+    init : function(options) {
       var defaults = {
         time_constant: 200, // ms
         dist: -100, // zoom scale TODO: make this more intuitive as an option
@@ -18,10 +14,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       };
       options = $.extend(defaults, options);
 
-      return this.each(function () {
+      return this.each(function() {
 
-        var images, offset, center, pressed, dim, count, reference, referenceY, amplitude, target, velocity, xform, frame, timestamp, ticker, dragged, vertical_dragged;
+        var images, offset, center, pressed, dim, count,
+            reference, referenceY, amplitude, target, velocity,
+            xform, frame, timestamp, ticker, dragged, vertical_dragged;
         var $indicators = $('<ul class="indicators"></ul>');
+
 
         // Initialize
         var view = $(this);
@@ -34,12 +33,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           return true;
         }
 
+
         // Options
         if (options.full_width) {
           options.dist = 0;
           var firstImage = view.find('.carousel-item img').first();
           if (firstImage.length) {
-            imageHeight = firstImage.on('load', function () {
+            imageHeight = firstImage.on('load', function(){
               view.css('height', $(this).height());
             });
           } else {
@@ -52,6 +52,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             view.find('.carousel-fixed-item').addClass('with-indicators');
           }
         }
+
 
         view.addClass('initialized');
         pressed = false;
@@ -84,6 +85,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }
         count = images.length;
 
+
         function setupEvents() {
           if (typeof window.ontouchstart !== 'undefined') {
             view[0].addEventListener('touchstart', tap);
@@ -99,7 +101,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         function xpos(e) {
           // touch event
-          if (e.targetTouches && e.targetTouches.length >= 1) {
+          if (e.targetTouches && (e.targetTouches.length >= 1)) {
             return e.targetTouches[0].clientX;
           }
 
@@ -109,7 +111,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         function ypos(e) {
           // touch event
-          if (e.targetTouches && e.targetTouches.length >= 1) {
+          if (e.targetTouches && (e.targetTouches.length >= 1)) {
             return e.targetTouches[0].clientY;
           }
 
@@ -118,16 +120,16 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }
 
         function wrap(x) {
-          return x >= count ? x % count : x < 0 ? wrap(count + x % count) : x;
+          return (x >= count) ? (x % count) : (x < 0) ? wrap(count + (x % count)) : x;
         }
 
         function scroll(x) {
           var i, half, delta, dir, tween, el, alignment, xTranslation;
 
-          offset = typeof x === 'number' ? x : offset;
+          offset = (typeof x === 'number') ? x : offset;
           center = Math.floor((offset + dim / 2) / dim);
           delta = offset - center * dim;
-          dir = delta < 0 ? 1 : -1;
+          dir = (delta < 0) ? 1 : -1;
           tween = -dir * delta * 2 / dim;
           half = count >> 1;
 
@@ -140,7 +142,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
           // Set indicator active
           if (showIndicators) {
-            var diff = center % count;
+            var diff = (center % count);
             var activeIndicator = $indicators.find('.indicator-item.active');
             if (activeIndicator.index() !== diff) {
               activeIndicator.removeClass('active');
@@ -150,15 +152,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
           // center
           // Don't show wrapped items.
-          if (!options.no_wrap || center >= 0 && center < count) {
+          if (!options.no_wrap || (center >= 0 && center < count)) {
             el = images[wrap(center)];
-            el.style[xform] = alignment + ' translateX(' + -delta / 2 + 'px)' + ' translateX(' + dir * options.shift * tween * i + 'px)' + ' translateZ(' + options.dist * tween + 'px)';
+            el.style[xform] = alignment +
+              ' translateX(' + (-delta / 2) + 'px)' +
+              ' translateX(' + (dir * options.shift * tween * i) + 'px)' +
+              ' translateZ(' + (options.dist * tween) + 'px)';
             el.style.zIndex = 0;
-            if (options.full_width) {
-              tweenedOpacity = 1;
-            } else {
-              tweenedOpacity = 1 - 0.2 * tween;
-            }
+            if (options.full_width) { tweenedOpacity = 1; }
+            else { tweenedOpacity = 1 - 0.2 * tween; }
             el.style.opacity = tweenedOpacity;
             el.style.display = 'block';
           }
@@ -167,7 +169,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             // right side
             if (options.full_width) {
               zTranslation = options.dist;
-              tweenedOpacity = i === half && delta < 0 ? 1 - tween : 1;
+              tweenedOpacity = (i === half && delta < 0) ? 1 - tween : 1;
             } else {
               zTranslation = options.dist * (i * 2 + tween * dir);
               tweenedOpacity = 1 - 0.2 * (i * 2 + tween * dir);
@@ -175,16 +177,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             // Don't show wrapped items.
             if (!options.no_wrap || center + i < count) {
               el = images[wrap(center + i)];
-              el.style[xform] = alignment + ' translateX(' + (options.shift + (dim * i - delta) / 2) + 'px)' + ' translateZ(' + zTranslation + 'px)';
+              el.style[xform] = alignment +
+                ' translateX(' + (options.shift + (dim * i - delta) / 2) + 'px)' +
+                ' translateZ(' + zTranslation + 'px)';
               el.style.zIndex = -i;
               el.style.opacity = tweenedOpacity;
               el.style.display = 'block';
             }
 
+
             // left side
             if (options.full_width) {
               zTranslation = options.dist;
-              tweenedOpacity = i === half && delta > 0 ? 1 - tween : 1;
+              tweenedOpacity = (i === half && delta > 0) ? 1 - tween : 1;
             } else {
               zTranslation = options.dist * (i * 2 - tween * dir);
               tweenedOpacity = 1 - 0.2 * (i * 2 - tween * dir);
@@ -192,7 +197,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             // Don't show wrapped items.
             if (!options.no_wrap || center - i >= 0) {
               el = images[wrap(center - i)];
-              el.style[xform] = alignment + ' translateX(' + (-options.shift + (-dim * i - delta) / 2) + 'px)' + ' translateZ(' + zTranslation + 'px)';
+              el.style[xform] = alignment +
+                ' translateX(' + (-options.shift + (-dim * i - delta) / 2) + 'px)' +
+                ' translateZ(' + zTranslation + 'px)';
               el.style.zIndex = -i;
               el.style.opacity = tweenedOpacity;
               el.style.display = 'block';
@@ -201,15 +208,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
           // center
           // Don't show wrapped items.
-          if (!options.no_wrap || center >= 0 && center < count) {
+          if (!options.no_wrap || (center >= 0 && center < count)) {
             el = images[wrap(center)];
-            el.style[xform] = alignment + ' translateX(' + -delta / 2 + 'px)' + ' translateX(' + dir * options.shift * tween + 'px)' + ' translateZ(' + options.dist * tween + 'px)';
+            el.style[xform] = alignment +
+              ' translateX(' + (-delta / 2) + 'px)' +
+              ' translateX(' + (dir * options.shift * tween) + 'px)' +
+              ' translateZ(' + (options.dist * tween) + 'px)';
             el.style.zIndex = 0;
-            if (options.full_width) {
-              tweenedOpacity = 1;
-            } else {
-              tweenedOpacity = 1 - 0.2 * tween;
-            }
+            if (options.full_width) { tweenedOpacity = 1; }
+            else { tweenedOpacity = 1 - 0.2 * tween; }
             el.style.opacity = tweenedOpacity;
             el.style.display = 'block';
           }
@@ -235,10 +242,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             elapsed = Date.now() - timestamp;
             delta = amplitude * Math.exp(-elapsed / options.time_constant);
             if (delta > 2 || delta < -2) {
-              scroll(target - delta);
-              requestAnimationFrame(autoScroll);
+                scroll(target - delta);
+                requestAnimationFrame(autoScroll);
             } else {
-              scroll(target);
+                scroll(target);
             }
           }
         }
@@ -249,9 +256,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             e.preventDefault();
             e.stopPropagation();
             return false;
+
           } else if (!options.full_width) {
             var clickedIndex = $(e.target).closest('.carousel-item').index();
-            var diff = center % count - clickedIndex;
+            var diff = (center % count) - clickedIndex;
 
             // Disable clicks if carousel was shifted by click
             if (diff !== 0) {
@@ -263,24 +271,22 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         }
 
         function cycleTo(n) {
-          var diff = center % count - n;
+          var diff = (center % count) - n;
 
           // Account for wraparound.
           if (!options.no_wrap) {
             if (diff < 0) {
-              if (Math.abs(diff + count) < Math.abs(diff)) {
-                diff += count;
-              }
+              if (Math.abs(diff + count) < Math.abs(diff)) { diff += count; }
+
             } else if (diff > 0) {
-              if (Math.abs(diff - count) < diff) {
-                diff -= count;
-              }
+              if (Math.abs(diff - count) < diff) { diff -= count; }
             }
           }
 
           // Call prev or next accordingly.
           if (diff < 0) {
             view.trigger('carouselNext', [Math.abs(diff)]);
+
           } else if (diff > 0) {
             view.trigger('carouselPrev', [diff]);
           }
@@ -298,6 +304,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           timestamp = Date.now();
           clearInterval(ticker);
           ticker = setInterval(track, 100);
+
         }
 
         function drag(e) {
@@ -314,11 +321,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 reference = x;
                 scroll(offset + delta);
               }
+
             } else if (dragged) {
               // If dragging don't allow vertical scroll.
               e.preventDefault();
               e.stopPropagation();
               return false;
+
             } else {
               // Vertical scrolling.
               vertical_dragged = true;
@@ -377,12 +386,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           return true;
         });
 
+
+
         window.onresize = scroll;
 
         setupEvents();
         scroll(offset);
 
-        $(this).on('carouselNext', function (e, n) {
+        $(this).on('carouselNext', function(e, n) {
           if (n === undefined) {
             n = 1;
           }
@@ -394,7 +405,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           }
         });
 
-        $(this).on('carouselPrev', function (e, n) {
+        $(this).on('carouselPrev', function(e, n) {
           if (n === undefined) {
             n = 1;
           }
@@ -406,33 +417,38 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           }
         });
 
-        $(this).on('carouselSet', function (e, n) {
+        $(this).on('carouselSet', function(e, n) {
           if (n === undefined) {
             n = 0;
           }
           cycleTo(n);
         });
+
       });
+
+
+
     },
-    next: function next(n) {
+    next : function(n) {
       $(this).trigger('carouselNext', [n]);
     },
-    prev: function prev(n) {
+    prev : function(n) {
       $(this).trigger('carouselPrev', [n]);
     },
-    set: function set(n) {
+    set : function(n) {
       $(this).trigger('carouselSet', [n]);
     }
   };
 
-  $.fn.carousel = function (methodOrOptions) {
-    if (methods[methodOrOptions]) {
-      return methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
-    } else if ((typeof methodOrOptions === 'undefined' ? 'undefined' : _typeof(methodOrOptions)) === 'object' || !methodOrOptions) {
-      // Default to "init"
-      return methods.init.apply(this, arguments);
-    } else {
-      $.error('Method ' + methodOrOptions + ' does not exist on jQuery.carousel');
-    }
-  }; // Plugin end
-})(jQuery);
+
+    $.fn.carousel = function(methodOrOptions) {
+      if ( methods[methodOrOptions] ) {
+        return methods[ methodOrOptions ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+      } else if ( typeof methodOrOptions === 'object' || ! methodOrOptions ) {
+        // Default to "init"
+        return methods.init.apply( this, arguments );
+      } else {
+        $.error( 'Method ' +  methodOrOptions + ' does not exist on jQuery.carousel' );
+      }
+    }; // Plugin end
+}( jQuery ));

@@ -1,23 +1,21 @@
-'use strict';
-
 (function ($) {
-  $(document).ready(function () {
+  $(document).ready(function() {
 
     // jQuery reverse
     $.fn.reverse = [].reverse;
 
     // Hover behaviour: make sure this doesn't work on .click-to-toggle FABs!
-    $(document).on('mouseenter.fixedActionBtn', '.fixed-action-btn:not(.click-to-toggle):not(.toolbar)', function (e) {
+    $(document).on('mouseenter.fixedActionBtn', '.fixed-action-btn:not(.click-to-toggle):not(.toolbar)', function(e) {
       var $this = $(this);
       openFABMenu($this);
     });
-    $(document).on('mouseleave.fixedActionBtn', '.fixed-action-btn:not(.click-to-toggle):not(.toolbar)', function (e) {
+    $(document).on('mouseleave.fixedActionBtn', '.fixed-action-btn:not(.click-to-toggle):not(.toolbar)', function(e) {
       var $this = $(this);
       closeFABMenu($this);
     });
 
     // Toggle-on-click behaviour.
-    $(document).on('click.fabClickToggle', '.fixed-action-btn.click-to-toggle > a', function (e) {
+    $(document).on('click.fabClickToggle', '.fixed-action-btn.click-to-toggle > a', function(e) {
       var $this = $(this);
       var $menu = $this.parent();
       if ($menu.hasClass('active')) {
@@ -28,29 +26,31 @@
     });
 
     // Toolbar transition behaviour.
-    $(document).on('click.fabToolbar', '.fixed-action-btn.toolbar > a', function (e) {
+    $(document).on('click.fabToolbar', '.fixed-action-btn.toolbar > a', function(e) {
       var $this = $(this);
       var $menu = $this.parent();
       FABtoToolbar($menu);
     });
+
   });
 
   $.fn.extend({
-    openFAB: function openFAB() {
+    openFAB: function() {
       openFABMenu($(this));
     },
-    closeFAB: function closeFAB() {
+    closeFAB: function() {
       closeFABMenu($(this));
     },
-    openToolbar: function openToolbar() {
+    openToolbar: function() {
       FABtoToolbar($(this));
     },
-    closeToolbar: function closeToolbar() {
+    closeToolbar: function() {
       toolbarToFAB($(this));
     }
   });
 
-  var openFABMenu = function openFABMenu(btn) {
+
+  var openFABMenu = function (btn) {
     var $this = btn;
     if ($this.hasClass('active') === false) {
 
@@ -65,17 +65,21 @@
       }
 
       $this.addClass('active');
-      $this.find('ul .btn-floating').velocity({ scaleY: ".4", scaleX: ".4", translateY: offsetY + 'px', translateX: offsetX + 'px' }, { duration: 0 });
+      $this.find('ul .btn-floating').velocity(
+        { scaleY: ".4", scaleX: ".4", translateY: offsetY + 'px', translateX: offsetX + 'px'},
+        { duration: 0 });
 
       var time = 0;
-      $this.find('ul .btn-floating').reverse().each(function () {
-        $(this).velocity({ opacity: "1", scaleX: "1", scaleY: "1", translateY: "0", translateX: '0' }, { duration: 80, delay: time });
+      $this.find('ul .btn-floating').reverse().each( function () {
+        $(this).velocity(
+          { opacity: "1", scaleX: "1", scaleY: "1", translateY: "0", translateX: '0'},
+          { duration: 80, delay: time });
         time += 40;
       });
     }
   };
 
-  var closeFABMenu = function closeFABMenu(btn) {
+  var closeFABMenu = function (btn) {
     var $this = btn;
     // Get direction option
     var horizontal = $this.hasClass('horizontal');
@@ -90,14 +94,18 @@
     $this.removeClass('active');
     var time = 0;
     $this.find('ul .btn-floating').velocity("stop", true);
-    $this.find('ul .btn-floating').velocity({ opacity: "0", scaleX: ".4", scaleY: ".4", translateY: offsetY + 'px', translateX: offsetX + 'px' }, { duration: 80 });
+    $this.find('ul .btn-floating').velocity(
+      { opacity: "0", scaleX: ".4", scaleY: ".4", translateY: offsetY + 'px', translateX: offsetX + 'px'},
+      { duration: 80 }
+    );
   };
+
 
   /**
    * Transform FAB into toolbar
    * @param  {Object}  object jQuery object
    */
-  var FABtoToolbar = function FABtoToolbar(btn) {
+  var FABtoToolbar = function(btn) {
     if (btn.attr('data-open') === "true") {
       return;
     }
@@ -112,7 +120,7 @@
     var fabColor = anchor.css('background-color');
     anchor.append(backdrop);
 
-    offsetX = btnRect.left - windowWidth / 2 + btnRect.width / 2;
+    offsetX = btnRect.left - (windowWidth / 2) + (btnRect.width / 2);
     offsetY = windowHeight - btnRect.bottom;
     scaleFactor = windowWidth / backdrop.width();
     btn.attr('data-origin-bottom', btnRect.bottom);
@@ -138,7 +146,8 @@
       'background-color': fabColor
     });
 
-    setTimeout(function () {
+
+    setTimeout(function() {
       btn.css({
         transform: '',
         transition: 'transform .2s cubic-bezier(0.550, 0.085, 0.680, 0.530), background-color 0s linear .2s'
@@ -149,7 +158,7 @@
         transition: 'transform .2s'
       });
 
-      setTimeout(function () {
+      setTimeout(function() {
         btn.css({
           overflow: 'hidden',
           'background-color': fabColor
@@ -163,13 +172,13 @@
         });
 
         // Scroll to close.
-        $(window).on('scroll.fabToolbarClose', function () {
+        $(window).on('scroll.fabToolbarClose', function() {
           toolbarToFAB(btn);
           $(window).off('scroll.fabToolbarClose');
           $(document).off('click.fabToolbarClose');
         });
 
-        $(document).on('click.fabToolbarClose', function (e) {
+        $(document).on('click.fabToolbarClose', function(e) {
           if (!$(e.target).closest(menu).length) {
             toolbarToFAB(btn);
             $(window).off('scroll.fabToolbarClose');
@@ -184,7 +193,7 @@
    * Transform toolbar back into FAB
    * @param  {Object}  object jQuery object
    */
-  var toolbarToFAB = function toolbarToFAB(btn) {
+  var toolbarToFAB = function(btn) {
     if (btn.attr('data-open') !== "true") {
       return;
     }
@@ -200,9 +209,10 @@
     var backdrop = btn.find('.fab-backdrop');
     var fabColor = anchor.css('background-color');
 
-    offsetX = btnLeft - windowWidth / 2 + btnWidth / 2;
+    offsetX = btnLeft - (windowWidth / 2) + (btnWidth / 2);
     offsetY = windowHeight - btnBottom;
     scaleFactor = windowWidth / backdrop.width();
+
 
     // Hide backdrop
     btn.removeClass('active');
@@ -222,7 +232,7 @@
       opacity: ''
     });
 
-    setTimeout(function () {
+    setTimeout(function() {
       backdrop.remove();
 
       // Set initial state.
@@ -240,7 +250,7 @@
         transform: 'translate3d(0,' + offsetY + 'px,0)'
       });
 
-      setTimeout(function () {
+      setTimeout(function() {
         btn.css({
           transform: 'translate3d(0,0,0)',
           transition: 'transform .2s'
@@ -252,4 +262,6 @@
       }, 20);
     }, 200);
   };
-})(jQuery);
+
+
+}( jQuery ));
