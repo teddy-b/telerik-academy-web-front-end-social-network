@@ -25,16 +25,18 @@ app.get("/", function (req, res) {
 
 require("./server/utils/authorize-user")(app, db);
 
+var base = "/telerik-academy-web-front-end-social-network";
+
 var usersController = require("./server/controllers/users-controller")(db);
-app.get("/api/users", usersController.get);
-app.get("/api/users/:username", usersController.get);
-app.post("/api/users", usersController.post);
-app.put("/api/auth", usersController.put);
+app.get(base + "/api/users", usersController.get);
+app.get(base + "/api/users/:username", usersController.get);
+app.post(base + "/api/users", usersController.post);
+app.put(base + "/api/auth", usersController.put);
 
 var postsController = require("./server/controllers/posts-controller")(db);
-app.get("/api/posts", postsController.get);
-app.post("/api/posts", postsController.post);
-app.put("/api/posts/:id", postsController.put);
+app.get(base + "/api/posts", postsController.get);
+app.post(base + "/api/posts", postsController.post);
+app.put(base + "/api/posts/:id", postsController.put);
 
 var port = 3000;
 app.listen(port, function () {
