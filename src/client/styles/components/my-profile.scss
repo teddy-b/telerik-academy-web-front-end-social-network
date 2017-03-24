@@ -1,0 +1,38 @@
+.my-profile {
+  .card-image {
+    position: relative;
+
+    .pic-cover {
+      margin: auto;
+      position: absolute;
+      left:0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      opacity: 0;
+    }
+
+    .btn-edit-profile-pic {
+      margin: auto;
+      position: absolute;
+      left:0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      display: none;
+    }
+
+    &:hover {
+      .pic-cover {
+        opacity: 0.7;
+      }
+
+      .btn-edit-profile-pic {
+        display: initial;
+      }
+    }
+  }
+}

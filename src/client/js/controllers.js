@@ -76,7 +76,23 @@ let controllers = {
           });
       },
       myProfile() {
-        console.log("My Profile");
+        let data = {};
+        let username = localStorage.getItem("username");
+
+        if (username) {
+          dataService.user(username)
+          .then(userResponse => {
+            data = userResponse.result;
+            console.log(data);
+
+            return templates.get("my-profile");
+          })
+          .then(templateHtml => {
+            let templateFunc = Handlebars.compile(templateHtml);
+            let html = templateFunc(data);
+            $("#container").html(html);
+          });
+        }
       },
       myPictures() {
         console.log("My Pictures");
@@ -104,19 +120,17 @@ let controllers = {
 
                   dataService.login(user)
                     .then(() => {
-                      Materialize.toast("Successfully logged in!", 3000, "grey darken-1");
-                    })
-                    .then(() => {
-                      $(document.body).addClass("logged-in");
-                      document.location = "#/home";
-                    })
-                    .then(() => dataService.users())
-                    .then(usersResponse => {
-                      let loggedUser = usersResponse.result.filter(u => u.username === user.username)[0];
-                      $(".profile-picture")[0].src = "./assets/images/" + loggedUser.picture;
-                      $(".username")[0].innerHTML = loggedUser.username;
-
-                      return templates.get("home");
+                      dataService.user(user.username)
+                      .then(userResponse => {
+                        let loggedUser = userResponse.result;
+                        $(".profile-picture")[0].src = loggedUser.picture;
+                        $(".username")[0].innerHTML = loggedUser.username;
+                      })
+                      .then(() => {
+                        $(document.body).addClass("logged-in");
+                        document.location = "#/home";
+                        Materialize.toast("Successfully logged in!", 3000, "grey darken-1");
+                      });
                     });
 
                   ev.preventDefault();

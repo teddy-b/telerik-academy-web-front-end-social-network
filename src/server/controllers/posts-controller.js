@@ -10,7 +10,7 @@ module.exports = db => {
       picture: u.picture
     }));
 
-    let posts = db("posts")
+    let postings = db("posts")
       .forEach(p => {
         let user = users.filter(u => u.id === p.userId)[0];
         p.picture = user.picture;
@@ -19,7 +19,7 @@ module.exports = db => {
       });
 
     res.send({
-      result: posts
+      result: postings
     });
   };
 
@@ -35,7 +35,7 @@ module.exports = db => {
 
     posting.userId = user.id;
     posting.likes = 0;
-    posting.img = post.img || "";
+    posting.img = posting.img || "";
     posting.postDate = new Date();
 
     db("posts").insert(posting);
@@ -64,15 +64,7 @@ module.exports = db => {
         .send("Invalid post ID");
     }
 
-    let type = req.body.type;
-    if (["like", "dislike"].indexOf(type) < 0) {
-      return res.status(400)
-        .send("Request type must be either like or dislike");
-    }
-
-    if (req.body.type === "like") {
-      post.likes += 1;
-    }
+    posting.likes += 1;
 
     db.save();
 

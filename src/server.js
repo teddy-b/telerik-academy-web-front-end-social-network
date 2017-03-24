@@ -16,22 +16,21 @@ app.use(cors());
 app.use(bodyParser.json({limit: "1mb"}));
 app.use(bodyParser.urlencoded({limit: "1mb", extended: true}));
 
-app.use(express.static("src/client"));
-app.use("/libs", express.static(path.join(__dirname, "./../node_modules")));
+app.use(express.static("./src"));
+// app.use("/libs", express.static(path.join(__dirname, "./../node_modules")));
 
 app.get("/", (req, res) => {
-  return res.sendFile(path.join(__dirname, "./client/index.html"));
+  return res.sendFile(path.join(__dirname, "./index.html"));
 });
 
 require("./server/utils/authorize-user")(app, db);
 
-//User routes
 let usersController = require("./server/controllers/users-controller")(db);
 app.get("/api/users", usersController.get);
+app.get("/api/users/:username", usersController.get);
 app.post("/api/users", usersController.post);
 app.put("/api/auth", usersController.put);
 
-// Posts routes
 let postsController = require("./server/controllers/posts-controller")(db);
 app.get("/api/posts", postsController.get);
 app.post("/api/posts", postsController.post);

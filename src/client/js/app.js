@@ -20,7 +20,10 @@ dataService.isLoggedIn()
 
 $(".btn-nav-logout").on("click", () => {
   dataService.logout()
-    .then(() => $(document.body).removeClass("logged-in"));
+    .then(() => {
+      $(document.body).removeClass("logged-in");
+      router.navigate("/login");
+    });
 });
 
 $(".button-collapse").sideNav({
@@ -30,18 +33,18 @@ $(".button-collapse").sideNav({
 
 $(".dropdown-button").dropdown({ hover: false });
 
-$(".side-nav.fixed").on("click", "li", () => {
+$(".side-nav.fixed").on("click", "li", (ev) => {
   $(".side-nav.fixed .active").removeClass("active");
-  $(this).addClass("active");
+  $(ev.currentTarget).addClass("active");
 });
 
 $(document).ready(() => {
   let username = localStorage.getItem("username");
   if (username) {
-    dataService.users()
-    .then(usersResponse => {
-      let loggedUser = usersResponse.result.filter(u => u.username === username)[0];
-      $(".profile-picture")[0].src = "./assets/images/" + loggedUser.picture;
+    dataService.user(username)
+    .then(userResponse => {
+      let loggedUser = userResponse.result;
+      $(".profile-picture")[0].src = loggedUser.picture;
       $(".username")[0].innerHTML = loggedUser.username;
     });
   }

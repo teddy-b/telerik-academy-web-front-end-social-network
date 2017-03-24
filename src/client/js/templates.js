@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 let templates = {
   get: name => {
-    let url = `/templates/${name}.html`;
+    let url = `client/templates/${name}.html`;
     return requester.get(url);
   }
 };

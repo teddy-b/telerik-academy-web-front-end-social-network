@@ -12,8 +12,8 @@ let dataService = {
   users() {
     return requester.getJSON("/api/users");
   },
-  user(user) {
-    return requester.getJSON("/api/users", user);
+  user(username) {
+    return requester.getJSON("/api/users/" + username);
   },
   addPost(post) {
     let options = {

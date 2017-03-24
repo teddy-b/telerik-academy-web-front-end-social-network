@@ -6,6 +6,7 @@ const eslint = require("gulp-eslint");
 const babel = require("gulp-babel");
 const sass = require("gulp-sass");
 const nodemon = require("gulp-nodemon");
+const ghPages = require("gulp-gh-pages");
 
 gulp.task("clean", () => {
   return gulp.src("build", { read: false })
@@ -17,7 +18,17 @@ gulp.task("copy:html", () => {
   .pipe(gulp.dest("build"));
 });
 
-gulp.task("copy", gulpsync.sync(["copy:html"]));
+gulp.task("copy:bower-components", () => {
+  return gulp.src("src/client/bower_components/**/*.*")
+  .pipe(gulp.dest("build/client/bower_components"));
+});
+
+gulp.task("copy:assets", () => {
+  return gulp.src("src/client/assets/**/*.*")
+  .pipe(gulp.dest("build/client/assets"));
+});
+
+gulp.task("copy", gulpsync.sync(["copy:html", "copy:bower-components", "copy:assets"]));
 
 gulp.task("lint:sass", () => {
   return gulp.src(["src/**/*.s+(a|c)ss", "!**/bower_components/**"])
@@ -62,4 +73,9 @@ gulp.task("serve", ["build"], () => {
     env: { "NODE_ENV": "development" },
     tasks: ["build"]
   });
+});
+
+gulp.task("deploy", () => {
+  return gulp.src("./build/**/*")
+  .pipe(ghPages());
 });
