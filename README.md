@@ -8,7 +8,11 @@ A social network site, where you can post statuses and pictures to your wall and
 
 https://teddy-b.github.io/telerik-academy-web-front-end-social-network
 
-## Setup
+## Project requirements
+
+https://github.com/TelerikAcademy/Slice-and-Dice/tree/master/Course-Project
+
+## Project setup
 
 Run `npm install` and `bower install` to install dependencies.
 
@@ -30,6 +34,6 @@ Run `gulp deploy` to deploy project to GitHub Pages.
 
 *Make sure you have **gulp** installed globally to run **gulp** commands.*
 
-## Technologies
+## Technology stack
 
 JavaScript, EcmaScript 6, jQuery, Navigo, Handlebars.js,  Materialize, SASS, Express.js, LowDB, Gulp, Eslint, Sass-lint
