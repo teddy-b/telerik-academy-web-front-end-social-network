@@ -4,6 +4,10 @@
 
 A social network site, where you can post statuses and pictures to your wall and you can see and like other's statuses.
 
+## Demo
+
+[https://teddy-b.github.io/telerik-academy-web-front-end-social-network]https://teddy-b.github.io/telerik-academy-web-front-end-social-network
+
 ## Setup
 
 Run `npm install` and `bower install` to install dependencies.
