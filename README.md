@@ -6,7 +6,7 @@ A social network site, where you can post statuses and pictures to your wall and
 
 ## Demo
 
-[https://teddy-b.github.io/telerik-academy-web-front-end-social-network]https://teddy-b.github.io/telerik-academy-web-front-end-social-network
+https://teddy-b.github.io/telerik-academy-web-front-end-social-network
 
 ## Setup
 
