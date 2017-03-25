@@ -8,7 +8,7 @@ A social network site, where you can post statuses and pictures to your wall and
 
 Run `npm install` and `bower install` to install dependencies.
 
-*Make sure you have **Node.js** and **Ruby** installed to your machine.*
+*Make sure you have **Node.js**, **Ruby** and **SASS** installed to your machine.*
 
 *Make sure you have **bower** installed globally to run **bower** commands.*
 
