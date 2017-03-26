@@ -1,95 +1,87 @@
-.home {
-  display: flex;
+.wall {
+  background-color: $background;
+  width: $wall-width;
 
-  .wall {
-    background-color: $background;
-    width: $wall-width;
+  .wall-post {
+    background-color: $white;
+    margin-top: 20px;
+    padding: 3%;
+  }
 
-    .wall-post {
-      background-color: $white;
-      margin-top: 20px;
-      padding: 3%;
+  .input-post {
+    border: 1px solid $light-gray;
+    border-radius: 2px;
+    margin: 0;
 
-      .input-post {
-        border: 1px solid $light-gray;
-        border-radius: 2px;
-        margin: 0;
-
-        &:focus {
-          border: 1px solid $light-text;
-          box-shadow: 0 1px 0 0 $light-text;
-        }
-      }
-
-      .btn-post {
-        background-color: $light-blue;
-      }
-    }
-
-    .list-posts {
-      list-style-type: none;
-
-      li {
-        margin-bottom: 50px;
-      }
-
-      .card-content {
-        text-align: left;
-
-        .header {
-          display: flex;
-
-          .profile-picture {
-            max-height: 40px;
-          }
-
-          .username {
-            color: $dark-text;
-            font-weight: bold;
-            padding: 0 10px;
-          }
-
-          .time {
-            color: $light-text;
-            padding: 0 10px;
-          }
-        }
-
-        .text {
-          padding: 20px 0 0;
-        }
-      }
-
-      .card-action {
-        color: $light-text;
-        display: flex;
-        justify-content: space-between;
-        padding: 10px 5px;
-
-        .btn-like,
-        .btn-comment {
-          color: $gray;
-          padding: 0;
-          text-transform: none;
-
-          .comments-label,
-          .likes-label,
-          .material-icons {
-            margin: 0 3px;
-          }
-
-          &:hover {
-            background-color: $white;
-            color: $dark-text;
-          }
-        }
-      }
+    &:focus {
+      border: 1px solid $light-text;
+      box-shadow: 0 1px 0 0 $light-text;
     }
   }
 
-  @media only screen and (max-width: $resolution-break-mobile) {
-    .wall {
-      width: $page-width-mobile;
+  .btn-post {
+    background-color: $dark-blue;
+  }
+
+  .post-wrapper {
+    margin-bottom: 50px;
+  }
+
+  .card-content {
+    text-align: left;
+  }
+
+  .card-header {
+    display: flex;
+  }
+
+  .profile-picture {
+    max-height: 40px;
+  }
+
+  .username {
+    color: $dark-text;
+    font-weight: bold;
+    padding: 0 10px;
+  }
+
+  .time {
+    color: $light-text;
+    padding: 0 10px;
+  }
+
+  .text {
+    padding: 20px 0 0;
+  }
+
+  .card-action {
+    color: $light-text;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 5px;
+  }
+
+  .btn-like,
+  .btn-comment {
+    color: $gray;
+    padding: 0;
+    text-transform: none;
+
+    &:hover {
+      background-color: $white;
+      color: $dark-text;
     }
+  }
+
+  .comments-label,
+  .likes-label,
+  .material-icons {
+    margin: 0 3px;
+  }
+}
+
+@media only screen and (max-width: $resolution-break-mobile) {
+  .wall {
+    width: $page-width-mobile;
   }
 }

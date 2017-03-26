@@ -3,7 +3,7 @@
   z-index: 9999;
 
   .nav-wrapper {
-    background-color: $light-blue;
+    background-color: $dark-blue;
 
     .brand-logo {
       margin: 0 0 0 1em;
@@ -24,22 +24,15 @@
   width: $side-nav-width;
 
   li {
-    a {
+    a,
+    i {
       color: $dark-text;
-
-      i {
-        color: $dark-text;
-      }
-
     }
 
     &.active {
-      a {
+      a,
+      i {
         font-weight: bold;
-
-        i {
-          font-weight: bold;
-        }
       }
     }
   }
