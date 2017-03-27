@@ -1,27 +1,54 @@
 <div class="my-profile">
-  <div class="row">
-    <div class="col s12 m6">
-      <div class="card">
-        <div class="card-image">
-          <img class="profile-pic" src="{{picture}}">
-          <div class="pic-cover"></div>
-          <a class="btn-floating waves-effect waves-light grey btn-edit-profile-pic"><i class="material-icons">edit</i></a>
-        </div>
-        <div class="card-content">
-          <p>{{username}}</p>
-        </div>
+  <div class="card profile-card">
+    <div class="card-image profile-card-image">
+      <img id="profile-pic" class="profile-pic" src="{{picture}}">
+      <div class="pic-cover">
+        <input type="file" id="profile-pic-input" class="profile-pic-input">
       </div>
+      <a class="btn-floating waves-effect waves-light grey btn-edit-profile-pic"><i class="material-icons">edit</i></a>
+    </div>
+    <a id="btn-save-pic" class="waves-effect waves-light btn right hide btn-save-pic">Save</a>
+    <div class="card-content">
+      <p>{{username}}</p>
     </div>
   </div>
   <div class="profile-info">
-    <h1>{{username}}</h1>
-    <h3>27 years, Sofia, Bulgaria</h3>
-    <p>Good people do not need laws to tell them to act responsibly, while bad people will find a way around the laws.</p>
-    <p>512 friends</p>
-    <p>18 followers</p>
-    <p>466 photo</p>
-    <p>934 video</p>
-    <p>2,5k tracks</p>
+    <h2>{{username}}</h2>
+    <p>27 years, Sofia, Bulgaria</p>
+    <p>Good people do not need laws to tell them to act responsibly, while bad people will find a way around the
+      laws.</p>
+    <div class="profile-info-cards">
+      <div class="card profile-info-card">
+        <div class="card-content profile-info-card-content">
+          <p class="center profile-info-numbers">512</p>
+          <p class="center profile-info-labels">friends</p>
+        </div>
+      </div>
+      <div class="card profile-info-card">
+        <div class="card-content profile-info-card-content">
+          <p class="center profile-info-numbers">18</p>
+          <p class="center profile-info-labels">followers</p>
+        </div>
+      </div>
+      <div class="card profile-info-card">
+        <div class="card-content profile-info-card-content">
+          <p class="center profile-info-numbers">466</p>
+          <p class="center profile-info-labels">photo</p>
+        </div>
+      </div>
+      <div class="card profile-info-card">
+        <div class="card-content profile-info-card-content">
+          <p class="center profile-info-numbers">934</p>
+          <p class="center profile-info-labels">video</p>
+        </div>
+      </div>
+      <div class="card profile-info-card">
+        <div class="card-content profile-info-card-content">
+          <p class="center profile-info-numbers">2,5k</p>
+          <p class="center profile-info-labels">tracks</p>
+        </div>
+      </div>
+    </div>
     <p>Birthday</p>
     <p>Hometown</p>
     <p>Marital status</p>

@@ -1,4 +1,4 @@
-/* globals $ console Handlebars Materialize */
+/* globals $ router Handlebars Materialize */
 
 /* eslint-disable no-unused-vars */
 let controllers = {
@@ -7,95 +7,137 @@ let controllers = {
       home() {
         let data = {};
 
-        dataService.posts()
-          .then(postsResponse => {
-            data.result = postsResponse.result.sort((a, b) => {
-              return (new Date(b.postDate) - new Date(a.postDate));
-            });
+        dataService.isLoggedIn()
+          .then(isLoggedIn => {
+            if (!isLoggedIn) {
+              router.navigate("/login");
+            } else {
+              dataService.posts()
+              .then(postsResponse => {
+                data.result = postsResponse.result.sort((a, b) => {
+                  return (new Date(b.postDate) - new Date(a.postDate));
+                });
 
-            return templates.get("home");
+                return templates.get("home");
+              })
+              .then(templateHtml => {
+                let templateFunc = Handlebars.compile(templateHtml);
+                let html = templateFunc(data);
+                let post = {
+                  text: "",
+                  img: ""
+                };
+
+                $("#container").html(html);
+
+                $("#input-post").on("click", () => {
+                  $("#btn-preview").removeClass("hide");
+                  $("#btn-post").removeClass("hide");
+                });
+
+                $("#img-input").change(input => {
+                  let files = input.target.files;
+
+                  if (files && files[0]) {
+                    let reader = new FileReader();
+
+                    reader.onload = (ev) => {
+                      $("#img-preview").attr("src", ev.target.result)
+                        .removeClass("hide");
+
+                      post.img = event.target.result;
+                    };
+
+                    reader.readAsDataURL(files[0]);
+                  }
+                });
+
+                $("#btn-post").on("click", () => {
+                  post.text = $("#input-post").val();
+
+                  if (post.text || post.img) {
+                    dataService.addPost(post)
+                    .then(() => {
+                      document.location = "#/";
+                    }).catch(err => {
+                      Materialize.toast(err.statusText, 4000, "grey darken-1");
+                    });
+                  } else {
+                    Materialize.toast("Nothing to post. Write something or attach picture!", 4000, "grey darken-1");
+                  }
+                });
+
+                $(".btn-like").on("click", function() {
+                  let type = "like";
+                  let postId = $(this).parents("li").attr("data-id");
+
+                  dataService.like(postId, type)
+                  .then(() => {
+                    let count = $(this).siblings("span")[0];
+                    count.innerHTML = +count.innerHTML + 1;
+                  });
+                  return false;
+                });
+              });
+            }
+          });
+      },
+      myProfile() {
+        let user = {};
+        let username = localStorage.getItem("username");
+
+        if (username) {
+          dataService.user(username)
+          .then(userResponse => {
+            user = userResponse.result;
+
+            return templates.get("my-profile");
           })
           .then(templateHtml => {
             let templateFunc = Handlebars.compile(templateHtml);
-            let html = templateFunc(data);
-            let post = {
-              text: "",
-              img: ""
-            };
+            let html = templateFunc(user);
+            let profilePic = "";
 
             $("#container").html(html);
 
-            $("#input-post").on("click", () => {
-              $("#btn-preview").removeClass("hide");
-              $("#btn-post").removeClass("hide");
-            });
-
-            $("#img-input").change(input => {
+            $("#profile-pic-input").change(input => {
               let files = input.target.files;
 
               if (files && files[0]) {
                 let reader = new FileReader();
 
                 reader.onload = (ev) => {
-                  $("#img-preview").attr("src", ev.target.result)
-                    .removeClass("hide");
+                  $("#profile-pic").attr("src", ev.target.result);
 
-                  post.img = event.target.result;
+                  profilePic = ev.target.result;
+                  user.picture = ev.target.result;
                 };
 
                 reader.readAsDataURL(files[0]);
+
+                $("#btn-save-pic").removeClass("hide");
               }
             });
 
-            $("#btn-post").on("click", () => {
-              post.text = $("#input-post").val();
-
-              if (post.text || post.img) {
-                dataService.addPost(post)
+            $("#btn-save-pic").on("click", () => {
+              if (profilePic) {
+                dataService.editUser(user)
+                .then(() => {
+                  Materialize.toast("Your profile picture has been changed!", 4000, "grey darken-1");
+                }).catch(err => {
+                  Materialize.toast(err.statusText, 4000, "grey darken-1");
+                })
                 .then(() => {
                   document.location = "#/";
-                }).catch(err => {
-                  Materialize.toast(err.statusText, 3000, "grey darken-1");
                 });
               } else {
-                Materialize.toast("Nothing to post. Write something or attach picture!", 3000, "grey darken-1");
+                Materialize.toast("Please upload picture!", 4000, "grey darken-1");
               }
             });
-
-            $(".btn-like").on("click", function() {
-              let type = "like";
-              let postId = $(this).parents("li").attr("data-id");
-
-              dataService.like(postId, type)
-              .then(() => {
-                let count = $(this).siblings("span")[0];
-                count.innerHTML = +count.innerHTML + 1;
-              });
-              return false;
-            });
-          });
-      },
-      myProfile() {
-        let data = {};
-        let username = localStorage.getItem("username");
-
-        if (username) {
-          dataService.user(username)
-          .then(userResponse => {
-            data = userResponse.result;
-            console.log(data);
-
-            return templates.get("my-profile");
-          })
-          .then(templateHtml => {
-            let templateFunc = Handlebars.compile(templateHtml);
-            let html = templateFunc(data);
-            $("#container").html(html);
           });
         }
       },
       myPictures() {
-        console.log("My Pictures");
       },
       login() {
         dataService.isLoggedIn()
@@ -129,7 +171,7 @@ let controllers = {
                       .then(() => {
                         $(document.body).addClass("logged-in");
                         document.location = "#/home";
-                        Materialize.toast("Successfully logged in!", 3000, "grey darken-1");
+                        Materialize.toast("Successfully logged in!", 4000, "grey darken-1");
                       });
                     });
 
@@ -143,7 +185,7 @@ let controllers = {
         dataService.isLoggedIn()
             .then(isLoggedIn => {
                 if (isLoggedIn) {
-                  Materialize.toast("You are already logged in!", 3000, "grey darken-1");
+                  Materialize.toast("You are already logged in!", 4000, "grey darken-1");
                     window.location = "#/home";
                     return;
                 }
@@ -163,7 +205,7 @@ let controllers = {
 
               dataService.register(user)
                 .then(() => {
-                  Materialize.toast("Successfully registered! Please log in!", 3000, "grey darken-1");
+                  Materialize.toast("Successfully registered! Please log in!", 4000, "grey darken-1");
                 })
                 .then(() => {
                   document.location = "#/login";

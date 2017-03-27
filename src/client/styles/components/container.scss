@@ -1,4 +1,6 @@
 .page {
+  background-color: $background;
+  min-height: 100%;
   text-align: center;
 
   & .hidden-when-not-logged-in {
