@@ -28,6 +28,7 @@ require("./server/utils/authorize-user")(app, db);
 let usersController = require("./server/controllers/users-controller")(db);
 app.get("/api/users", usersController.get);
 app.get("/api/users/:username", usersController.get);
+app.put("/api/users/:username/edit", usersController.put);
 app.post("/api/users", usersController.post);
 app.put("/api/auth", usersController.put);
 

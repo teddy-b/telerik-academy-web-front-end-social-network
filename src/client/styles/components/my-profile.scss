@@ -1,52 +1,93 @@
 .my-profile {
-  .card-image {
-    position: relative;
+  display: flex;
 
-    .pic-cover {
-      background-color: $black;
-      bottom: 0;
-      height: 100%;
-      left: 0;
-      margin: auto;
-      opacity: 0;
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 100%;
+  .profile-card {
+    margin: 2%;
+    width: 46%;
 
-      .file-input {
+    .profile-card-image {
+      position: relative;
+
+      .pic-cover,
+      .profile-pic-input,
+      .btn-edit-profile-pic {
         bottom: 0;
-        height: 100%;
         left: 0;
         margin: auto;
-        opacity: 0;
         position: absolute;
         right: 0;
         top: 0;
+      }
+
+      .pic-cover,
+      .profile-pic-input {
+        height: 100%;
+        opacity: 0;
         width: 100%;
       }
-    }
-
-    .btn-edit-profile-pic {
-      bottom: 0;
-      display: none;
-      left: 0;
-      margin: auto;
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-
-    &:hover {
-      cursor: pointer;
 
       .pic-cover {
-        opacity: .7;
+        background-color: $black;
+      }
+
+      .profile-pic-input {
+        cursor: pointer;
       }
 
       .btn-edit-profile-pic {
-        display: initial;
+        display: none;
       }
+
+      &:hover {
+        .pic-cover {
+          opacity: .7;
+        }
+
+        .btn-edit-profile-pic {
+          background-color: $light-blue;
+          display: initial;
+        }
+      }
+    }
+  }
+
+  .btn-save-pic {
+    background-color: $light-blue;
+    margin: 10px;
+  }
+
+  .profile-info {
+    margin: 2%;
+    text-align: left;
+    width: 46%;
+
+    .profile-info-cards {
+      display: flex;
+
+      .profile-info-card {
+        width: 20%;
+
+        .profile-info-numbers {
+          color: $dark-text;
+          font-size: 1.5em;
+        }
+
+        .profile-info-labels {
+          color: $gray;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: $resolution-break-mobile) {
+  .my-profile {
+    display: initial;
+
+    .card,
+    .profile-info {
+      margin: 0;
+      width: $page-width-mobile;
     }
   }
 }
