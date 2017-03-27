@@ -1,8 +1,8 @@
 /* globals $ router Handlebars Materialize */
 
 /* eslint-disable no-unused-vars */
-let controllers = {
-  get(dataService, templates) {
+class Controllers {
+  static get(dataService, templates) {
     return {
       home() {
         let data = {};
@@ -83,19 +83,19 @@ let controllers = {
           });
       },
       myProfile() {
-        let user = {};
+        let data = {};
         let username = localStorage.getItem("username");
 
         if (username) {
           dataService.user(username)
           .then(userResponse => {
-            user = userResponse.result;
+            data.user = userResponse.result;
 
             return templates.get("my-profile");
           })
           .then(templateHtml => {
             let templateFunc = Handlebars.compile(templateHtml);
-            let html = templateFunc(user);
+            let html = templateFunc(data.user);
             let profilePic = "";
 
             $("#container").html(html);
@@ -110,7 +110,7 @@ let controllers = {
                   $("#profile-pic").attr("src", ev.target.result);
 
                   profilePic = ev.target.result;
-                  user.picture = ev.target.result;
+                  data.user.picture = ev.target.result;
                 };
 
                 reader.readAsDataURL(files[0]);
@@ -121,7 +121,7 @@ let controllers = {
 
             $("#btn-save-pic").on("click", () => {
               if (profilePic) {
-                dataService.editUser(user)
+                dataService.editUser(data.user)
                 .then(() => {
                   Materialize.toast("Your profile picture has been changed!", 4000, "grey darken-1");
                 }).catch(err => {
@@ -222,16 +222,16 @@ let controllers = {
 
         dataService.users()
         .then(usersResponse => {
-          data = usersResponse;
+          data.users = usersResponse;
 
           return templates.get("messages");
         })
         .then(templateHtml => {
           let templateFunc = Handlebars.compile(templateHtml);
-          let html = templateFunc(data);
+          let html = templateFunc(data.users);
           $("#container").html(html);
         });
       }
     };
   }
-};
+}

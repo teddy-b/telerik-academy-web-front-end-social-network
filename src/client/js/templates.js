@@ -1,9 +1,9 @@
-/* globals requester */
+/* globals Requester */
 
 /* eslint-disable no-unused-vars */
-let templates = {
-  get: name => {
+class Templates {
+  static get(name) {
     let url = `client/templates/${name}.html`;
-    return requester.get(url);
+    return Requester.get(url);
   }
-};
+}
