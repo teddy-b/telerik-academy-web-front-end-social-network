@@ -1,14 +1,14 @@
 <div class="messages">
-    <div class="chat-header">
-        <span>Online</span>
-        <span>{{result.length}} friends</span>
-    </div>
-    <ul class="collection list-users">
-        {{#each result}}
-        <li class="collection-item avatar">
-            <img src="{{picture}}" alt="" class="circle">
-            <p class="username">{{username}}</p>
-        </li>
-        {{/each}}
-    </ul>
+  <div class="chat-header">
+    <span class="chat-header-online">Online</span>
+    <span class="chat-header-friends">{{result.length}} friends</span>
+  </div>
+  <ul class="collection list-users">
+    {{#each result}}
+    <li class="collection-item avatar">
+      <img src="{{picture}}" alt="" class="circle">
+      <p class="username">{{username}}</p>
+    </li>
+    {{/each}}
+  </ul>
 </div>

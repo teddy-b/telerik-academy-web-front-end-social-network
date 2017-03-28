@@ -4,55 +4,55 @@
   .profile-card {
     margin: 2%;
     width: 46%;
+  }
 
-    .profile-card-image {
-      position: relative;
+  .profile-card-image {
+    position: relative;
 
-      .pic-cover,
-      .profile-pic-input,
-      .btn-edit-profile-pic {
-        bottom: 0;
-        left: 0;
-        margin: auto;
-        position: absolute;
-        right: 0;
-        top: 0;
-      }
+    .pic-cover,
+    .profile-pic-input,
+    .btn-edit-profile-pic {
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
 
-      .pic-cover,
-      .profile-pic-input {
-        height: 100%;
-        opacity: 0;
-        width: 100%;
-      }
+    .pic-cover,
+    .profile-pic-input {
+      height: 100%;
+      opacity: 0;
+      width: 100%;
+    }
 
+    .pic-cover {
+      background-color: $black;
+    }
+
+    .profile-pic-input {
+      cursor: pointer;
+    }
+
+    .btn-edit-profile-pic {
+      display: none;
+    }
+
+    &:hover {
       .pic-cover {
-        background-color: $black;
-      }
-
-      .profile-pic-input {
-        cursor: pointer;
+        opacity: .7;
       }
 
       .btn-edit-profile-pic {
-        display: none;
-      }
-
-      &:hover {
-        .pic-cover {
-          opacity: .7;
-        }
-
-        .btn-edit-profile-pic {
-          background-color: $light-blue;
-          display: initial;
-        }
+        background-color: $dark-blue;
+        display: initial;
       }
     }
   }
 
   .btn-save-pic {
-    background-color: $light-blue;
+    background-color: $dark-blue;
     margin: 10px;
   }
 
@@ -63,19 +63,19 @@
 
     .profile-info-cards {
       display: flex;
+    }
 
-      .profile-info-card {
-        width: 20%;
+    .profile-info-card {
+      width: 20%;
+    }
 
-        .profile-info-numbers {
-          color: $dark-text;
-          font-size: 1.5em;
-        }
+    .profile-info-numbers {
+      color: $dark-text;
+      font-size: 1.5em;
+    }
 
-        .profile-info-labels {
-          color: $gray;
-        }
-      }
+    .profile-info-labels {
+      color: $gray;
     }
   }
 }
