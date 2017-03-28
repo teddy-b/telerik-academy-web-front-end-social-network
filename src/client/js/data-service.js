@@ -1,9 +1,10 @@
 /* globals Requester localStorage */
 
-const HTTP_HEADER_KEY = "x-auth-key",
-  KEY_STORAGE_USERNAME = "username",
-  KEY_STORAGE_AUTH_KEY = "authKey";
+const HTTP_HEADER_KEY = "x-auth-key";
+const KEY_STORAGE_USERNAME = "username";
+const KEY_STORAGE_AUTH_KEY = "authKey";
 
+/* eslint-disable no-unused-vars */
 class DataService {
   static posts() {
     return Requester.getJSON("/api/posts");
@@ -38,10 +39,7 @@ class DataService {
       }
     };
 
-    console.log(postId);
-
     return Requester.putJSON("/api/posts/" + postId, { type }, options);
-
   }
 
   static login(user) {

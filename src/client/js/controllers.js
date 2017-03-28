@@ -67,13 +67,13 @@ class Controllers {
                   }
                 });
 
-                $(".btn-like").on("click", function() {
+                $(".btn-like").on("click", (ev) => {
                   let type = "like";
-                  let postId = $(this).parents("li").attr("data-id");
+                  let postId = $(ev.currentTarget).parents("li").attr("data-id");
 
                   dataService.like(postId, type)
                   .then(() => {
-                    let count = $(this).siblings("span")[0];
+                    let count = $(ev.currentTarget).siblings("span")[0];
                     count.innerHTML = +count.innerHTML + 1;
                   });
                   return false;
