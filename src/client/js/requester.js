@@ -1,14 +1,23 @@
 /* globals $ */
 
 /* eslint-disable no-unused-vars */
-let requester = {
-  get(url) {
+class Requester {
+  static get(url) {
     return $.ajax({
       url,
       method: "GET"
     });
-  },
-  putJSON(url, body, options = {}) {
+  }
+
+  static getJSON(url) {
+    return $.ajax({
+      url,
+      method: "GET",
+      contentType: "application/json"
+    });
+  }
+
+  static putJSON(url, body, options = {}) {
     let headers = options.headers || {};
     return $.ajax({
       url,
@@ -17,8 +26,9 @@ let requester = {
       contentType: "application/json",
       data: JSON.stringify(body)
     });
-  },
-  postJSON(url, body, options = {}) {
+  }
+
+  static postJSON(url, body, options = {}) {
     let headers = options.headers || {};
     return $.ajax({
       url,
@@ -27,12 +37,5 @@ let requester = {
       contentType: "application/json",
       data: JSON.stringify(body)
     });
-  },
-  getJSON(url) {
-    return $.ajax({
-      url,
-      method: "GET",
-      contentType: "application/json"
-    });
   }
-};
+}
