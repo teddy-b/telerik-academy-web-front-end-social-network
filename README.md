@@ -1,4 +1,6 @@
-# Telerik Academy - Web Front-end - Social Network
+# VK Social Network
+
+Telerik Academy - Course Project - Web Front-end - 2017
 
 ## Description
 
