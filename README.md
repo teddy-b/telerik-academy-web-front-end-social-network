@@ -38,4 +38,27 @@ Run `gulp deploy` to deploy project to GitHub Pages.
 
 ## Technology stack
 
-JavaScript, EcmaScript 6, jQuery, Navigo, Handlebars.js,  Materialize, SASS, Express.js, LowDB, Gulp, Eslint, Sass-lint
+**Technologies**
+
+* JavaScript
+* EcmaScript 6
+* jQuery
+* Navigo
+* Handlebars.js
+* Materialize
+* SASS
+* Node.js (Express.js)
+* Gulp
+* Eslint
+* Sass-lint
+
+**Tools**
+
+* Webstorm
+* Command Prompt
+* Node Package Manager
+* Git (GitHub)
+
+**Database**
+
+* LowDB
