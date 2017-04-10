@@ -19,12 +19,7 @@ app.use(bodyParser.urlencoded({ limit: "1mb", extended: true }));
 app.use(express.static("./src"));
 // app.use("/libs", express.static(path.join(__dirname, "./../node_modules")));
 
-var corsOptions = {
-  origin: 'https://teddy-b.github.io',
-  optionsSuccessStatus: 200
-}
-
-app.get("/", cors(corsOptions), function (req, res) {
+app.get("/", cors(), function (req, res) {
   return res.sendFile(path.join(__dirname, "./index.html"));
 });
 
@@ -36,7 +31,7 @@ var usersController = require("./server/controllers/users-controller")(db);
 app.get(base + "/api/users", usersController.get);
 app.get(base + "/api/users/:username", usersController.get);
 app.post(base + "/api/users", usersController.post);
-app.put(base + "/api/auth", usersController.put);
+app.put(base + "/api/auth", cors(), usersController.put);
 
 var postsController = require("./server/controllers/posts-controller")(db);
 app.get(base + "/api/posts", postsController.get);
