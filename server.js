@@ -19,7 +19,12 @@ app.use(bodyParser.urlencoded({ limit: "1mb", extended: true }));
 app.use(express.static("./src"));
 // app.use("/libs", express.static(path.join(__dirname, "./../node_modules")));
 
-app.get("/", function (req, res) {
+var corsOptions = {
+  origin: 'https://teddy-b.github.io/telerik-academy-web-front-end-social-network/',
+  optionsSuccessStatus: 200
+}
+
+app.get("/", cors(corsOptions), function (req, res) {
   return res.sendFile(path.join(__dirname, "./index.html"));
 });
 
