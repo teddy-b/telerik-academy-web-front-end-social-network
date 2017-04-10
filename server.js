@@ -20,7 +20,7 @@ app.use(express.static("./src"));
 // app.use("/libs", express.static(path.join(__dirname, "./../node_modules")));
 
 var corsOptions = {
-  origin: 'https://teddy-b.github.io/telerik-academy-web-front-end-social-network/',
+  origin: 'https://teddy-b.github.io',
   optionsSuccessStatus: 200
 }
 
